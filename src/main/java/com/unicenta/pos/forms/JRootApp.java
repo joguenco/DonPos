@@ -535,7 +535,7 @@ public class JRootApp extends JPanel implements AppView, DeviceMonitorEventListe
     String newText = m_props.getProperty("start.text");
     if (newText != null) {
       if (newText.equals("")) {
-        jLabel1.setText("<html><center>Overlord POS Ec - Touch Friendly Point of Sale<br>" +
+        jLabel1.setText("<html><center>Don POS - Touch Friendly Point of Sale<br>" +
                 "https://mestizos.dev/<br>" +
                 "version " + AppLocal.APP_VERSION + " <br>" +
                 "Java version " + getVersion() + "<br>" +
@@ -543,11 +543,11 @@ public class JRootApp extends JPanel implements AppView, DeviceMonitorEventListe
                 "Copyright \u00A9  uniCenta <br>" +
                 "https://unicenta.com/<br>" +
                 "<br>" +
-                "Overlord POS Ec is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>" +
+                "Don POS is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>" +
                 "<br>" +
-                "Overlord POS Ec is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.<br>" +
+                "Don POS is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.<br>" +
                 "<br>" +
-                "You should have received a copy of the GNU General Public License along with Overlord POS Ec.  If not, see http://www.gnu.org/licenses/<br>" +
+                "You should have received a copy of the GNU General Public License along with Don POS.  If not, see http://www.gnu.org/licenses/<br>" +
                 "</center>");
 
       } else {
@@ -1049,14 +1049,14 @@ public class JRootApp extends JPanel implements AppView, DeviceMonitorEventListe
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/unicenta/images/unicenta.png"))); // NOI18N
-        jLabel1.setText("<html><center>Overlord POS Ec - Touch Friendly Point of Sale<br>" +
+        jLabel1.setText("<html><center>Don POS - Touch Friendly Point of Sale<br>" +
             "https://mestizos.dev<br>" +
             "<br>" +
-            "Overlord POS Ec is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>" +
+            "Don POS is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>" +
             "<br>" +
-            "Overlord POS Ec is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.<br>" +
+            "Don POS is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.<br>" +
             "<br>" +
-            "You should have received a copy of the GNU General Public License along with Overlord POS Ec.  If not, see http://www.gnu.org/licenses/<br>" +
+            "You should have received a copy of the GNU General Public License along with Don POS.  If not, see http://www.gnu.org/licenses/<br>" +
             "</center>");
         jLabel1.setAlignmentX(0.5F);
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

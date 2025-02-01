@@ -83,7 +83,7 @@ public final class TicketInfo implements SerializableRead, Externalizable {
 
     private static String hostname;
 
-    // New properties for Ecuador
+    // New properties for serie
     private String code;
     private String serie;
 

@@ -987,7 +987,7 @@ INSERT INTO resources(id, name, restype, content) VALUES('108', 'Subscription.tx
 
 -- ADD CATEGORIES
 INSERT INTO categories(id, name) VALUES ('000', 'Category Standard');
-INSERT INTO categories(id, name) VALUES ('001', 'Category Ecuador');
+INSERT INTO categories(id, name) VALUES ('001', 'Category Local');
 
 -- ADD TAXCATEGORIES
 /* 002 added 31/01/2017 00:00:00. */

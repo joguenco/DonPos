@@ -384,16 +384,16 @@ public class AppConfig implements AppProperties {
 
     properties.setProperty("db.name", "Main DB");
     properties.setProperty("db.URL", "jdbc:mariadb://localhost:3306/");
-    properties.setProperty("db.schema", "overlord");
+    properties.setProperty("db.schema", "donpos");
     properties.setProperty("db.options", "?zeroDateTimeBehavior=convertToNull");
-    properties.setProperty("db.user", "overlord");
+    properties.setProperty("db.user", "donpos");
     properties.setProperty("db.password", "");
 
 
 // secondary DB
     properties.setProperty("db1.name", "");
     properties.setProperty("db1.URL", "jdbc:mariadb://localhost:3306/");
-    properties.setProperty("db1.schema", "overlord");
+    properties.setProperty("db1.schema", "donpos");
     properties.setProperty("db1.options", "?zeroDateTimeBehavior=convertToNull");
     properties.setProperty("db1.user", "");
     properties.setProperty("db1.password", "");

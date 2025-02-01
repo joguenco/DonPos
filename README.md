@@ -1,5 +1,5 @@
-# Overlord POS Ec
-Software de punto de venta basado en uniCenta y OpenBravo para Ecuador.
+# Don POS
+Software de punto de venta basado en uniCenta y OpenBravo.
 
 
 ## Software
@@ -18,19 +18,26 @@ choco install maven
 ## Important set path of JDK 11 (Windows)
 Set JAVA_HOME and set jdk path. Not set jre path. 
 
+## Docker database
+```
+docker pull mariadb:11.4
+```
+```
+docker run --name mariadb -e MYSQL_ROOT_PASSWORD=N0Cr4ck -p 3306:3306 -d mariadb:11.4
+```
 ## Create database and user
 ```
-CREATE SCHEMA overlord;
-CREATE USER 'overlord'@'%' IDENTIFIED BY 'o';
-GRANT ALL PRIVILEGES ON overlord.* TO 'overlord'@'%' WITH GRANT OPTION;
+CREATE SCHEMA donpos;
+CREATE USER 'donpos'@'%' IDENTIFIED BY 'd';
+GRANT ALL PRIVILEGES ON donpos.* TO 'donpos'@'%' WITH GRANT OPTION;
 ```
 ### Update password user
 ```
-ALTER USER 'overlord'@'%' IDENTIFIED BY 'o';
+ALTER USER 'donpos'@'%' IDENTIFIED BY 'o';
 ```
 
 ## Compile (Windows)
-* Get into overlordpos_ec directory.
+* Get into donpos directory.
 * First delete target directory if exist.
 * Compile
 ```
@@ -42,11 +49,11 @@ mvn clean package
 ```
 ## Run (Windows)
 ```
-java -jar .\target\overlordpos_ec.jar
+java -jar .\target\donpos.jar
 ```
 ## Run (GNU/Linux)
 ```
-java -jar target\overlordpos_ec.jar
+java -jar target\donpos.jar
 ```
 ## Run with Netbeans
 In menu Tools -> Options
@@ -101,9 +108,9 @@ select version()
 ```
 ### Backup database 
 ```
-mysqldump --no-tablespaces --routines --password=yourpass --user=root overlord > overlord.sql
+mysqldump --no-tablespaces --routines --password=yourpass --user=root donpos > donpos.sql
 ```
 ### Restore database
 ```
-mariadb -u root -p overlord < overlord.sql
+mariadb -u root -p donpos < donpos.sql
 ```

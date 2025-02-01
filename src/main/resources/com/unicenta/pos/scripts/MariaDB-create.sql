@@ -1012,7 +1012,7 @@ INSERT INTO resources(id, name, restype, content) VALUES('108', 'Subscription.tx
 
 -- ADD CATEGORIES
 INSERT INTO categories(id, name) VALUES ('000', 'Category Standard');
-INSERT INTO categories(id, name) VALUES ('001', 'Category Ecuador');
+INSERT INTO categories(id, name) VALUES ('001', 'Category Local');
 
 -- ADD TAXCATEGORIES
 /* 002 added 31/01/2017 00:00:00. */
@@ -1042,7 +1042,7 @@ VALUES ('xxx998_998xxx_x8x8x8', 'xxx998', 'xxx998', 'Service Charge', '000', '00
 INSERT INTO products_cat(product) VALUES ('xxx999_999xxx_x9x9x9');
 INSERT INTO products_cat(product) VALUES ('xxx998_998xxx_x8x8x8');
 
--- ADD PRODUCTS Ecuador
+-- ADD PRODUCTS Local
 INSERT INTO products(id, reference, code, name, pricesell, category, taxcat, isservice, display, printto, uom) 
 VALUES ('1', '1', '1', 'Producto 0%', 1, '001', '000', 0, '<html><center>Producto 0%', '1', 'u');
 -- INSERT INTO products(id, reference, code, name, pricesell, category, taxcat, isservice, display, printto, uom) 
