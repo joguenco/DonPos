@@ -1384,3 +1384,10 @@ CREATE TABLE `subscriptions` (
   `name` VARCHAR(300) NOT NULL,
   `url` VARCHAR(900) NOT NULL,
   PRIMARY KEY (`id`));
+
+CREATE TABLE `refresh_token` (
+  `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
+  `username` VARCHAR(90) NOT NULL,
+  `refresh_token` VARCHAR(900) NOT NULL,
+  `revoked` BOOLEAN NOT NULL,
+  `date_created` TIMESTAMP(6) DEFAULT NOW(6));
