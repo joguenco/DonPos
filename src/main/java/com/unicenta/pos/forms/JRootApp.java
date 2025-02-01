@@ -44,6 +44,7 @@ import com.unicenta.pos.scale.DeviceScale;
 import com.unicenta.pos.scanpal2.DeviceScanner;
 import com.unicenta.pos.scanpal2.DeviceScannerFactory;
 import com.unicenta.pos.util.uOWWatch;
+
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.joda.time.Instant;
@@ -55,6 +56,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.*;
@@ -143,9 +145,9 @@ public class JRootApp extends JPanel implements AppView, DeviceMonitorEventListe
       DateTime m_datetime = getDateTime();
       
       if (username != null) {
-        title = m_dlSystem.getResourceAsText("Window.Title") + " - " + username;
+        title = m_dlSystem.getResourceAsText("Window.Title") + " - " + getCountry() + " - " + username;
       } else {
-        title = m_dlSystem.getResourceAsText("Window.Title");
+        title = m_dlSystem.getResourceAsText("Window.Title") + " - " + getCountry();
       }
 
       m_jLblTitle.setText(title);
@@ -379,7 +381,7 @@ public class JRootApp extends JPanel implements AppView, DeviceMonitorEventListe
                 , JOptionPane.OK_OPTION
                 , JOptionPane.WARNING_MESSAGE) == JOptionPane.OK_OPTION) {
 
-          try {
+          try {                                      
             BatchSentence bsentence = new BatchSentenceResource(session, sScript);
             bsentence.putParameter("APP_ID", Matcher.quoteReplacement(AppLocal.APP_ID));
             bsentence.putParameter("APP_NAME", Matcher.quoteReplacement(AppLocal.APP_NAME));
@@ -388,9 +390,22 @@ public class JRootApp extends JPanel implements AppView, DeviceMonitorEventListe
             java.util.List l = bsentence.list();
 
             if (l.size() > 0) {
-              JMessageDialog.showMessage(this, new MessageInf(MessageInf.SGN_WARNING
-                      , AppLocal.getIntString("database.scriptwarning")
-                      , l.toArray(new Throwable[l.size()])));
+                showMessageWarning(l);
+            } else {                           
+                final var country = getCountry();
+                String dataScript = m_dlSystem.getInitScript() + "-data-" + country + ".sql";       
+                
+                InputStream in = BatchSentenceResource.class.getResourceAsStream(dataScript);
+                if (in == null) {
+                    dataScript = m_dlSystem.getInitScript() + "-data.sql";
+                }
+                
+                BatchSentence sentenceData = new BatchSentenceResource(session, dataScript);
+                sentenceData.putParameter("COUNTRY_CODE", Matcher.quoteReplacement(country));
+                java.util.List resultList = sentenceData.list();
+                if (!resultList.isEmpty()) {
+                    showMessageWarning(resultList);                                        
+                }
             }
           } catch (BasicException e) {
             JMessageDialog.showMessage(this
@@ -577,6 +592,18 @@ public class JRootApp extends JPanel implements AppView, DeviceMonitorEventListe
 
   private static String getVersion() {
       return System.getProperty("java.version");
+  }
+  
+  private String getCountry() {
+      final var config = new AppConfig(new File((System.getProperty("user.home")), AppLocal.APP_ID + ".properties"));
+      config.load();
+      return config.getProperty("user.country");
+  }
+  
+  private void showMessageWarning(java.util.List l) {
+      JMessageDialog.showMessage(this, new MessageInf(MessageInf.SGN_WARNING
+                      , AppLocal.getIntString("database.scriptwarning")
+                      , l.toArray(new Throwable[l.size()])));
   }
   
   private String readDataBaseVersion() {

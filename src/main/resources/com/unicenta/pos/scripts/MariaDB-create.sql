@@ -1140,17 +1140,6 @@ INSERT INTO ticketsnum_refund VALUES('DE', '2', '001401', 0, 'alternative', 'Act
 
 INSERT INTO ticketsnum_payment VALUES(1);
 
--- ADD IDENTIFICATION TYPES FOR ECUADOR
-INSERT INTO identification_type(code, name, legal_code, length, country_code) VALUES ('C', 'Cédula', '05', 10, 'EC');
-INSERT INTO identification_type(code, name, legal_code, length, country_code) VALUES ('R', 'RUC', '04', 13, 'EC');
-INSERT INTO identification_type(code, name, legal_code, length, country_code) VALUES ('P', 'Pasaporte', '06', 0, 'EC');
-INSERT INTO identification_type(code, name, legal_code, length, country_code) VALUES ('CF', 'Consumidor Final', '07', 0, 'EC');
-INSERT INTO identification_type(code, name, legal_code, length, country_code) VALUES ('IE', 'Identificación del Exterior', '08', 0, 'EC');
-
--- ADD final consumer for Ecuador
-INSERT INTO customers (id,searchkey,taxid,name,maxdebt,address,address2,taxid_type,firstname,lastname,notes,visible,isvip,discount) 
-VALUES ('9999999999999','9999999999999','9999999999999','Consumidor Final',49.99,NULL,NULL,'CF','Consumidor','Final','',1,0,0);
-
 -- ADD taxpayer
 INSERT INTO taxpayer (id, identification, legal_name, forced_accounting, special_taxpayer, retention_agent, other)
 VALUES (1, '9999999999999', 'Mi Empresa', 'SI', '12345', '1', 'RIMPE');
@@ -1174,40 +1163,6 @@ CREATE TABLE `ele_parameters` (
   `status` boolean DEFAULT true,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
-
-Insert into ele_parameters (ID,name,value,observation,type) 
-values (0,'Base Directory','/app/RoQui','Base directory for files','SRI');
-Insert into ele_parameters (ID,name,value,observation,type) 
-values (1,'Generated','/app/RoQui/receipt/generated','URL generated xml files','SRI');
-Insert into ele_parameters (ID,name,value,observation,type) 
-values (2,'Signed','/app/RoQui/receipt/signed','URL signed xml files','SRI');
-Insert into ele_parameters (ID,name,value,observation,type) 
-values (3,'Sended','/app/RoQui/receipt/sended','URL sended xml files','SRI');
-Insert into ele_parameters (ID,name,value,observation,type) 
-values (4,'Authorized','/app/RoQui/receipt/authorized','URL authorized xml files','SRI');
-Insert into ele_parameters (ID,name,value,observation,type) 
-values (5,'Unauthorized','/app/RoQui/receipt/unauthorized','URL unauthorized xml files','SRI');
-Insert into ele_parameters (ID,name,value,observation,type) 
-values (6,'Refused','/app/RoQui/receipt/refused','URL refused xml files','SRI');
-Insert into ele_parameters (ID,name,value,observation,type) 
-values (7,'PDF','/app/RoQui/receipt/pdf','URL pdf files','SRI');
-Insert into ele_parameters (ID,name,value,observation,type) 
-values (8,'Certificate','/app/RoQui/Certificate/Certificate.p12','URL certificate','Certificate');
-Insert into ele_parameters (ID,name,value,observation,type) 
-values (9,'Certificate Password','***************==','Certificate Password','Certificate');
-Insert into ele_parameters (ID,name,value,observation,type) 
-values (10,'Logo','/app/RoQui/Resources/images/logo.jpeg','URL logo','SRI');
-Insert into ele_parameters (ID,name,value,observation,type) 
-values (11,'Email Server','smtp.googlemail.com','Email Server','Email');
-Insert into ele_parameters (ID,name,value,observation,type) 
-values (12,'Email Server Port','465','Email Server Port','Email');
-Insert into ele_parameters (ID,name,value,observation,type) 
-values (13,'Email','jl@gmail.com','Email address','Email');
-Insert into ele_parameters (ID,name,value,observation,type) 
-values (14,'Email Password','***************==','Email Password','Email');
-Insert into ele_parameters (ID,name,value,observation,type) 
-values (15,'Subscription','**************==','Subscription','Subscription');
-
 
 CREATE TABLE `ele_documents` (
     `id` BIGINT(18) NOT NULL AUTO_INCREMENT,
