@@ -28,12 +28,16 @@ docker run --name mariadb -e MYSQL_ROOT_PASSWORD=N0Cr4ck -p 3306:3306 -d mariadb
 ## Create database and user
 ```
 CREATE SCHEMA donpos;
+```
+```
 CREATE USER 'donpos'@'%' IDENTIFIED BY 'd';
+```
+```
 GRANT ALL PRIVILEGES ON donpos.* TO 'donpos'@'%' WITH GRANT OPTION;
 ```
 ### Update password user
 ```
-ALTER USER 'donpos'@'%' IDENTIFIED BY 'o';
+ALTER USER 'donpos'@'%' IDENTIFIED BY 'd';
 ```
 
 ## Compile (Windows)
@@ -58,10 +62,7 @@ java -jar target\donpos.jar
 ## Run with Netbeans
 In menu Tools -> Options
 
-### Windows
-![Compile](images/netbeans_windows_maven.png)
-### GNU/Linux
-![Compile](images/netbeans_linux_maven.png)
+![Compile](/resources/images/config_netbeans.png)
 
 ## Format date and hour
 ```

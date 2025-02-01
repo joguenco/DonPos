@@ -25,10 +25,24 @@ import dev.joguenco.error.ErrorMessage;
  */
 public class Validator {
 
+    private String country;
+
+    public Validator(String country) {
+        this.country = country;
+    }
+
     public ErrorMessage identification(String identificationType, String identification) {
+        if ("EC".equals(this.country)) {
+            return identificationEc(identificationType, identification);
+        }
+
+        return new ErrorMessage();
+    }
+
+    private ErrorMessage identificationEc(String identificationType, String identification) {
         if (identificationType.equals("C")) {
             final var ci = new Ci(identification);
-            if (!ci.validate()) {                
+            if (!ci.validate()) {
                 return new ErrorMessage(ci.getError());
             }
         } else if (identificationType.equals("R")) {
@@ -37,7 +51,7 @@ public class Validator {
                 return new ErrorMessage(ruc.getError());
             }
         } else if (identificationType.equals("CF")) {
-            if (!identification.equals("9999999999999")) {                
+            if (!identification.equals("9999999999999")) {
                 return new ErrorMessage("Error al validar el Consumidor Final");
             }
         }

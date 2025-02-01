@@ -670,6 +670,8 @@ CREATE TABLE `identification_type` (
     `code`          VARCHAR(90) not null,
     `name`          VARCHAR(100) not null,
     `legal_code`    VARCHAR(100) null,
+    `length`        INT not null default 0,
+    `country_code`  VARCHAR(100) not null,
     `status`        BOOLEAN not null default true,
     primary key (`code`)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 ;
@@ -1114,11 +1116,11 @@ INSERT INTO ticketsnum_refund VALUES('DE', '2', '001401', 0, 'alternative', 'Act
 INSERT INTO ticketsnum_payment VALUES(1);
 
 -- ADD IDENTIFICATION TYPES FOR ECUADOR
-INSERT INTO identification_type(code, name, legal_code) VALUES ('C', 'Cédula', '05');
-INSERT INTO identification_type(code, name, legal_code) VALUES ('R', 'RUC', '04');
-INSERT INTO identification_type(code, name, legal_code) VALUES ('P', 'Pasaporte', '06');
-INSERT INTO identification_type(code, name, legal_code) VALUES ('CF', 'Consumidor Final', '07');
-INSERT INTO identification_type(code, name, legal_code) VALUES ('IE', 'Identificación del Exterior', '08');
+INSERT INTO identification_type(code, name, legal_code, length, country_code) VALUES ('C', 'Cédula', '05', 10, 'EC');
+INSERT INTO identification_type(code, name, legal_code, length, country_code) VALUES ('R', 'RUC', '04', 13, 'EC');
+INSERT INTO identification_type(code, name, legal_code, length, country_code) VALUES ('P', 'Pasaporte', '06', 0, 'EC');
+INSERT INTO identification_type(code, name, legal_code, length, country_code) VALUES ('CF', 'Consumidor Final', '07', 0, 'EC');
+INSERT INTO identification_type(code, name, legal_code, length, country_code) VALUES ('IE', 'Identificación del Exterior', '08', 0, 'EC');
 
 -- ADD final consumer for Ecuador
 INSERT INTO customers (id,searchkey,taxid,name,maxdebt,address,address2,taxid_type,firstname,lastname,notes,visible,isvip,discount) 

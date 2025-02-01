@@ -26,6 +26,7 @@ import com.unicenta.format.Formats;
 import com.unicenta.pos.customers.CustomerInfoBasic;
 import com.unicenta.pos.customers.CustomerInfoExt;
 import com.unicenta.pos.customers.DataLogicCustomers;
+import com.unicenta.pos.forms.AppConfig;
 import com.unicenta.pos.forms.AppLocal;
 import com.unicenta.pos.forms.AppView;
 import com.unicenta.pos.forms.DataLogicSales;
@@ -37,6 +38,7 @@ import dev.joguenco.pos.establishment.EstablishmentInfo;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,6 +78,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     private ComboBoxValModel modelIdentificationType;
     private String ticketType = "";
     private String customerDefault;
+    private String country;
 
     public CustomerInfoExt getCustomerext() {
         return customerext;
@@ -127,6 +130,10 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     }
 
     public void init(AppView app) {
+        final var config = new AppConfig(new File((System.getProperty("user.home")), AppLocal.APP_ID + ".properties"));
+        config.load();
+        country = config.getProperty("user.country");
+        
         this.app = app;
         dlSystem = (DataLogicSystem) app.getBean("com.unicenta.pos.forms.DataLogicSystem");
         dlCustomers= (DataLogicCustomers) app.getBean("com.unicenta.pos.customers.DataLogicCustomers");
@@ -183,7 +190,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         m_aPaymentInfo = new PaymentInfoList();
         dlSales = (DataLogicSales) app.getBean("com.unicenta.pos.forms.DataLogicSales");
 
-        sentenceIdentificationType = dlSales.getIdentificationTypeList();
+        sentenceIdentificationType = dlSales.getIdentificationTypeList(country);
         try {
             modelIdentificationType = new ComboBoxValModel(
                     sentenceIdentificationType.list());
@@ -1105,7 +1112,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
 
     private void cbxIdentificationTypeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbxIdentificationTypeFocusGained
         if (!txtIdentification.getText().isEmpty()) {
-            final var validator = new Validator();
+            final var validator = new Validator(country);
 
             switch (txtIdentification.getText().length()) {
                 case 10: {
@@ -1249,8 +1256,8 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         return true;
     }
     
-    private ErrorMessage validateIdentification() {
-        final var validator = new Validator();
+    private ErrorMessage validateIdentification() {        
+        final var validator = new Validator(country);
 
         return validator.identification(getIdentificationType(), txtIdentification.getText());
     }
@@ -1352,7 +1359,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     }
     
     private Boolean isBlank(String text, String message) {
-        final var validate = new Validator();
+        final var validate = new Validator(country);
 
         final var isBlank = validate.blank(text, message);
 

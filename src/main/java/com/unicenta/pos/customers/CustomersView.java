@@ -26,6 +26,7 @@ import com.unicenta.data.loader.SentenceList;
 import com.unicenta.data.user.DirtyManager;
 import com.unicenta.data.user.EditorRecord;
 import com.unicenta.format.Formats;
+import com.unicenta.pos.forms.AppConfig;
 import com.unicenta.pos.forms.AppLocal;
 import com.unicenta.pos.forms.AppView;
 import com.unicenta.pos.forms.BeanFactoryException;
@@ -41,6 +42,7 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -76,6 +78,7 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
     // For identification type combobox 
     private SentenceList sentenceIdentificationType;
     private ComboBoxValModel modelIdentificationType;
+    private String country;
         
     /** Creates new form CustomersView
      * @param app
@@ -87,11 +90,14 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
 
         
         initComponents();
+        final var config = new AppConfig(new File((System.getProperty("user.home")), AppLocal.APP_ID + ".properties"));
+        config.load();
+        country = config.getProperty("user.country");
 
         m_sentcat = dlSales.getTaxCustCategoriesList();
         m_CategoryModel = new ComboBoxValModel();
         
-        sentenceIdentificationType = dlSales.getIdentificationTypeList();
+        sentenceIdentificationType = dlSales.getIdentificationTypeList(country);
         modelIdentificationType = new ComboBoxValModel(
         sentenceIdentificationType.list());
         
@@ -133,8 +139,8 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
         }
     }
 
-    private void init() {
-            writeValueEOF(); 
+    private void init() {        
+            writeValueEOF();
     }
     
     /**
@@ -473,7 +479,7 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
         
         m_jdate.setEnabled(true);
         m_jbtndate.setEnabled(true);
-        cbxIdentificationType.setEnabled(false);
+        cbxIdentificationType.setEnabled(true);
 
         jBtnCreateCard.setEnabled(true);
         jBtnClearCard.setEnabled(true);

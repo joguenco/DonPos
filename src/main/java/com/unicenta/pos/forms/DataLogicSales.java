@@ -2892,10 +2892,11 @@ public class DataLogicSales extends BeanFactoryDataSingle {
         };
     }
 
-    public SentenceList getIdentificationTypeList() {
+    public SentenceList getIdentificationTypeList(String country) {
         return new StaticSentence(s,
                 new QBFBuilder("select code, name from identification_type "
                         + "where status = true "
+                        + "and country_code = '" + country + "'"
                         + "order by name",
                         new String[]{"code", "name"}),
                 new SerializerWriteBasic(new Datas[]{

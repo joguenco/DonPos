@@ -8,6 +8,7 @@ import com.unicenta.data.loader.SentenceExec;
 import com.unicenta.data.loader.SentenceList;
 import com.unicenta.data.loader.TableDefinition;
 import com.unicenta.format.Formats;
+import com.unicenta.pos.forms.AppConfig;
 import com.unicenta.pos.forms.AppLocal;
 import com.unicenta.pos.forms.AppView;
 import com.unicenta.pos.forms.DataLogicSales;
@@ -16,6 +17,7 @@ import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.Frame;
 import java.awt.Window;
+import java.io.File;
 import java.util.List;
 import java.util.UUID;
 import javax.swing.JFrame;
@@ -33,6 +35,7 @@ public class JDialogNewCustomer extends javax.swing.JDialog {
     private Object m_oId;
     private SentenceList sentenceIdentificationType;
     private ComboBoxValModel modelIdentificationType;
+    private String country;
     
     /** Creates new form quick New Customer
      * @param parent */
@@ -47,13 +50,17 @@ public class JDialogNewCustomer extends javax.swing.JDialog {
     } 
     
     private void init(AppView app) {
+        
+        final var config = new AppConfig(new File((System.getProperty("user.home")), AppLocal.APP_ID + ".properties"));
+        config.load();
+        country = config.getProperty("user.country");
 
         try {
             dlSales = (DataLogicSales) app.getBean("com.unicenta.pos.forms.DataLogicSales");
             dlCustomer = (DataLogicCustomers) app.getBean("com.unicenta.pos.customers.DataLogicCustomers");
             m_sentcat = dlSales.getTaxCustCategoriesList();
             tcustomers = dlCustomer.getTableCustomers();
-            sentenceIdentificationType = dlSales.getIdentificationTypeList();
+            sentenceIdentificationType = dlSales.getIdentificationTypeList(country);
 
             initComponents();        
 
@@ -511,7 +518,7 @@ public class JDialogNewCustomer extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void m_jBtnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jBtnOKActionPerformed
-        final var validator = new Validator();
+        final var validator = new Validator(country);
         final var identificationType = (String) modelIdentificationType.getSelectedKey();
         final var identification = m_jTaxID.getText();
 
