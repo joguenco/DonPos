@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Don POS - Touch friendly Point Of Sale
+    http://joguenco.dev
+
+    This file is part of Don POS.
+    uniCenta oPOS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Don POS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Don POS.
+  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<permissions>
+    <class name="com.unicenta.pos.sales.JPanelTicketEdits"/>
+    <class name="com.unicenta.pos.sales.JPanelTicketSales"/>
+
+    
+    <class name="sales.DeleteLines"/>
+    <class name="sales.EditLines"/>
+    <class name="sales.EditTicket"/>
+    <class name="sales.PrintRemote"/>
+    <class name="sales.PrintTicket"/>
+    <class name="sales.Total"/>
+    <class name="sales.ViewSharedTicket"/>
+
+<!-- Standard button scripts -->
+    <class name="button.opendrawer"/>
+    <class name="button.print"/>
+    <class name="button.Totaldiscount"/>
+
+<!-- Additional button scripts -->
+    <class name="button.keyboard"/>    
+    <class name="button.Linediscount"/>
+    <class name="button.scharge"/>
+    <class name="button.sendorder"/>
+
+<class name="com.unicenta.pos.forms.MenuCustomers"/>
+    <class name="com.unicenta.pos.customers.CustomersPanel"/>
+            <class name="/com/unicenta/reports/customers.bs"/>
+            
+</permissions>

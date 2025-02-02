@@ -908,12 +908,14 @@ INSERT INTO roles(id, name, permissions) VALUES('0', 'Administrator role', $FILE
 INSERT INTO roles(id, name, permissions) VALUES('1', 'Manager role', $FILE{/com/unicenta/pos/templates/Role.Manager.xml} );
 INSERT INTO roles(id, name, permissions) VALUES('2', 'Employee role', $FILE{/com/unicenta/pos/templates/Role.Employee.xml} );
 INSERT INTO roles(id, name, permissions) VALUES('3', 'Guest role', $FILE{/com/unicenta/pos/templates/Role.Guest.xml} );
+INSERT INTO roles(id, name, permissions) VALUES('4', 'Command', $FILE{/com/unicenta/pos/templates/Role.Command.xml} );
 
 -- ADD people
 INSERT INTO people(id, name, apppassword, role, visible, image) VALUES ('0', 'Administrator', NULL, '0', TRUE, NULL);
 INSERT INTO people(id, name, apppassword, role, visible, image) VALUES ('1', 'Manager', NULL, '1', TRUE, NULL);
 INSERT INTO people(id, name, apppassword, role, visible, image) VALUES ('2', 'Employee', NULL, '2', TRUE, NULL);
 INSERT INTO people(id, name, apppassword, role, visible, image) VALUES ('3', 'Guest', NULL, '3', TRUE, NULL);
+INSERT INTO people(id, name, apppassword, role, visible, image) VALUES ('4', 'Waitstaff', NULL, '4', TRUE, NULL);
 
 -- ADD resources --
 -- SYSTEM
@@ -1368,16 +1370,15 @@ order by `j`.`number` desc, `j`.`number` desc;
 CREATE VIEW `v_version` AS select 1 AS `id`,
     version() AS `version_database`;
 
-CREATE VIEW `v_ele_users` AS select rownum() AS `id`,
+CREATE VIEW `v_users` AS select rownum() AS `id`,
     `u`.`name` AS `username`,
     `u`.`apppassword` AS `password`,
-    if(`r`.`name` in ('Administrator role', 'Manager role'), 'Administrator', 'Normal') AS `role`
+    `r`.`name` AS `role`,
+    `u`.`visible` as `status`
 from
     (`people` `u`
 join `roles` `r` on
-    (`u`.`role` = `r`.`id`))
-where
-    `u`.`visible` = 1;
+    (`u`.`role` = `r`.`id`));
 
 CREATE TABLE `subscriptions` (
   `id` INT NOT NULL AUTO_INCREMENT,
