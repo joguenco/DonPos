@@ -17,3 +17,35 @@
 --    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
 
 INSERT INTO identification_type(code, name, legal_code, length, country_code) VALUES ('V', 'VAT', '01', 0, $COUNTRY_CODE{});
+
+-- ADD TAXCATEGORIES
+/* 002 added 31/01/2017 00:00:00. */
+INSERT INTO taxcategories(id, name) VALUES ('000', 'Tax Exempt');
+INSERT INTO taxcategories(id, name) VALUES ('001', 'Tax Standard');
+INSERT INTO taxcategories(id, name) VALUES ('002', 'Tax Other');
+
+-- ADD TAXES
+/* 002 added 31/01/2017 00:00:00. */
+INSERT INTO taxes(id, name, category, custcategory, parentid, rate, ratecascade, rateorder, legalcode) VALUES ('000', 'Tax Exempt', '000', NULL, NULL, 0, FALSE, NULL, '0');
+INSERT INTO taxes(id, name, category, custcategory, parentid, rate, ratecascade, rateorder, legalcode) VALUES ('001', 'Tax Standard', '001', NULL, NULL, 0.20, FALSE, NULL, '0');
+INSERT INTO taxes(id, name, category, custcategory, parentid, rate, ratecascade, rateorder, legalcode) VALUES ('002', 'Tax Other', '002', NULL, NULL, 0, FALSE, NULL, '0');
+
+-- ADD PRODUCTS
+INSERT INTO products(id, reference, code, name, category, taxcat, isservice, display, printto) 
+VALUES ('xxx999_999xxx_x9x9x9', 'xxx999', 'xxx999', 'Free Line entry', '000', '001', 1, '<html><center>Free Line entry', '1');
+INSERT INTO products(id, reference, code, name, category, taxcat, isservice, display, printto) 
+VALUES ('xxx998_998xxx_x8x8x8', 'xxx998', 'xxx998', 'Service Charge', '000', '001', 1, '<html><center>Service Charge', '1');
+
+-- ADD PRODUCTS_CAT
+INSERT INTO products_cat(product) VALUES ('xxx999_999xxx_x9x9x9');
+INSERT INTO products_cat(product) VALUES ('xxx998_998xxx_x8x8x8');
+
+-- ADD LOCATION
+INSERT INTO locations(id, name, address) VALUES ('0','Location 1','Local');
+
+-- ADD SUPPLIERS
+INSERT INTO suppliers(id, searchkey, name) VALUES ('0','uniCenta','uniCenta');
+
+-- ADD UOM
+INSERT INTO uom(id, name) VALUES ('0','Each');
+

@@ -319,11 +319,17 @@ public class TaxEditor extends JPanel implements EditorRecord {
 
         try {
             var taxInfo = (TaxInfo) dlTaxes.getTax().find(taxNormalDay);
-            currentTax = taxInfo;
-            lblCurrentTax.setText(AppLocal.getIntString("label.currentTax")
-                    + ": "
-                    + Math.round(taxInfo.getRate() * 100)
-                    + "%");
+            
+            if (taxInfo != null) {
+                currentTax = taxInfo;
+                lblCurrentTax.setText(AppLocal.getIntString("label.currentTax")
+                        + ": "
+                        + Math.round(taxInfo.getRate() * 100)
+                        + "%");
+            } else {
+                JOptionPane.showMessageDialog(null, 
+                AppLocal.getIntString("message.tax.normal.days"));
+            }
         } catch (BasicException ex) {
             log.error(ex.getMessage());
         }
