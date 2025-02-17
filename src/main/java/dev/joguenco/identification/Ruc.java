@@ -72,11 +72,11 @@ public class Ruc extends Ci {
     Boolean establishment() {
         val finalNumber = Integer.parseInt(ruc.substring(10, 13));
 
-        if (finalNumber > 0) {
+        if (finalNumber == 1) {
             return true;
         }
 
-        setError("Los 3 últimos díjitos del RUC no deben ser cero");
+        setError("Los 3 últimos díjitos del RUC deben ser 001");
         return false;
     }
 }

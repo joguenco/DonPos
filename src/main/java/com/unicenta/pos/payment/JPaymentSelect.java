@@ -1111,6 +1111,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     }//GEN-LAST:event_m_jTabPaymentKeyPressed
 
     private void cbxIdentificationTypeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbxIdentificationTypeFocusGained
+        cbxIdentificationType.setBackground(new java.awt.Color(255, 255, 255));
         if (!txtIdentification.getText().isEmpty()) {
             final var validator = new Validator(country);
 
@@ -1120,6 +1121,8 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
                         txtIdentification.getText()
                     );
                     if (error.getIsError()) {
+                        System.err.println("Validation -> " + error.getMessage());
+                        cbxIdentificationType.setBackground(new java.awt.Color(255, 204, 204));
                         modelIdentificationType.setSelectedKey("IE");
                     } else {
                         modelIdentificationType.setSelectedKey("C");
@@ -1131,6 +1134,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
                         txtIdentification.getText()
                     );
                     if (error.getIsError()) {
+                        cbxIdentificationType.setBackground(new java.awt.Color(255, 204, 204));
                         modelIdentificationType.setSelectedKey("IE");
                     } else {
                         modelIdentificationType.setSelectedKey("R");
