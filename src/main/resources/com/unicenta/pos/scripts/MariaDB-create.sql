@@ -1099,9 +1099,12 @@ VALUES ('002', 'Sucursal', 'Mi otra ciudad', 'Mi otra dirección', '0988 888 888
 INSERT INTO applications(id, name, version) VALUES($APP_ID{}, $APP_NAME{}, $APP_VERSION{});
 
 CREATE TABLE `subscriptions` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` VARCHAR(300) NOT NULL,
   `name` VARCHAR(300) NOT NULL,
   `url` VARCHAR(900) NOT NULL,
+  `token` VARCHAR(900),
+  `timeout` INT NOT NULL DEFAULT 0,
+  `status` BOOLEAN DEFAULT true,
   PRIMARY KEY (`id`));
 
 CREATE TABLE `refresh_token` (

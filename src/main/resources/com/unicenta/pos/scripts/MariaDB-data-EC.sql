@@ -334,3 +334,5 @@ INSERT INTO suppliers(id, searchkey, taxid, taxid_type, name) VALUES ('999999999
 
 -- ADD UOM
 INSERT INTO uom(id, name) VALUES ('u','Unidad');
+
+INSERT INTO subscriptions (id,name,url,token,timeout,status) VALUES ('1', 'ReIdi', 'http://localhost', '1234567890', 0, 0);
