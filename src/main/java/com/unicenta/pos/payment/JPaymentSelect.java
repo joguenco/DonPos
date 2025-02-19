@@ -32,6 +32,9 @@ import com.unicenta.pos.forms.AppView;
 import com.unicenta.pos.forms.DataLogicSales;
 import com.unicenta.pos.forms.DataLogicSystem;
 import dev.joguenco.error.ErrorMessage;
+import dev.joguenco.http.client.ServiceGenerator;
+import dev.joguenco.http.client.entity.EntityResponse;
+import dev.joguenco.http.client.entity.EntityService;
 import dev.joguenco.identification.Validator;
 import dev.joguenco.pos.establishment.DataLogicEstablishment;
 import dev.joguenco.pos.establishment.EstablishmentInfo;
@@ -39,6 +42,7 @@ import dev.joguenco.pos.establishment.EstablishmentInfo;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +51,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.WordUtils;
+import retrofit2.Response;
 
 /**
  *
@@ -149,6 +154,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         }
 
         tabData.setTitleAt(0, AppLocal.getIntString("label.customer"));
+        this.customerDefault = dlSystem.getResourceAsText("Customer.Default");
     }
 
     public void setPrintSelected(boolean value) {
@@ -975,7 +981,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     private void m_jTabPaymentStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_m_jTabPaymentStateChanged
 
         if (m_jTabPayment.getSelectedComponent() != null) {
-            if ("9999999999999".equals(txtIdentification.getText())) {
+            if (customerDefault.equals(txtIdentification.getText())) {
                 final var tab = (JPaymentInterface) m_jTabPayment.getSelectedComponent();
 
                 if (JPaymentCashPos.class == tab.getComponent().getClass()) {
@@ -1190,27 +1196,63 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
 
             try {
                 this.customerext = dlSales.loadCustomerExt(customer.getId());
+                m_jButtonOK.setEnabled(true);
+                if (m_jTabPayment.getTabCount() > 0) {
+                    m_jTabPayment.setSelectedIndex(0);
+                }
+                m_jButtonOK.requestFocus();
             } catch (BasicException ex) {
                 log.error(ex.getMessage());
             }
         } else {
-            modelIdentificationType.setSelectedKey(null);
-            txtName.setText("");
+            var status = getEntity(txtIdentification.getText());
+            if(!status) {
+                txtName.setText("");
+            }
+            modelIdentificationType.setSelectedKey(null);            
             txtEmail.setText("");
             txtAddress.setText(cityWhenAddressIsEmpty);
             txtPhone.setText("");
 
             this.customerext = null;
+            cbxIdentificationType.requestFocus();
         }
 
-        requestIdentification();
+//        requestIdentification();
         m_jButtonOK.setEnabled(true);
         if (m_jTabPayment.getTabCount() > 0) {
             m_jTabPayment.setSelectedIndex(0);
         }
-        cbxIdentificationType.requestFocus();
+        //cbxIdentificationType.requestFocus();
     }//GEN-LAST:event_txtIdentificationActionPerformed
 
+    private Boolean getEntity(String identification) {
+        
+        if (identification.equals(dlSystem.getResourceAsText("Customer.Default"))) {
+            return false;
+        }
+        try {
+            String baseUrl = "https://reidi.service.joguenco.dev";
+            String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJyZWlkaS5zZXJ2aWNlLmpvZ3VlbmNvLmRldiIsImlhdCI6MTc0MDAwNzk4MCwiZXhwIjoxNzcxNTQzOTgwLCJhdWQiOiJqb2d1ZW5jby5kZXYiLCJzdWIiOiJqb3JnZWx1aXNAam9ndWVuY28uZGV2IiwiY2xpZW50IjoiMTIzNDU2Nzg5MCIsIm5hbWUiOiJKb3JnZSBMdWlzIiwiZW1haWwiOiJqb3JnZXF1aWd1YW5nb0BvdXRsb29rLmNvbSIsInJvbGUiOiJTdWJzY3JpcHRvciIsInNlcnZpY2UiOiJSZUlkaSJ9.ToayQURYmoYah8FsUOECU84C1rWHJBRXdkPSIiqaQds";
+            
+            ServiceGenerator generator = new ServiceGenerator(baseUrl);
+            var service = generator.createService(EntityService.class, token);
+            
+            var callSync = service.getEntity(identification);
+            
+            Response<EntityResponse> response = callSync.execute();
+            if (response.isSuccessful()) {
+                EntityResponse entity = response.body();
+                txtName.setText(entity.getName());
+                return true;
+            }                        
+        } catch (IllegalArgumentException | HeadlessException | IOException ex) {
+            log.error(JPaymentSelect.class.getName() + " " + ex.getMessage());
+        }
+        
+        return false;
+    }
+    
     private void txtNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusGained
         txtName.selectAll();
     }//GEN-LAST:event_txtNameFocusGained
@@ -1281,29 +1323,14 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         txtEmail.setEditable(true);
         txtAddress.setEditable(true);
         txtPhone.setEditable(true);
-
-        cleanWhenFinalConsumer();
     }
     
     private void requestFinalConsumer() {
-        txtIdentification.setText("9999999999999");
-        txtName.setText("Consumidor Final");
-        txtEmail.setText("");
-        txtAddress.setText("");
-        txtPhone.setText("");
+        txtIdentification.setText(customerDefault);
         txtName.setEditable(false);
         txtEmail.setEditable(false);
         txtAddress.setEditable(false);
         txtPhone.setEditable(false);
-    }
-    
-    private void cleanWhenFinalConsumer() {
-        if (txtIdentification.getText().equals("9999999999999")) {
-            txtIdentification.setText("");
-        }
-        if (txtName.getText().equals("Consumidor Final")) {
-            txtName.setText("");
-        }
     }
     
     private Boolean existCustomerByTaxId(String identification) {

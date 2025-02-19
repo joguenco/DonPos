@@ -32,7 +32,11 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtUrl" min="-2" pref="300" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="txtUrl" min="-2" pref="300" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="cmdPing" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <Component id="txtToken" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
                           <Component id="txtTimeout" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
                       </Group>
@@ -43,7 +47,7 @@
                       <Component id="chkStatus" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="216" max="32767" attributes="0"/>
+              <EmptySpace pref="108" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -59,6 +63,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txtUrl" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblUrl" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmdPing" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -148,6 +153,14 @@
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="cmdPing">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ping"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdPingActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -275,7 +275,7 @@ INSERT INTO identification_type(code, name, legal_code, length, country_code) VA
 
 -- ADD Consumidor Final
 INSERT INTO customers (id,searchkey,taxid,name,maxdebt,address,address2,taxid_type,firstname,lastname,notes,visible,isvip,discount) 
-VALUES ('9999999999999','9999999999999','9999999999999','Consumidor Final',49.99,NULL,NULL,'CF','Consumidor','Final','',1,0,0);
+VALUES ('9999999999999','9999999999999','9999999999999','Consumidor Final',49.99,'Mi Dirección',NULL,'CF','Consumidor','Final','',1,0,0);
 
 INSERT INTO categories(id, name) VALUES ('001', 'Category Local');
 

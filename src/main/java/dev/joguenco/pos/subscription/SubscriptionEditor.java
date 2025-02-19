@@ -20,14 +20,23 @@ import com.unicenta.data.user.DirtyManager;
 import com.unicenta.data.user.EditorRecord;
 import com.unicenta.format.Formats;
 import com.unicenta.pos.forms.AppView;
+import dev.joguenco.http.client.ServiceGenerator;
+import dev.joguenco.http.client.ping.PingResponse;
+import dev.joguenco.http.client.ping.PingService;
 import java.awt.Component;
+import java.awt.HeadlessException;
+import java.io.IOException;
 import java.util.UUID;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import lombok.extern.slf4j.Slf4j;
+import retrofit2.Response;
 
 /**
  *
  * @author Jorge Luis
  */
+@Slf4j
 public class SubscriptionEditor extends JPanel implements EditorRecord {
 
     private Object oId;
@@ -151,6 +160,7 @@ public class SubscriptionEditor extends JPanel implements EditorRecord {
         txtTimeout = new javax.swing.JTextField();
         lblStatus = new javax.swing.JLabel();
         chkStatus = new javax.swing.JCheckBox();
+        cmdPing = new javax.swing.JButton();
 
         lblName.setDisplayedMnemonic('N');
         lblName.setLabelFor(txtName);
@@ -175,6 +185,13 @@ public class SubscriptionEditor extends JPanel implements EditorRecord {
 
         chkStatus.setSelected(true);
 
+        cmdPing.setText("Ping");
+        cmdPing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdPingActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -193,14 +210,17 @@ public class SubscriptionEditor extends JPanel implements EditorRecord {
                             .addComponent(lblTimeout, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmdPing))
                             .addComponent(txtToken, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTimeout, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(chkStatus)))
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,7 +232,8 @@ public class SubscriptionEditor extends JPanel implements EditorRecord {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblUrl))
+                    .addComponent(lblUrl)
+                    .addComponent(cmdPing))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtToken, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -229,8 +250,35 @@ public class SubscriptionEditor extends JPanel implements EditorRecord {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cmdPingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdPingActionPerformed
+
+        if (!txtUrl.getText().isEmpty()) {
+            try {
+                var generator = new ServiceGenerator(txtUrl.getText());
+                var service = generator.createService(PingService.class);
+
+                var callSync = service.ping();
+
+                Response<PingResponse> response = callSync.execute();
+                if (response.isSuccessful()) {
+                    PingResponse ping = response.body();
+                    JOptionPane.showMessageDialog(this,
+                            ping.getMessage(), "Ok", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "Not response", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (IllegalArgumentException | HeadlessException | IOException ex) {
+                JOptionPane.showMessageDialog(this,
+                        ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                log.error(SubscriptionEditor.class.getName() + " " + ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_cmdPingActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox chkStatus;
+    private javax.swing.JButton cmdPing;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTimeout;
