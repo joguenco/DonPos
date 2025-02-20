@@ -13,7 +13,7 @@ def userHome = System.getProperty("user.home")
 
 appender("applicationLogFile", RollingFileAppender) {
   rollingPolicy(TimeBasedRollingPolicy) {
-    fileNamePattern = "$userHome/.unicenta/unicenta-%d{yyyy-MM-dd}.log"
+    fileNamePattern = "$userHome/.donpos/donpos-%d{yyyy-MM-dd}.log"
     maxHistory = "5"
   }
   encoder(PatternLayoutEncoder) {
