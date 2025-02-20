@@ -1,5 +1,6 @@
 package dev.joguenco.pos.subscription;
 
+import com.unicenta.basic.BasicException;
 import com.unicenta.data.loader.DataRead;
 import com.unicenta.data.loader.Datas;
 import com.unicenta.data.loader.PreparedSentence;
@@ -26,9 +27,9 @@ public class DataLogicSubscription extends BeanFactoryDataSingle {
                 "subscriptions",
                 new String[]{"id", "name", "url", "token", "timeout", "status"},
                 new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING,
-                    Datas.INT ,Datas.BOOLEAN,},
+                    Datas.INT, Datas.BOOLEAN,},
                 new Formats[]{Formats.STRING, Formats.STRING, Formats.STRING, Formats.STRING,
-                    Formats.INT ,Formats.BOOLEAN,},
+                    Formats.INT, Formats.BOOLEAN,},
                 new int[]{0});
     }
 
@@ -38,7 +39,7 @@ public class DataLogicSubscription extends BeanFactoryDataSingle {
 
     public final PreparedSentence getSubscriptionInfo() {
         return new PreparedSentence(s,
-                "select id, name, url, token, timeout, status"
+                "select id, name, url, token, timeout, status "
                 + "from subscriptions "
                 + "where id = ?",
                 SerializerWriteString.INSTANCE,
@@ -48,5 +49,23 @@ public class DataLogicSubscription extends BeanFactoryDataSingle {
 
                     return subscriptionInfo;
                 });
+    }
+
+    public final SubscriptionInfo getSubscriptionInfoByName(String name) throws BasicException {
+        return (SubscriptionInfo) new PreparedSentence(s,
+                "select url, token, timeout "
+                + "from subscriptions "
+                + "where name = ? "
+                + "and status = true",
+                SerializerWriteString.INSTANCE,
+                (DataRead dr) -> {
+                    var s = new SubscriptionInfo();
+                    
+                    s.setUrl(dr.getString(1));
+                    s.setToken(dr.getString(2));
+                    s.setTimeout(dr.getInt(3));
+
+                    return s;
+                }).find(name);
     }
 }

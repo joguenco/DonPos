@@ -33,6 +33,9 @@ import com.unicenta.pos.forms.BeanFactoryException;
 import com.unicenta.pos.forms.DataLogicSales;
 import com.unicenta.pos.util.StringUtils;
 import dev.joguenco.error.ErrorMessage;
+import dev.joguenco.http.client.HttpClient;
+import dev.joguenco.http.client.entity.EntityResponse;
+import dev.joguenco.http.client.entity.EntityService;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
@@ -52,6 +55,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import retrofit2.Response;
 
 /**
  *
@@ -801,6 +805,11 @@ public void resetTranxTable() {
 
         m_jTaxID.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         m_jTaxID.setPreferredSize(new java.awt.Dimension(150, 30));
+        m_jTaxID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_jTaxIDActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel8.setText(AppLocal.getIntString("label.searchkeym")); // NOI18N
@@ -1131,7 +1140,6 @@ public void resetTranxTable() {
         jTableCustomerTransactions.setGridColor(new java.awt.Color(102, 204, 255));
         jTableCustomerTransactions.setOpaque(false);
         jTableCustomerTransactions.setPreferredSize(new java.awt.Dimension(375, 500));
-        jTableCustomerTransactions.setRowHeight(25);
         jScrollPane3.setViewportView(jTableCustomerTransactions);
 
         jLblTranCount.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -1669,6 +1677,28 @@ public void resetTranxTable() {
         if (m_jName.getText().isEmpty())
             m_jName.setText(txtFirstName.getText() + " " + txtLastName.getText());
     }//GEN-LAST:event_m_jNameFocusGained
+
+    private void m_jTaxIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jTaxIDActionPerformed
+        try {
+            var httpClient = new HttpClient(this.appView);
+            var service = httpClient.generator("ReIdi")
+                    .createService(EntityService.class, httpClient.getToken());
+            var callSync = service.getEntity(m_jTaxID.getText());
+            
+            Response<EntityResponse> response = callSync.execute();
+            if (response.isSuccessful()) {
+                EntityResponse entity = response.body();
+                m_jName.setText(entity.getName());
+            } 
+        } catch (IllegalArgumentException | HeadlessException | IOException ex) {
+            log.error(CustomersView.class.getName() + " " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        } catch (BasicException ex) {
+            log.error(CustomersView.class.getName() + " " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, 
+                    "Service not available in parameter subscription");
+        }
+    }//GEN-LAST:event_m_jTaxIDActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbxIdentificationType;
