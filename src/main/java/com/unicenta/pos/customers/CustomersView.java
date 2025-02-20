@@ -32,6 +32,7 @@ import com.unicenta.pos.forms.AppView;
 import com.unicenta.pos.forms.BeanFactoryException;
 import com.unicenta.pos.forms.DataLogicSales;
 import com.unicenta.pos.util.StringUtils;
+import dev.joguenco.effect.CursorAnimation;
 import dev.joguenco.error.ErrorMessage;
 import dev.joguenco.http.client.HttpClient;
 import dev.joguenco.http.client.entity.EntityResponse;
@@ -1679,6 +1680,7 @@ public void resetTranxTable() {
     }//GEN-LAST:event_m_jNameFocusGained
 
     private void m_jTaxIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jTaxIDActionPerformed
+        CursorAnimation.startWaitCursor(getRootPane());
         try {
             var httpClient = new HttpClient(this.appView);
             var service = httpClient.generator("ReIdi")
@@ -1698,6 +1700,7 @@ public void resetTranxTable() {
             JOptionPane.showMessageDialog(this, 
                     "Service not available in parameter subscription");
         }
+        CursorAnimation.stopWaitCursor(getRootPane());
     }//GEN-LAST:event_m_jTaxIDActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

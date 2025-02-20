@@ -20,6 +20,7 @@ import com.unicenta.data.user.DirtyManager;
 import com.unicenta.data.user.EditorRecord;
 import com.unicenta.format.Formats;
 import com.unicenta.pos.forms.AppView;
+import dev.joguenco.effect.CursorAnimation;
 import dev.joguenco.http.client.ServiceGenerator;
 import dev.joguenco.http.client.ping.PingResponse;
 import dev.joguenco.http.client.ping.PingService;
@@ -251,7 +252,7 @@ public class SubscriptionEditor extends JPanel implements EditorRecord {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmdPingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdPingActionPerformed
-
+        CursorAnimation.startWaitCursor(getRootPane());
         if (!txtUrl.getText().isEmpty()) {
             try {
                 var generator = new ServiceGenerator(txtUrl.getText());
@@ -274,6 +275,7 @@ public class SubscriptionEditor extends JPanel implements EditorRecord {
                 log.error(SubscriptionEditor.class.getName() + " " + ex.getMessage());
             }
         }
+        CursorAnimation.stopWaitCursor(getRootPane());
     }//GEN-LAST:event_cmdPingActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
