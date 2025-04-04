@@ -220,19 +220,18 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         if (this.customerext != null && existCustomer(this.customerext.getTaxid())) {
             CustomerInfoBasic customer = getCustomerById(this.customerext.getId());
 
+            requestIdentification();
+            txtIdentification.setText(customer.getTaxid());
+            modelIdentificationType.setSelectedKey(customer.getType());
+            txtName.setText(customer.getName());
+            txtEmail.setText(customer.getEmail());
+            txtAddress.setText(customer.getAddress());
+            txtPhone.setText(customer.getPhone());
+
+            m_jButtonOK.requestFocus();
+            
             if (customer.getType().equals("CF")) {
                 requestFinalConsumer();
-                modelIdentificationType.setSelectedKey("CF");
-            } else {
-                requestIdentification();
-                txtIdentification.setText(customer.getTaxid());
-                modelIdentificationType.setSelectedKey(customer.getType());
-                txtName.setText(customer.getName());
-                txtEmail.setText(customer.getEmail());
-                txtAddress.setText(customer.getAddress());
-                txtPhone.setText(customer.getPhone());
-
-                m_jButtonOK.requestFocus();
             }
             // If customer is read only, disable form
             if (customerext.getIsReadOnly()) {
@@ -244,8 +243,11 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
                 txtPhone.setEditable(false);
             }
         } else {
-            requestFinalConsumer();
-            modelIdentificationType.setSelectedKey("00");
+            JOptionPane.showMessageDialog(this,
+                            AppLocal.getIntString("message.default.customer"),
+                            "Warning",
+                            JOptionPane.WARNING_MESSAGE);
+            return false;
         }
 
         if (txtAddress.getText().isEmpty()) {
@@ -1159,6 +1161,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
             String identificationType = modelIdentificationType.getSelectedKey().toString();
             if (identificationType.equals("CF")) {
                 requestFinalConsumer();
+                txtIdentification.requestFocus();
             } else {
                 var error = validateIdentification();
                 if (error.getIsError()) {
@@ -1224,6 +1227,15 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
             m_jTabPayment.setSelectedIndex(0);
         }
         //cbxIdentificationType.requestFocus();
+        if (modelIdentificationType.getSelectedKey() != null) {
+        var type = modelIdentificationType.getSelectedKey().toString();
+            if ("CF".equals(type)) {
+                requestFinalConsumer();
+                txtPhone.setEditable(true);
+                txtPhone.requestFocus();
+                txtPhone.setEditable(false);
+            }
+        }
     }//GEN-LAST:event_txtIdentificationActionPerformed
 
     private Boolean getEntity(String identification) {

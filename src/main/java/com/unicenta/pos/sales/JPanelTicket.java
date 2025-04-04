@@ -1101,9 +1101,9 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         String customer = dlSystem.getResourceAsText("Customer.Default");
         if (getCustomerDefault(customer) == false) {
             JOptionPane.showMessageDialog(this,
-                    "El cliente por defecto, no existe. Crear Cliente POS o un cliente por defector",
-                    "Cliente no existe",
-                    JOptionPane.ERROR_MESSAGE);
+                    AppLocal.getIntString("message.default.customer"),
+                    "Warning",
+                    JOptionPane.WARNING_MESSAGE);
             return;
         }
     }
