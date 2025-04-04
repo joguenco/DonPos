@@ -1676,7 +1676,7 @@ public void resetTranxTable() {
 
     private void m_jNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_m_jNameFocusGained
         if (m_jName.getText().isEmpty())
-            m_jName.setText(txtFirstName.getText() + " " + txtLastName.getText());
+            m_jName.setText(txtLastName.getText() + " " + txtFirstName.getText());
     }//GEN-LAST:event_m_jNameFocusGained
 
     private void m_jTaxIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jTaxIDActionPerformed
