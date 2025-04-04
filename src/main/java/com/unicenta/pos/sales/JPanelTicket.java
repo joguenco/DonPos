@@ -3020,7 +3020,6 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         m_jSubtotalIVA.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         m_jSubtotalIVA.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m_jSubtotalIVA.setToolTipText(bundle.getString("tooltip.salesubtotal")); // NOI18N
-        m_jSubtotalIVA.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         m_jSubtotalIVA.setMaximumSize(new java.awt.Dimension(125, 25));
         m_jSubtotalIVA.setMinimumSize(new java.awt.Dimension(80, 25));
         m_jSubtotalIVA.setPreferredSize(new java.awt.Dimension(80, 25));
@@ -3030,7 +3029,6 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         m_jSubtotalIVA_0.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         m_jSubtotalIVA_0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m_jSubtotalIVA_0.setToolTipText(bundle.getString("tooltip.salesubtotal")); // NOI18N
-        m_jSubtotalIVA_0.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         m_jSubtotalIVA_0.setMaximumSize(new java.awt.Dimension(125, 25));
         m_jSubtotalIVA_0.setMinimumSize(new java.awt.Dimension(80, 25));
         m_jSubtotalIVA_0.setPreferredSize(new java.awt.Dimension(80, 25));
@@ -3043,7 +3041,6 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         m_jSubtotalEuros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m_jSubtotalEuros.setLabelFor(m_jSubtotalEuros);
         m_jSubtotalEuros.setToolTipText(bundle.getString("tooltip.salesubtotal")); // NOI18N
-        m_jSubtotalEuros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         m_jSubtotalEuros.setMaximumSize(new java.awt.Dimension(125, 25));
         m_jSubtotalEuros.setMinimumSize(new java.awt.Dimension(80, 25));
         m_jSubtotalEuros.setPreferredSize(new java.awt.Dimension(80, 25));
@@ -3056,7 +3053,6 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         m_jTaxesEuros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m_jTaxesEuros.setLabelFor(m_jTaxesEuros);
         m_jTaxesEuros.setToolTipText(bundle.getString("tooltip.saletax")); // NOI18N
-        m_jTaxesEuros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         m_jTaxesEuros.setMaximumSize(new java.awt.Dimension(125, 25));
         m_jTaxesEuros.setMinimumSize(new java.awt.Dimension(80, 25));
         m_jTaxesEuros.setPreferredSize(new java.awt.Dimension(80, 25));
@@ -3069,7 +3065,6 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         m_jTotalEuros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m_jTotalEuros.setLabelFor(m_jTotalEuros);
         m_jTotalEuros.setToolTipText(bundle.getString("tooltip.saletotal")); // NOI18N
-        m_jTotalEuros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         m_jTotalEuros.setMaximumSize(new java.awt.Dimension(125, 25));
         m_jTotalEuros.setMinimumSize(new java.awt.Dimension(80, 25));
         m_jTotalEuros.setPreferredSize(new java.awt.Dimension(100, 25));
