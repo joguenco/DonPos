@@ -28,6 +28,7 @@ import com.unicenta.pos.ticket.ProductFilterSales;
 import com.unicenta.pos.ticket.ProductInfoExt;
 import com.unicenta.pos.ticket.ProductRenderer;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 
 /**
@@ -46,10 +47,12 @@ public class JProductFinder extends javax.swing.JDialog {
     
     private JProductFinder(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        closeWithKeyEscape();
     }
 
     private JProductFinder(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
+        closeWithKeyEscape();
     }    
     
     private ProductInfoExt init(DataLogicSales dlSales, int productsType) {
@@ -351,6 +354,20 @@ public class JProductFinder extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_m_jKeysActionPerformed
     
+    private void closeWithKeyEscape() {
+        KeyboardFocusManager.getCurrentKeyboardFocusManager()
+            .addKeyEventDispatcher(new KeyEventDispatcher() {
+                public boolean dispatchKeyEvent(KeyEvent e) {
+                    if (e.getID() == KeyEvent.KEY_PRESSED) {
+                        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                            m_ReturnProduct=null; 
+                            dispose();
+                        };
+                    }
+                    return false;
+                }
+            });
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;

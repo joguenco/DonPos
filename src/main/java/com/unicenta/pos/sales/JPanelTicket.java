@@ -81,6 +81,7 @@ import java.io.ObjectInputStream;
 import java.util.*;
 
 import static java.awt.Window.getWindows;
+import java.awt.event.KeyEvent;
 
 
 /**
@@ -170,6 +171,18 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
   public JPanelTicket() {
 
     initComponents();
+    
+    KeyboardFocusManager.getCurrentKeyboardFocusManager()
+            .addKeyEventDispatcher(new KeyEventDispatcher() {
+                public boolean dispatchKeyEvent(KeyEvent e) {
+                    if (e.getID() == KeyEvent.KEY_PRESSED) {
+                        if (e.getKeyCode() == KeyEvent.VK_F9) {
+                            productFinder();
+                        };
+                    }
+                    return false;
+                }
+            });
   }
 
   /**
@@ -3283,14 +3296,16 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
   }//GEN-LAST:event_m_jDeleteActionPerformed
 
   private void m_jListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jListActionPerformed
+      productFinder();
+  }//GEN-LAST:event_m_jListActionPerformed
 
+  private void productFinder() {
     ProductInfoExt prod = JProductFinder.showMessage(JPanelTicket.this, dlSales);
     if (prod != null) {
       buttonTransition(prod);
-    }
-
-  }//GEN-LAST:event_m_jListActionPerformed
-
+    }  
+  }
+  
   private void jEditAttributesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditAttributesActionPerformed
     if (listener != null) {
       listener.stop();
