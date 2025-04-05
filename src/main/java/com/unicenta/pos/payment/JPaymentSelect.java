@@ -1248,7 +1248,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
             String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJyZWlkaS5zZXJ2aWNlLmpvZ3VlbmNvLmRldiIsImlhdCI6MTc0MDAwNzk4MCwiZXhwIjoxNzcxNTQzOTgwLCJhdWQiOiJqb2d1ZW5jby5kZXYiLCJzdWIiOiJqb3JnZWx1aXNAam9ndWVuY28uZGV2IiwiY2xpZW50IjoiMTIzNDU2Nzg5MCIsIm5hbWUiOiJKb3JnZSBMdWlzIiwiZW1haWwiOiJqb3JnZXF1aWd1YW5nb0BvdXRsb29rLmNvbSIsInJvbGUiOiJTdWJzY3JpcHRvciIsInNlcnZpY2UiOiJSZUlkaSJ9.ToayQURYmoYah8FsUOECU84C1rWHJBRXdkPSIiqaQds";
             
             ServiceGenerator generator = new ServiceGenerator(baseUrl);
-            var service = generator.createService(EntityService.class, token);
+            var service = generator.createService(EntityService.class, token, "");
             
             var callSync = service.getEntity(identification);
             

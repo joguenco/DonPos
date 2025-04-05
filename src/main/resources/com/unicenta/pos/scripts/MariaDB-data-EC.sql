@@ -335,4 +335,7 @@ INSERT INTO suppliers(id, searchkey, taxid, taxid_type, name) VALUES ('999999999
 -- ADD UOM
 INSERT INTO uom(id, name) VALUES ('u','Unidad');
 
-INSERT INTO subscriptions (id,name,url,token,timeout,status) VALUES ('1', 'ReIdi', 'http://localhost', '1234567890', 0, 0);
+INSERT INTO subscriptions (id,name,url,token,timeout,status) 
+VALUES ('1', 'ReIdi', 'https://reidi.ec.service.resolvedor.dev', 
+'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJyZWlkaS5zZXJ2aWNlLmpvZ3VlbmNvLmRldiIsImlhdCI6MTc0MDM2NjM2OSwiZXhwIjoxNzU1OTE4MzY5LCJhdWQiOiJqb2d1ZW5jby5kZXYiLCJzdWIiOiJqb3JnZWx1aXNAam9ndWVuY28uZGV2IiwiY2xpZW50IjoiOTk5OTk5OTk5OTk5OSIsIm5hbWUiOiJKb3JnZSBMdWlzIiwiZW1haWwiOiJqb3JnZXF1aWd1YW5nb0BvdXRsb29rLmNvbSIsInJvbGUiOiJNYW5hZ2VyIiwic2VydmljZSI6IlJlSWRpIiwibGltaXQiOjB9.X_g2Et9T3P_ZyCZcxB_esNfTlF7PzBYFIYTFSAJgeIo', 
+9, 0);

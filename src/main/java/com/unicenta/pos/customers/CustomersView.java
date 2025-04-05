@@ -34,7 +34,7 @@ import com.unicenta.pos.forms.DataLogicSales;
 import com.unicenta.pos.util.StringUtils;
 import dev.joguenco.effect.CursorAnimation;
 import dev.joguenco.error.ErrorMessage;
-import dev.joguenco.http.client.HttpClient;
+import dev.joguenco.http.client.HttpClientSubscription;
 import dev.joguenco.http.client.entity.EntityResponse;
 import dev.joguenco.http.client.entity.EntityService;
 import lombok.extern.slf4j.Slf4j;
@@ -1681,24 +1681,42 @@ public void resetTranxTable() {
 
     private void m_jTaxIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jTaxIDActionPerformed
         CursorAnimation.startWaitCursor(getRootPane());
+        final var serviceName = "ReIdi";
         try {
-            var httpClient = new HttpClient(this.appView);
-            var service = httpClient.generator("ReIdi")
-                    .createService(EntityService.class, httpClient.getToken());
+            var httpClient = new HttpClientSubscription(this.appView);
+                        
+            if (!httpClient.isActive(serviceName)) {
+                CursorAnimation.stopWaitCursor(getRootPane());
+                txtFirstName.requestFocus();
+                return;
+            }
+            
+            final var userAgent = AppLocal.APP_NAME + "/" + AppLocal.APP_VERSION;
+            
+            var service = httpClient.generator(serviceName)
+                    .createService(EntityService.class, httpClient.getToken(), userAgent);
             var callSync = service.getEntity(m_jTaxID.getText());
             
             Response<EntityResponse> response = callSync.execute();
             if (response.isSuccessful()) {
                 EntityResponse entity = response.body();
                 m_jName.setText(entity.getName());
-            } 
+                m_jName.requestFocus();
+            } else {
+                m_jName.setText(null);
+                txtFirstName.requestFocus();
+            }
         } catch (IllegalArgumentException | HeadlessException | IOException ex) {
             log.error(CustomersView.class.getName() + " " + ex.getMessage());
             JOptionPane.showMessageDialog(this, ex.getMessage());
+            m_jName.setText(null);
+            txtFirstName.requestFocus();
         } catch (BasicException ex) {
             log.error(CustomersView.class.getName() + " " + ex.getMessage());
             JOptionPane.showMessageDialog(this, 
                     "Service not available in parameter subscription");
+            m_jName.setText(null);
+            txtFirstName.requestFocus();
         }
         CursorAnimation.stopWaitCursor(getRootPane());
     }//GEN-LAST:event_m_jTaxIDActionPerformed

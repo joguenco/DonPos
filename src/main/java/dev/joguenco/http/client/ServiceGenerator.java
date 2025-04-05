@@ -46,7 +46,7 @@ public class ServiceGenerator {
         return retrofit.create(serviceClass);
     }
 
-    public <S> S createService(Class<S> serviceClass, String token) {
+    public <S> S createService(Class<S> serviceClass, String token, String userAgent) {
         if (token != null) {
             httpClient.interceptors().clear();
             httpClient.addInterceptor(new Interceptor() {
@@ -54,6 +54,7 @@ public class ServiceGenerator {
                 public Response intercept(Interceptor.Chain chain) throws IOException {
                     Request original = chain.request();
                     Request.Builder builder = original.newBuilder()
+                            .header("User-Agent", userAgent)
                             .header("Content-Type", "application/json")
                             .header("Accept", "application/json")
                             .header("Authorization", "Bearer " + token);

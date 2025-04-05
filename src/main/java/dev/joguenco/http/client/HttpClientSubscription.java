@@ -8,12 +8,12 @@ import dev.joguenco.pos.subscription.SubscriptionInfo;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class HttpClient {
+public class HttpClientSubscription {
 
     private final DataLogicSubscription dlSubscription;
     private SubscriptionInfo subscription;
 
-    public HttpClient(AppView app) {
+    public HttpClientSubscription(AppView app) {
         dlSubscription = (DataLogicSubscription) app.getBean("dev.joguenco.pos.subscription.DataLogicSubscription");        
     }
 
@@ -24,5 +24,14 @@ public class HttpClient {
 
     public String getToken() {
         return subscription.getToken();
+    }
+    
+    public Boolean isActive(String serviceName) {
+        try {
+            return dlSubscription.getSubscriptionStatusByName(serviceName);
+        } catch (BasicException ex) {
+            log.error(HttpClientSubscription.class.getName() + " " + ex.getMessage());
+            return false;
+        }
     }
 }

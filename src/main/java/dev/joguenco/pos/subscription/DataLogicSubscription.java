@@ -60,12 +60,23 @@ public class DataLogicSubscription extends BeanFactoryDataSingle {
                 SerializerWriteString.INSTANCE,
                 (DataRead dr) -> {
                     var s = new SubscriptionInfo();
-                    
+
                     s.setUrl(dr.getString(1));
                     s.setToken(dr.getString(2));
                     s.setTimeout(dr.getInt(3));
 
                     return s;
+                }).find(name);
+    }
+
+    public final Boolean getSubscriptionStatusByName(String name) throws BasicException {
+        return (Boolean) new PreparedSentence(s,
+                "select status "
+                + "from subscriptions "
+                + "where name = ?",
+                SerializerWriteString.INSTANCE,
+                (DataRead dr) -> {
+                    return dr.getBoolean(1);
                 }).find(name);
     }
 }
