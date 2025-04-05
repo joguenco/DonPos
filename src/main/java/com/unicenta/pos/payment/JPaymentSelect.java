@@ -31,8 +31,9 @@ import com.unicenta.pos.forms.AppLocal;
 import com.unicenta.pos.forms.AppView;
 import com.unicenta.pos.forms.DataLogicSales;
 import com.unicenta.pos.forms.DataLogicSystem;
+import dev.joguenco.effect.CursorAnimation;
 import dev.joguenco.error.ErrorMessage;
-import dev.joguenco.http.client.ServiceGenerator;
+import dev.joguenco.http.client.HttpClientSubscription;
 import dev.joguenco.http.client.entity.EntityResponse;
 import dev.joguenco.http.client.entity.EntityService;
 import dev.joguenco.identification.Validator;
@@ -1243,25 +1244,36 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         if (identification.equals(dlSystem.getResourceAsText("Customer.Default"))) {
             return false;
         }
+        
+        CursorAnimation.startWaitCursor(getRootPane());
         try {
-            String baseUrl = "https://reidi.service.joguenco.dev";
-            String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJyZWlkaS5zZXJ2aWNlLmpvZ3VlbmNvLmRldiIsImlhdCI6MTc0MDAwNzk4MCwiZXhwIjoxNzcxNTQzOTgwLCJhdWQiOiJqb2d1ZW5jby5kZXYiLCJzdWIiOiJqb3JnZWx1aXNAam9ndWVuY28uZGV2IiwiY2xpZW50IjoiMTIzNDU2Nzg5MCIsIm5hbWUiOiJKb3JnZSBMdWlzIiwiZW1haWwiOiJqb3JnZXF1aWd1YW5nb0BvdXRsb29rLmNvbSIsInJvbGUiOiJTdWJzY3JpcHRvciIsInNlcnZpY2UiOiJSZUlkaSJ9.ToayQURYmoYah8FsUOECU84C1rWHJBRXdkPSIiqaQds";
+            var httpClient = new HttpClientSubscription(this.app);
+            final var serviceName = "ReIdi";
             
-            ServiceGenerator generator = new ServiceGenerator(baseUrl);
-            var service = generator.createService(EntityService.class, token, "");
+            if (!httpClient.isActive(serviceName)) {
+                CursorAnimation.stopWaitCursor(getRootPane());
+                return false;
+            }
             
+            final var userAgent = AppLocal.APP_NAME + "/" + AppLocal.APP_VERSION;
+            
+            var service = httpClient.generator(serviceName)
+                    .createService(EntityService.class, httpClient.getToken(), userAgent);
             var callSync = service.getEntity(identification);
-            
+                                              
             Response<EntityResponse> response = callSync.execute();
             if (response.isSuccessful()) {
                 EntityResponse entity = response.body();
                 txtName.setText(entity.getName());
+                CursorAnimation.stopWaitCursor(getRootPane());
                 return true;
             }                        
         } catch (IllegalArgumentException | HeadlessException | IOException ex) {
             log.error(JPaymentSelect.class.getName() + " " + ex.getMessage());
+        } catch (BasicException ex) {
+            log.error(JPaymentSelect.class.getName() + " " + ex.getMessage());
         }
-        
+        CursorAnimation.stopWaitCursor(getRootPane());
         return false;
     }
     

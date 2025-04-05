@@ -1703,23 +1703,25 @@ public void resetTranxTable() {
                 m_jName.setText(entity.getName());
                 m_jName.requestFocus();
             } else {
-                m_jName.setText(null);
-                txtFirstName.requestFocus();
+                goToTheFirstName();
             }
         } catch (IllegalArgumentException | HeadlessException | IOException ex) {
             log.error(CustomersView.class.getName() + " " + ex.getMessage());
             JOptionPane.showMessageDialog(this, ex.getMessage());
-            m_jName.setText(null);
-            txtFirstName.requestFocus();
+            goToTheFirstName();
         } catch (BasicException ex) {
             log.error(CustomersView.class.getName() + " " + ex.getMessage());
             JOptionPane.showMessageDialog(this, 
                     "Service not available in parameter subscription");
-            m_jName.setText(null);
-            txtFirstName.requestFocus();
+            goToTheFirstName();
         }
         CursorAnimation.stopWaitCursor(getRootPane());
     }//GEN-LAST:event_m_jTaxIDActionPerformed
+    
+    public void goToTheFirstName() {
+        m_jName.setText(null);
+        txtFirstName.requestFocus();
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbxIdentificationType;
