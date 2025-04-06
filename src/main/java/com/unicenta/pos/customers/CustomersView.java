@@ -34,9 +34,8 @@ import com.unicenta.pos.forms.DataLogicSales;
 import com.unicenta.pos.util.StringUtils;
 import dev.joguenco.effect.CursorAnimation;
 import dev.joguenco.error.ErrorMessage;
-import dev.joguenco.http.client.HttpClientSubscription;
-import dev.joguenco.http.client.entity.EntityResponse;
-import dev.joguenco.http.client.entity.EntityService;
+import dev.joguenco.http.client.reidi.ReIdiClient;
+import dev.joguenco.identification.Validator;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
@@ -56,7 +55,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import retrofit2.Response;
 
 /**
  *
@@ -582,15 +580,15 @@ public void resetTranxTable() {
     private ErrorMessage validateData() {
 
         if (m_jTaxID.getText().trim().isEmpty()) {
-            return new ErrorMessage("La identificación no puede ser vacía");
+            return new ErrorMessage(AppLocal.getIntString("message.identification"));
         }
 
         if (m_jName.getText().trim().isEmpty()) {
-            return new ErrorMessage("La razón social no puede ser vacío");
+            return new ErrorMessage(AppLocal.getIntString("message.name"));
         }
 
-        if (txtAddress.getText().trim().isEmpty() && !m_jTaxID.getText().equals("222222222222")) {
-            return new ErrorMessage("La dirección no puede ser vacía");
+        if (txtAddress.getText().trim().isEmpty()) {
+            return new ErrorMessage(AppLocal.getIntString("message.address"));
         }
 
         return new ErrorMessage();
@@ -1680,41 +1678,30 @@ public void resetTranxTable() {
     }//GEN-LAST:event_m_jNameFocusGained
 
     private void m_jTaxIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jTaxIDActionPerformed
+        
+        final var validator = new Validator(country);
+        
+        final var error = validator.identification((String) modelIdentificationType.getSelectedKey(), m_jTaxID.getText());
+        
+        if (error.getIsError()) {
+            JOptionPane.showMessageDialog(this,
+                        error.getMessage(),
+                        "Advertencia",
+                        JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         CursorAnimation.startWaitCursor(getRootPane());
-        final var serviceName = "ReIdi";
-        try {
-            var httpClient = new HttpClientSubscription(this.appView);
-                        
-            if (!httpClient.isActive(serviceName)) {
-                CursorAnimation.stopWaitCursor(getRootPane());
-                txtFirstName.requestFocus();
-                return;
-            }
-            
-            final var userAgent = AppLocal.APP_NAME + "/" + AppLocal.APP_VERSION;
-            
-            var service = httpClient.generator(serviceName)
-                    .createService(EntityService.class, httpClient.getToken(), userAgent);
-            var callSync = service.getEntity(m_jTaxID.getText());
-            
-            Response<EntityResponse> response = callSync.execute();
-            if (response.isSuccessful()) {
-                EntityResponse entity = response.body();
-                m_jName.setText(entity.getName());
-                m_jName.requestFocus();
-            } else {
-                goToTheFirstName();
-            }
-        } catch (IllegalArgumentException | HeadlessException | IOException ex) {
-            log.error(CustomersView.class.getName() + " " + ex.getMessage());
-            JOptionPane.showMessageDialog(this, ex.getMessage());
-            goToTheFirstName();
-        } catch (BasicException ex) {
-            log.error(CustomersView.class.getName() + " " + ex.getMessage());
-            JOptionPane.showMessageDialog(this, 
-                    "Service not available in parameter subscription");
+        final var reidiResponse = new ReIdiClient().get(m_jTaxID.getText(), this.appView);
+        
+        if (!reidiResponse.getError()) {
+            m_jName.setText(reidiResponse.getData().getName());
+            m_jName.requestFocus();
+        } else {
+            JOptionPane.showMessageDialog(this, reidiResponse.getMessage());
             goToTheFirstName();
         }
+        
         CursorAnimation.stopWaitCursor(getRootPane());
     }//GEN-LAST:event_m_jTaxIDActionPerformed
     

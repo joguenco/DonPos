@@ -19,7 +19,7 @@ public class HttpClientSubscription {
 
     public ServiceGenerator generator(String serviceName) throws BasicException {
         this.subscription = dlSubscription.getSubscriptionInfoByName(serviceName);
-        return new ServiceGenerator(subscription.getUrl());
+        return new ServiceGenerator(subscription.getUrl(), subscription.getTimeout());
     }
 
     public String getToken() {

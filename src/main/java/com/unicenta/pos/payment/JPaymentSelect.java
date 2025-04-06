@@ -33,9 +33,7 @@ import com.unicenta.pos.forms.DataLogicSales;
 import com.unicenta.pos.forms.DataLogicSystem;
 import dev.joguenco.effect.CursorAnimation;
 import dev.joguenco.error.ErrorMessage;
-import dev.joguenco.http.client.HttpClientSubscription;
-import dev.joguenco.http.client.entity.EntityResponse;
-import dev.joguenco.http.client.entity.EntityService;
+import dev.joguenco.http.client.reidi.ReIdiClient;
 import dev.joguenco.identification.Validator;
 import dev.joguenco.pos.establishment.DataLogicEstablishment;
 import dev.joguenco.pos.establishment.EstablishmentInfo;
@@ -43,7 +41,6 @@ import dev.joguenco.pos.establishment.EstablishmentInfo;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +49,6 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.WordUtils;
-import retrofit2.Response;
 
 /**
  *
@@ -1209,7 +1205,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
                 log.error(ex.getMessage());
             }
         } else {
-            var status = getEntity(txtIdentification.getText());
+            var status = getData(txtIdentification.getText());
             if(!status) {
                 txtName.setText("");
             }
@@ -1239,40 +1235,34 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         }
     }//GEN-LAST:event_txtIdentificationActionPerformed
 
-    private Boolean getEntity(String identification) {
+    private Boolean getData(String identification) {
         
         if (identification.equals(dlSystem.getResourceAsText("Customer.Default"))) {
             return false;
         }
         
-        CursorAnimation.startWaitCursor(getRootPane());
-        try {
-            var httpClient = new HttpClientSubscription(this.app);
-            final var serviceName = "ReIdi";
-            
-            if (!httpClient.isActive(serviceName)) {
-                CursorAnimation.stopWaitCursor(getRootPane());
-                return false;
-            }
-            
-            final var userAgent = AppLocal.APP_NAME + "/" + AppLocal.APP_VERSION;
-            
-            var service = httpClient.generator(serviceName)
-                    .createService(EntityService.class, httpClient.getToken(), userAgent);
-            var callSync = service.getEntity(identification);
-                                              
-            Response<EntityResponse> response = callSync.execute();
-            if (response.isSuccessful()) {
-                EntityResponse entity = response.body();
-                txtName.setText(entity.getName());
-                CursorAnimation.stopWaitCursor(getRootPane());
-                return true;
-            }                        
-        } catch (IllegalArgumentException | HeadlessException | IOException ex) {
-            log.error(JPaymentSelect.class.getName() + " " + ex.getMessage());
-        } catch (BasicException ex) {
-            log.error(JPaymentSelect.class.getName() + " " + ex.getMessage());
+        final var validator = new Validator(country);
+        
+        final var error = validator.identification(
+                (String) modelIdentificationType.getSelectedKey(), 
+                identification
+        );
+        
+        if (error.getIsError()) {
+            return false;
         }
+        
+        CursorAnimation.startWaitCursor(getRootPane());
+        final var reidiResponse = new ReIdiClient().get(identification, this.app);
+        
+        if (!reidiResponse.getError()) {
+            txtName.setText(reidiResponse.getData().getName());
+            CursorAnimation.stopWaitCursor(getRootPane());
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(this, reidiResponse.getMessage());
+        }
+        
         CursorAnimation.stopWaitCursor(getRootPane());
         return false;
     }
