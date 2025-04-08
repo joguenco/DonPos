@@ -233,7 +233,7 @@ CREATE VIEW `v_version` AS select 1 AS `id`,
 CREATE VIEW `v_users` AS select rownum() AS `id`,
     `u`.`name` AS `username`,
     `u`.`apppassword` AS `password`,
-    `r`.`name` AS `role`,
+    replace(`r`.`name`, ' role', '') AS `role`,
     `u`.`visible` as `status`
 from
     (`people` `u`
