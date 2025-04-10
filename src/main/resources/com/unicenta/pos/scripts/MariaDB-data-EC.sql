@@ -46,7 +46,7 @@ CREATE VIEW `v_ele_taxpayer` AS SELECT
         `forced_accounting`,
         `special_taxpayer`,
         `retention_agent`,
-        `other` AS `rimpe`
+        `other`
     FROM
         `taxpayer`;
 
