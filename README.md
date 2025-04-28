@@ -39,6 +39,10 @@ GRANT ALL PRIVILEGES ON donpos.* TO 'donpos'@'%' WITH GRANT OPTION;
 ```
 ALTER USER 'donpos'@'%' IDENTIFIED BY 'd';
 ```
+### Revoke provileges
+```
+REVOKE ALL ON donpos.* FROM 'donpos'@'%';
+```
 
 ## Compile (Windows)
 * Get into donpos directory.
