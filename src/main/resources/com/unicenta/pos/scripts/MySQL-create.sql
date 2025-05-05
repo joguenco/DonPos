@@ -1167,7 +1167,7 @@ values (6,'Refused','/app/RoQui/receipt/refused','URL refused xml files','SRI');
 Insert into ele_parameters (ID,name,value,observation,type) 
 values (7,'PDF','/app/RoQui/receipt/pdf','URL pdf files','SRI');
 Insert into ele_parameters (ID,name,value,observation,type) 
-values (8,'Certificate','/app/RoQui/Certificate/Certificate.p12','URL certificate','Certificate');
+values (8,'Certificate','Certificate.p12','Certificate name','Certificate');
 Insert into ele_parameters (ID,name,value,observation,type) 
 values (9,'Certificate Password','***************==','Certificate Password','Certificate');
 Insert into ele_parameters (ID,name,value,observation,type) 

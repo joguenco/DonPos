@@ -32,7 +32,7 @@ CREATE TABLE `ele_documents` (
     `number` VARCHAR(18) NOT NULL,
     `authorization` VARCHAR(90) DEFAULT NULL,
     `authorization_date` DATETIME DEFAULT NULL,
-    `observation` VARCHAR(3000) DEFAULT NULL,
+    `observation` VARCHAR(5400) DEFAULT NULL,
     `status` VARCHAR(30) DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `uk_ele` (`code` , `number`) USING BTREE,
@@ -210,6 +210,7 @@ CREATE  VIEW `v_ele_payments` AS SELECT ROWNUM() `id`,
 CREATE  VIEW `v_ele_report_invoices` AS select `j`.`id` AS `id`,
     `j`.`code` AS `code`,
     `j`.`number` AS `number`,
+    `j`.`access_key` AS `access_key`,
     `j`.`date` AS `date`,
     `j`.`total` AS `total`,
     `j`.`identification` AS `identification`,
@@ -242,27 +243,21 @@ join `roles` `r` on
 
 
 Insert into ele_parameters (ID,name,value,observation,type) 
-values (0,'Base Directory','/app/RoQui','Base directory for files','SRI');
+values (1,'Base Directory','/app/RoQui','Base directory for files','SRI');
 Insert into ele_parameters (ID,name,value,observation,type) 
-values (1,'Generated','/app/RoQui/receipt/generated','URL generated xml files','SRI');
+values (2,'Certificate','Certificate.p12','Certificate name','Certificate');
 Insert into ele_parameters (ID,name,value,observation,type) 
-values (2,'Signed','/app/RoQui/receipt/signed','URL signed xml files','SRI');
+values (3,'Certificate Password','***************==','Certificate Password','Certificate');
 Insert into ele_parameters (ID,name,value,observation,type) 
-values (3,'Sended','/app/RoQui/receipt/sended','URL sended xml files','SRI');
+values (4,'Logo','logo.jpeg','URL logo','SRI');
 Insert into ele_parameters (ID,name,value,observation,type) 
-values (4,'Authorized','/app/RoQui/receipt/authorized','URL authorized xml files','SRI');
+values (5,'Template','plantilla.html','Template for email','Email');
 Insert into ele_parameters (ID,name,value,observation,type) 
-values (5,'Unauthorized','/app/RoQui/receipt/unauthorized','URL unauthorized xml files','SRI');
+values (6,'Mail Server','mail.server.com','Mail Server','Email');
 Insert into ele_parameters (ID,name,value,observation,type) 
-values (6,'Refused','/app/RoQui/receipt/refused','URL refused xml files','SRI');
+values (7,'Mail Server Port','465','Mail Server Port','Email');
 Insert into ele_parameters (ID,name,value,observation,type) 
-values (7,'PDF','/app/RoQui/receipt/pdf','URL pdf files','SRI');
-Insert into ele_parameters (ID,name,value,observation,type) 
-values (8,'Certificate','/app/RoQui/Certificate/Certificate.p12','URL certificate','Certificate');
-Insert into ele_parameters (ID,name,value,observation,type) 
-values (9,'Certificate Password','***************==','Certificate Password','Certificate');
-Insert into ele_parameters (ID,name,value,observation,type) 
-values (10,'Logo','/app/RoQui/Resources/images/logo.jpeg','URL logo','SRI');
+values (8,'Account Mail Server','micuenta@mail.server.com','Account Mail Server','Email');
 Insert into ele_parameters (ID,name,value,observation,type) 
 values (99,'Subscription','**************==','Subscription','Subscription');
 
