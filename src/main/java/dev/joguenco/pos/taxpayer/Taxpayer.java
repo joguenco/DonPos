@@ -18,11 +18,14 @@ package dev.joguenco.pos.taxpayer;
 
 import com.unicenta.basic.BasicException;
 import com.unicenta.data.loader.TableDefinition;
+import com.unicenta.pos.forms.AppConfig;
 import com.unicenta.pos.forms.AppLocal;
 import com.unicenta.pos.forms.AppView;
 import com.unicenta.pos.forms.BeanFactoryApp;
 import com.unicenta.pos.forms.BeanFactoryException;
 import com.unicenta.pos.forms.JPanelView;
+import dev.joguenco.error.ErrorMessage;
+import java.io.File;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -38,9 +41,13 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
     private AppView app;    
     private DataLogicTaxpayer dlTaxpayer;
     private TableDefinition tdTaxpayer;
+    private String country;
 
     public Taxpayer() {
         initComponents();
+        final var config = new AppConfig(new File((System.getProperty("user.home")), AppLocal.APP_ID + ".properties"));
+        config.load();
+        country = config.getProperty("user.country");
     }
 
     @Override
@@ -311,6 +318,14 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
     }//GEN-LAST:event_chkForcedAccountingStateChanged
 
     private void cmdOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdOkActionPerformed
+        ErrorMessage validate = validateData();
+
+        if (validate.getIsError()) {
+            JOptionPane.showMessageDialog(this, validate.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         try {
             Object taxPayer = createValue();
             int status = this.tdTaxpayer.getUpdateSentence().exec(taxPayer);
@@ -327,6 +342,24 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
         }
     }//GEN-LAST:event_cmdOkActionPerformed
 
+    private ErrorMessage validateData() {
+
+        if (txtIdentification.getText().trim().isEmpty()) {
+            return new ErrorMessage(AppLocal.getIntString("message.identification"));
+        }
+
+        if (txtLegalName.getText().trim().isEmpty()) {
+            return new ErrorMessage(AppLocal.getIntString("message.name"));
+        }
+        
+        if ("EC".equals(this.country)) {
+            if (txtIdentification.getText().length() != 13) {
+                return new ErrorMessage("La identificación debe tener 13 dígitos");
+            }
+        }
+
+        return new ErrorMessage();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox chkForcedAccounting;
