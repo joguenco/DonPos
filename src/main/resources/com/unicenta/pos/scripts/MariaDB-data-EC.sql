@@ -259,6 +259,8 @@ values (7,'Mail Server Port','465','Mail Server Port','Email');
 Insert into ele_parameters (ID,name,value,observation,type) 
 values (8,'Account Mail Server','micuenta@mail.server.com','Account Mail Server','Email');
 Insert into ele_parameters (ID,name,value,observation,type) 
+values (9,'Password Account Mail Server','*********','Password Account Mail Server','Email');
+Insert into ele_parameters (ID,name,value,observation,type) 
 values (99,'Subscription','**************==','Subscription','Subscription');
 
 -- ADD IDENTIFICATION TYPES FOR ECUADOR
