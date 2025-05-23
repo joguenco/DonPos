@@ -66,7 +66,7 @@ java -jar target\donpos.jar
 ## Run with Netbeans
 In menu Tools -> Options
 
-![Compile](/resources/images/config_netbeans.png)
+![Compile](/doc/images/config_netbeans.png)
 
 ## Format date and hour
 ```
