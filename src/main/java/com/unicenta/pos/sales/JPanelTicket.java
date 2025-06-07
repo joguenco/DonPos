@@ -2014,7 +2014,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         msg.show(this);
         resultok = false;
       } catch (BasicException ex) {
-            log.error(JPanelTicket.class.getName() + " " + ex.getMessage());
+            log.error(this.getClass().getName() + " " + ex.getMessage());
         }
 
       m_oTicket.resetTaxes();

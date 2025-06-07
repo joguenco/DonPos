@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 <Jorge Luis from mestizos.dev>
+ * Copyright (C) 2023 <Jorge Luis from resolvedor.dev>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -21,7 +21,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author <Jorge Luis from mestizos.dev>
+ * @author <Jorge Luis from resolvedor.dev>
  */
 public class CustomerInfoBasic implements Serializable {
 

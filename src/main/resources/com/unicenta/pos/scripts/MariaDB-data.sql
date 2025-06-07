@@ -16,6 +16,9 @@
 --    You should have received a copy of the GNU General Public License
 --    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
 
+-- Customer default
+INSERT INTO resources(id, name, restype, content) VALUES('90', 'Customer.Default', 0, $FILE{/com/unicenta/pos/templates/Customer.Default.txt});
+
 INSERT INTO identification_type(code, name, legal_code, length, country_code) VALUES ('V', 'VAT', '01', 0, $COUNTRY_CODE{});
 
 -- ADD TAXCATEGORIES
@@ -49,3 +52,10 @@ INSERT INTO suppliers(id, searchkey, name) VALUES ('0','uniCenta','uniCenta');
 -- ADD UOM
 INSERT INTO uom(id, name) VALUES ('0','Each');
 
+INSERT INTO categories(id, name) VALUES ('001', 'Category Local');
+INSERT INTO products(id, reference, code, name, pricesell, category, taxcat, isservice, display, printto, uom) 
+VALUES ('1', '1', '1', 'Test Product', 1, '001', '001', 0, '<html><center>Test Product', '1', '0');
+INSERT INTO products_cat(product) VALUES ('1');
+
+INSERT INTO customers (id,searchkey,taxid,name,maxdebt,address,address2,taxid_type,firstname,lastname,notes,visible,isvip,discount) 
+VALUES ('000000000','000000000','000000000','Consumidor Final',50,'My Home',NULL,'V','Final','Consumidor','',1,0,0);

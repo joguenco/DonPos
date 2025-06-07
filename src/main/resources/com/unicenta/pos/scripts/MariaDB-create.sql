@@ -999,9 +999,6 @@ INSERT INTO resources(id, name, restype, content) VALUES('73', 'script.Totaldisc
 INSERT INTO resources(id, name, restype, content) VALUES('74', 'script.multibuy', 0, $FILE{/com/unicenta/pos/templates/script.multibuy.txt});
 
 -- Customer default
-INSERT INTO resources(id, name, restype, content) VALUES('90', 'Customer.Default', 0, $FILE{/com/unicenta/pos/templates/Customer.Default.txt});
-
--- Customer default
 INSERT INTO resources(id, name, restype, content) VALUES('91', 'FormatTicket.NumberDigits', 0, $FILE{/com/unicenta/pos/templates/FormatTicket.NumberDigits.txt});
 
 -- ADD Ambiente de facturación electrónica: Test -> 1; Production -> 2

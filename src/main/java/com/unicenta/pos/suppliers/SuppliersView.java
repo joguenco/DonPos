@@ -111,7 +111,7 @@ public final class SuppliersView extends javax.swing.JPanel implements EditorRec
 
             init();
         } catch (BeanFactoryException | BasicException ex) {
-            log.error(SuppliersView.class.getName() + " " + ex.getMessage());
+            log.error(this.getClass().getName() + " " + ex.getMessage());
         }
     }
 

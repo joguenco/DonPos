@@ -1,5 +1,5 @@
 //    Mestizo Pos - Touch Friendly Point Of Sale
-//    https://mestizos.dev
+//    https://resolvedor.dev
 //
 //    Mestizo Pos is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by

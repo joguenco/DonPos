@@ -28,9 +28,15 @@ public class HttpClientSubscription {
     
     public Boolean isActive(String serviceName) {
         try {
-            return dlSubscription.getSubscriptionStatusByName(serviceName);
+            var isActive = dlSubscription.getSubscriptionStatusByName(serviceName);
+            
+            if (isActive == null)
+                return false;
+            
+            return isActive;
+            
         } catch (BasicException ex) {
-            log.error(HttpClientSubscription.class.getName() + " " + ex.getMessage());
+            log.error(this.getClass().getName() + " " + ex.getMessage());
             return false;
         }
     }

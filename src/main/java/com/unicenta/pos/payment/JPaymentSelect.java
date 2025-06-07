@@ -1260,7 +1260,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
             CursorAnimation.stopWaitCursor(getRootPane());
             return true;
         } else {
-            JOptionPane.showMessageDialog(this, reidiResponse.getMessage());
+            log.warn(this.getClass().getName() + " " + reidiResponse.getMessage());
         }
         
         CursorAnimation.stopWaitCursor(getRootPane());

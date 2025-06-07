@@ -42,7 +42,7 @@ public class ReIdiClient {
                 return new ReIdiResponse("Unsuccessful response");
             }
         } catch (IllegalArgumentException | HeadlessException | IOException | BasicException ex) {
-            log.error(ReIdiResponse.class.getName() + " " + ex.getMessage());
+            log.error(this.getClass().getName() + " " + ex.getMessage());
             return new ReIdiResponse(ex.getMessage());
         }
     }

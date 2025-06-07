@@ -79,7 +79,7 @@ public class JDialogNewSupplier extends javax.swing.JDialog {
             
             getRootPane().setDefaultButton(m_jBtnOK);
         } catch (BasicException ex) {
-            log.error(JDialogNewSupplier.class.getName() + " " + ex.getMessage());
+            log.error(this.getClass().getName() + " " + ex.getMessage());
         }
 
     }

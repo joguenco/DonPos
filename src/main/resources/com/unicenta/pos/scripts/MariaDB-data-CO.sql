@@ -16,6 +16,9 @@
 --    You should have received a copy of the GNU General Public License
 --    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
 
+-- Customer default
+INSERT INTO resources(id, name, restype, content) VALUES('90', 'Customer.Default', 0, $FILE{/com/unicenta/pos/templates/Customer.Default.CO.txt});
+
 -- ADD IDENTIFICATION TYPES FOR COLOMBIA
 INSERT INTO identification_type(code, name, legal_code, length, country_code) VALUES ('0', 'Consumidor Final', '00', 0, 'CO');
 INSERT INTO identification_type(code, name, legal_code, length, country_code) VALUES ('1', 'Registro civil', '11', 0, 'CO');

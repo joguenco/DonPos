@@ -1,5 +1,5 @@
 //    Mestizo Pos - Touch Friendly Point Of Sale
-//    https://mestizos.dev
+//    https://resolvedor.dev
 //
 //    Mestizo Pos is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
@@ -272,7 +272,7 @@ public class SubscriptionEditor extends JPanel implements EditorRecord {
             } catch (IllegalArgumentException | HeadlessException | IOException ex) {
                 JOptionPane.showMessageDialog(this,
                         ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                log.error(SubscriptionEditor.class.getName() + " " + ex.getMessage());
+                log.error(this.getClass().getName() + " " + ex.getMessage());
             }
         }
         CursorAnimation.stopWaitCursor(getRootPane());

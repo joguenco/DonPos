@@ -138,7 +138,7 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
 
             init();
         } catch (BeanFactoryException | BasicException ex) {
-            log.error(CustomersView.class.getName() + " " + ex.getMessage());
+            log.error(this.getClass().getName() + " " + ex.getMessage());
         }
     }
 

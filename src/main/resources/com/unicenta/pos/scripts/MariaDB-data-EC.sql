@@ -16,6 +16,9 @@
 --    You should have received a copy of the GNU General Public License
 --    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
 
+-- Customer default
+INSERT INTO resources(id, name, restype, content) VALUES('90', 'Customer.Default', 0, $FILE{/com/unicenta/pos/templates/Customer.Default.EC.txt});
+
 CREATE TABLE `ele_parameters` (
   `id` bigint(18) NOT NULL,
   `name` varchar(300) DEFAULT NULL,
