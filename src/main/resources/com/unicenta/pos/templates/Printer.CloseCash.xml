@@ -116,6 +116,12 @@
             <text align ="left" length="30" bold="true">Totales</text>
             <text align ="right" length="10" bold="true">${payments.printSalesTotal()}</text>
         </line>
+        #if (${cashCollected})
+        <line size="1">
+            <text align ="left" length="30" bold="true">Recaudado</text>
+            <text align ="right" length="10" bold="true">${cashCollected}</text>
+        </line>
+        #end
         <line><text>- - - - - - - - - - - - - - - - - - - -</text></line>
         <line><text length="18" bold="true">Cerrado por:</text><text>${payments.printUser()}</text></line>
         <line><text length="18" bold="true">Terminal:</text><text>${payments.printHost()}</text></line>

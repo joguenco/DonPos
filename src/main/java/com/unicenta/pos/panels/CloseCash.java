@@ -23,6 +23,7 @@ import com.unicenta.data.loader.Datas;
 import com.unicenta.data.loader.SerializerWriteBasic;
 import com.unicenta.data.loader.Session;
 import com.unicenta.data.loader.StaticSentence;
+import com.unicenta.format.Formats;
 import com.unicenta.pos.forms.AppLocal;
 import com.unicenta.pos.forms.AppView;
 import com.unicenta.pos.forms.BeanFactoryApp;
@@ -240,7 +241,7 @@ public class CloseCash extends JPanel implements JPanelView, BeanFactoryApp {
                 m_PaymentsToClose.setDateEnd(dNow);
 
                 // print report
-                printPayments("Printer.CloseCash");
+                printPayments("Printer.CloseCash", Formats.CURRENCY.formatValue(cashCollected));
 
                 // Mostramos el mensaje
                 JOptionPane.showMessageDialog(this,
@@ -259,7 +260,7 @@ public class CloseCash extends JPanel implements JPanelView, BeanFactoryApp {
         }
     }//GEN-LAST:event_cmdCloseCashActionPerformed
 
-    private void printPayments(String report) {
+    private void printPayments(String report, String cashCollected) {
 
         String sresource = m_dlSystem.getResourceAsXML(report);
         if (sresource == null) {
@@ -271,6 +272,7 @@ public class CloseCash extends JPanel implements JPanelView, BeanFactoryApp {
                 ScriptEngine script = ScriptFactory.getScriptEngine(ScriptFactory.VELOCITY);
                 script.put("payments", m_PaymentsToClose);
                 script.put("nosales", result.toString());
+                script.put("cashCollected", cashCollected);
                 m_TTP.printTicket(script.eval(sresource).toString());
             } catch (ScriptException | TicketPrinterException e) {
                 MessageInf msg = new MessageInf(MessageInf.SGN_WARNING,
@@ -295,14 +297,6 @@ public class CloseCash extends JPanel implements JPanelView, BeanFactoryApp {
 
         if (m_PaymentsToClose.getPayments() != 0
                 || m_PaymentsToClose.getSales() != 0) {
-
-            m_PaymentsToClose.printPayments();
-            m_PaymentsToClose.printPaymentsTotal();
-
-            m_PaymentsToClose.printSales();
-            m_PaymentsToClose.printSalesBase();
-            m_PaymentsToClose.printSalesTaxes();
-            m_PaymentsToClose.printSalesTotal();
 
             txtCashCollected.setEnabled(true);
             cmdCloseCash.setEnabled(true);
