@@ -36,6 +36,7 @@
     <class name="com.unicenta.pos.panels.JPanelPayments"/>
     <class name="com.unicenta.pos.sales.JPanelTicketEdits"/>
     <class name="com.unicenta.pos.sales.JPanelTicketSales"/>
+    <class name="com.unicenta.pos.panels.CloseCash"/>
 
     <class name="payment.bank"/>
     <class name="payment.cash"/>

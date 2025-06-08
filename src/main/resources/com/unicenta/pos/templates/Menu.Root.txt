@@ -4,6 +4,7 @@ group = menu.addGroup("Menu.Main");
         group.addPanel("/com/unicenta/images/customerpay.png", "Menu.CustomersPayment", "com.unicenta.pos.customers.CustomersPayment");
         group.addPanel("/com/unicenta/images/payments.png", "Menu.Payments", "com.unicenta.pos.panels.JPanelPayments");
         group.addPanel("/com/unicenta/images/calculator.png", "Menu.CloseTPV", "com.unicenta.pos.panels.JPanelCloseMoney");
+        group.addPanel("/com/unicenta/images/calculator.png", "Menu.CloseTPV", "com.unicenta.pos.panels.CloseCash");
 
 group = menu.addGroup("Menu.Backoffice");
     submenu = group.addSubmenu("/com/unicenta/images/plugin.png", "Menu.Plugins", "plugins.configure");
