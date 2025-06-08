@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2025 Jorge Luis
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
 package com.unicenta.pos.panels;
 
 import com.unicenta.basic.BasicException;
@@ -27,10 +44,13 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import lombok.extern.slf4j.Slf4j;
+import dev.resolvedor.util.Read;
 
 /**
  *
  * @author Jorge Luis
+ * @web https://resolvedor.dev
+ * @mail jorgeluis@resolvedor.dev
  */
 @Slf4j
 public class CloseCash extends JPanel implements JPanelView, BeanFactoryApp {
@@ -145,6 +165,13 @@ public class CloseCash extends JPanel implements JPanelView, BeanFactoryApp {
 
     private void cmdCloseCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCloseCashActionPerformed
 
+        Double cashCollected = Read.currency(txtCashCollected.getText());
+
+        if (cashCollected == null) {
+            JOptionPane.showMessageDialog(this, AppLocal.getIntString("value.error"), AppLocal.getIntString("label.currency"), JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         int res = JOptionPane.showConfirmDialog(this,
                 AppLocal.getIntString("message.wannaclosecash"),
                 AppLocal.getIntString("message.title"),
@@ -169,10 +196,24 @@ public class CloseCash extends JPanel implements JPanelView, BeanFactoryApp {
                 if (app.getActiveCashDateEnd() == null) {
                     StaticSentence staticSentence = new StaticSentence(
                             app.getSession(),
-                            "UPDATE closedcash SET DATEEND = ?, NOSALES = ? WHERE HOST = ? AND MONEY = ?",
-                            new SerializerWriteBasic(Datas.TIMESTAMP, Datas.INT, Datas.STRING, Datas.STRING));
+                            "UPDATE closedcash "
+                            + "SET DATEEND = ?, "
+                            + "NOSALES = ? ,"
+                            + "CASH_COLLECTED = ? "
+                            + "WHERE HOST = ? "
+                            + "AND MONEY = ?",
+                            new SerializerWriteBasic(
+                                    Datas.TIMESTAMP, Datas.INT, Datas.DOUBLE, Datas.STRING, Datas.STRING
+                            )
+                    );
 
-                    staticSentence.exec(dNow, result, app.getProperties().getHost(), app.getActiveCashIndex());
+                    staticSentence.exec(
+                            dNow,
+                            result,
+                            cashCollected,
+                            app.getProperties().getHost(),
+                            app.getActiveCashIndex()
+                    );
                 }
             } catch (Exception e) {
                 MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, AppLocal.getIntString("message.cannotclosecash"), e);
@@ -241,6 +282,9 @@ public class CloseCash extends JPanel implements JPanelView, BeanFactoryApp {
 
     private void loadData() throws BasicException {
 
+        txtCashCollected.setEnabled(false);
+        cmdCloseCash.setEnabled(false);
+
         // LoadData
         m_PaymentsToClose = PaymentsModel.loadInstance(app);
 
@@ -259,18 +303,19 @@ public class CloseCash extends JPanel implements JPanelView, BeanFactoryApp {
             m_PaymentsToClose.printSalesBase();
             m_PaymentsToClose.printSalesTaxes();
             m_PaymentsToClose.printSalesTotal();
+
+            txtCashCollected.setEnabled(true);
+            cmdCloseCash.setEnabled(true);
         }
 
         m_PaymentsToClose.getPaymentsModel();
-
         m_PaymentsToClose.getSalesModel();
 
-    // read number of no cash drawer activations
+        // read number of no cash drawer activations
         try {
             result = 0;
             s = app.getSession();
             con = s.getConnection();
-            String sdbmanager = m_dlSystem.getDBVersion();
 
             SQL = "SELECT * "
                     + "FROM draweropened "
@@ -283,11 +328,10 @@ public class CloseCash extends JPanel implements JPanelView, BeanFactoryApp {
             }
             rs = null;
 
-
             dresult = 0;
             SQL = "SELECT * "
-                        + "FROM lineremoved "
-                        + "WHERE REMOVEDDATE > {fn TIMESTAMP('" + m_PaymentsToClose.getDateStartDerby() + "')}";
+                    + "FROM lineremoved "
+                    + "WHERE REMOVEDDATE > {fn TIMESTAMP('" + m_PaymentsToClose.getDateStartDerby() + "')}";
             log.debug("close-cash sql -> {}", SQL);
 
             stmt = (Statement) con.createStatement();

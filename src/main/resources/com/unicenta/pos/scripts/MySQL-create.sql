@@ -92,7 +92,7 @@ CREATE TABLE `closedcash` (
 	`datestart` datetime NOT NULL,
 	`dateend` datetime default NULL,
 	`nosales` int(11) NOT NULL default '0',
-        `cash_collect` double NOT NULL default '0',
+        `cash_collected` double NOT NULL default '0',
 	KEY `closedcash_inx_1` ( `datestart` ),
 	UNIQUE INDEX `closedcash_inx_seq` ( `host`, `hostsequence` ),
 	PRIMARY KEY  ( `money` )
