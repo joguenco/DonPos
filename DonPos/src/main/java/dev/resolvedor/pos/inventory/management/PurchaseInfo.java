@@ -177,40 +177,6 @@ public class PurchaseInfo extends MasterMoldInfo implements SerializableRead {
         return supplier == null ? "" : PrintFormat.text(supplier.getEmail());
     }
 
-    // --- Emisor ------------------------------------------------------------
-    public String printLegalName() {
-        return getTaxPayerInfo() == null ? "" : getTaxPayerInfo().printLegalName();
-    }
-
-    public String printIdentification() {
-        return getTaxPayerInfo() == null ? "" : getTaxPayerInfo().printIdentification();
-    }
-
-    public String printForcedAccounting() {
-        return getTaxPayerInfo() == null ? "" : getTaxPayerInfo().printForcedAccounting();
-    }
-
-    public String printSpecialTaxpayer() {
-        return getTaxPayerInfo() == null ? "" : getTaxPayerInfo().printSpecialTaxpayer();
-    }
-
-    public String printRetentionAgent() {
-        return getTaxPayerInfo() == null ? "" : getTaxPayerInfo().printRetentionAgent();
-    }
-
-    public String printOther() {
-        return getTaxPayerInfo() == null ? "" : getTaxPayerInfo().printOther();
-    }
-
-    // --- Clave de acceso ---------------------------------------------------
-    public String printAccessKeyLine1() {
-        return PrintFormat.accessKeyLine1(getAccessKey());
-    }
-
-    public String printAccessKeyLine2() {
-        return PrintFormat.accessKeyLine2(getAccessKey());
-    }
-
     public InventoryLine getLine(int index) {
         return invLines.get(index);
     }

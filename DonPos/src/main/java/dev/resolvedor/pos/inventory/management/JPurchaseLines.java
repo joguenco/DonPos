@@ -33,38 +33,52 @@ public class JPurchaseLines extends javax.swing.JPanel {
         DefaultTableColumnModel columns = new DefaultTableColumnModel();
         TableColumn c;
 
-        c = new TableColumn(0, 180,
+        c = new TableColumn(0, 170,
                  new DataCellRenderer(javax.swing.SwingConstants.LEFT),
                  new DefaultCellEditor(new JTextField()));
         c.setHeaderValue(AppLocal.getIntString("label.item"));
         columns.addColumn(c);
-        c = new TableColumn(1, 90,
+        c = new TableColumn(1, 75,
                  new DataCellRenderer(javax.swing.SwingConstants.RIGHT),
                  new DefaultCellEditor(new JTextField()));
         c.setHeaderValue(AppLocal.getIntString("label.units2"));
         columns.addColumn(c);
-        c = new TableColumn(2, 100,
+        c = new TableColumn(2, 90,
                  new DataCellRenderer(javax.swing.SwingConstants.RIGHT),
                  new DefaultCellEditor(new JTextField()));
         c.setHeaderValue(AppLocal.getIntString("label.price"));
         columns.addColumn(c);
-        c = new TableColumn(3, 100,
+        c = new TableColumn(3, 90,
                  new DataCellRenderer(javax.swing.SwingConstants.RIGHT),
                  new DefaultCellEditor(new JTextField()));
         c.setHeaderValue(AppLocal.getIntString("label.prodtaxcode"));
         columns.addColumn(c);
-        c = new TableColumn(4, 100,
+        c = new TableColumn(4, 90,
                  new DataCellRenderer(javax.swing.SwingConstants.RIGHT),
                  new DefaultCellEditor(new JTextField()));
         c.setHeaderValue(AppLocal.getIntString("label.prodvaluebuy"));
         columns.addColumn(c);
-        c = new TableColumn(5, 120,
+        c = new TableColumn(5, 105,
                  new DataCellRenderer(javax.swing.SwingConstants.RIGHT),
                  new DefaultCellEditor(new JTextField()));
         c.setHeaderValue(AppLocal.getIntString("label.prodvaluebuy") + "+" + AppLocal.getIntString("label.prodtaxcode"));
         columns.addColumn(c);
+        // El sustento del SRI. Va aqui para que se vea de donde sale la base
+        // imponible que despues filtra el dialogo de retencion.
+        c = new TableColumn(6, 70,
+                 new DataCellRenderer(javax.swing.SwingConstants.CENTER),
+                 new DefaultCellEditor(new JTextField()));
+        c.setHeaderValue(AppLocal.getIntString("label.taxSupport"));
+        columns.addColumn(c);
 
         m_tableinventory.setColumnModel(columns);
+
+        // initComponents la deja en AUTO_RESIZE_OFF, que significa "las columnas
+        // miden lo que yo digo y no se mueven". Servia cuando el panel tenia
+        // ancho fijo; ahora que se estira, dejaria blanco a la derecha. Con
+        // ALL_COLUMNS los anchos de arriba pasan a ser proporciones y la tabla
+        // llena siempre el espacio, sin barra horizontal.
+        m_tableinventory.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
         m_tableinventory.getTableHeader().setReorderingAllowed(false);
         m_tableinventory.setRowHeight(30);
@@ -221,7 +235,7 @@ public class JPurchaseLines extends javax.swing.JPanel {
 
         @Override
         public int getColumnCount() {
-            return 6;
+            return 7;
         }
 
         @Override
@@ -249,6 +263,8 @@ public class JPurchaseLines extends javax.swing.JPanel {
                     return Formats.CURRENCY.formatValue(i.getSubValue());
                 case 5:
                     return Formats.CURRENCY.formatValue(i.getTaxPurchase() + i.getSubValue());
+                case 6:
+                    return i.getTaxSupport() == null ? "" : i.getTaxSupport();
                 default:
                     return null;
             }

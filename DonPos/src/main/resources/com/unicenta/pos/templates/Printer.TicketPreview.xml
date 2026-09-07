@@ -38,14 +38,14 @@
             <text align="center" length="40">${ticket.printComercialName()}</text>
         </line>
         #end
-        #if (${ticket.getTaxPayerInfo().getLegalName()} != "")
+        #if (${ticket.printLegalName()} != "")
         <line>
-            <text align="center" length="40">${ticket.getTaxPayerInfo().getLegalName()}</text>
+            <text align="center" length="40">${ticket.printLegalName()}</text>
         </line>
         #end
-        #if (${ticket.getTaxPayerInfo().getIdentification()} != "")
+        #if (${ticket.printIdentification()} != "")
         <line>
-            <text align="center" length="40">${ticket.getTaxPayerInfo().getIdentification()}</text>
+            <text align="center" length="40">${ticket.printIdentification()}</text>
         </line>
         #end
         #if (${ticket.printEstablishmentAddress()} != "")

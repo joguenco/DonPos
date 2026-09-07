@@ -5,6 +5,7 @@ import com.unicenta.format.Formats;
 import com.unicenta.pos.forms.AppLocal;
 import com.unicenta.pos.forms.AppView;
 import com.unicenta.pos.forms.DataLogicSystem;
+import com.unicenta.pos.inventory.InventoryLine;
 import dev.joguenco.pos.taxpayer.DataLogicTaxpayer;
 import dev.joguenco.pos.taxpayer.TaxpayerInfo;
 import dev.joguenco.pos.ticketsnum.TicketsNumInfo;
@@ -45,8 +46,15 @@ public class WithholdDialog extends javax.swing.JDialog {
     /** La compra ya tenia retencion: el dialogo abre solo para verla. */
     private boolean readOnly = false;
 
-    private final Double subtotal;
-    private final Double iva;
+    /** Las lineas de la compra, para poder sumarlas por sustento. */
+    private final List<InventoryLine> lines;
+
+    /** Sustento de la cabecera: lo heredan las lineas que no traen el suyo. */
+    private final String headerTaxSupport;
+
+    // Dejaron de ser final: cambian cada vez que se mueve el filtro.
+    private Double subtotal = 0.0;
+    private Double iva = 0.0;
 
     private ComboBoxValModel modelWithholdTax;
     private ComboBoxValModel modelTaxSupport;
@@ -56,13 +64,13 @@ public class WithholdDialog extends javax.swing.JDialog {
     private final LinesTableModel linesModel = new LinesTableModel();
 
     public WithholdDialog(AppView app, java.awt.Frame parent, boolean modal,
-            PurchaseInfo purchase, String supplierName, Double subtotal, Double iva,
+            PurchaseInfo purchase, String supplierName, List<InventoryLine> lines,
             java.util.List<Object> taxSupports, WithholdInfo pending) {
         super(parent, modal);
 
         this.app = app;
-        this.subtotal = subtotal;
-        this.iva = iva;
+        this.lines = lines;
+        this.headerTaxSupport = purchase.getPurchaseTaxSupport();
 
         initComponents();
 
@@ -197,6 +205,130 @@ public class WithholdDialog extends javax.swing.JDialog {
      * de que se pidiera el sustento por producto) se cae al de la cabecera, que
      * es lo mismo que hace la vista al armar el XML.
      */
+    /**
+     * Vuelve a sumar la compra tomando solo las lineas del sustento elegido.
+     *
+     * El SRI retiene por sustento, no por compra: si la factura trae transporte
+     * (04) y mercaderia (01), la base de la retencion de transporte es solo el
+     * transporte. Antes el usuario tenia que sacar ese numero con calculadora.
+     *
+     * Sin sustento elegido suma todo, que es como venia funcionando.
+     */
+    private void recalculateTotals() {
+        subtotal = 0.0;
+        iva = 0.0;
+
+        // Sin sustento elegido no hay nada que mostrar: los totales serian los
+        // de toda la compra y el usuario terminaria reteniendo sobre una base
+        // que no le corresponde. Se dejan en blanco y se traba el tipo.
+        if (!isTaxSupportChosen()) {
+            cboWithholdTax.setEnabled(false);
+            txtSubtotal.setText("");
+            txtIva.setText("");
+            clearEntry();
+
+            return;
+        }
+
+        cboWithholdTax.setEnabled(!readOnly);
+
+        var selected = selectedTaxSupport();
+
+        for (InventoryLine line : lines) {
+            if (selected == null || selected.equals(taxSupportOf(line))) {
+                subtotal += line.getSubValue();
+                iva += line.getTaxPurchase();
+            }
+        }
+
+        txtSubtotal.setText(Formats.CURRENCY.formatValue(subtotal));
+        txtIva.setText(Formats.CURRENCY.formatValue(iva));
+
+        // Si ya habia un tipo elegido, su base quedo vieja: se rehace sola para
+        // no obligar a volver a elegirlo. Las lineas ya agregadas no se tocan,
+        // cada una guarda el sustento con el que se creo.
+        fillBaseFromSelectedTax();
+    }
+
+    /**
+     * Si ya hay un sustento con el que trabajar.
+     *
+     * Con un solo sustento el combo esta escondido: no hay nada que elegir y el
+     * formulario arranca listo. Con varios hay que esperar a que el usuario
+     * decida.
+     */
+    private boolean isTaxSupportChosen() {
+        return !cboTaxSupport.isVisible() || selectedTaxSupport() != null;
+    }
+
+    /**
+     * Vacia el renglon que se esta armando: tipo, base, porcentaje e importe.
+     */
+    private void clearEntry() {
+        if (modelWithholdTax != null) {
+            modelWithholdTax.setSelectedKey(null);
+        }
+
+        txtPercentage.setText("");
+        txtBase.setText("");
+        txtValue.setText("");
+    }
+
+    /**
+     * Rellena base y porcentaje segun el tipo elegido.
+     *
+     * La base depende de tax_type: RENTA se calcula sobre el subtotal, IVA
+     * sobre el valor del IVA. Y como esos dos ya vienen filtrados por sustento,
+     * la base sale filtrada sin hacer nada mas.
+     */
+    private void fillBaseFromSelectedTax() {
+        var tax = getSelectedTax();
+
+        if (tax == null) {
+            txtPercentage.setText("");
+            txtBase.setText("");
+            txtValue.setText("");
+
+            return;
+        }
+
+        txtPercentage.setText(Formats.DOUBLE.formatValue(tax.getPercentage()));
+        txtBase.setText(Formats.CURRENCY.formatValue(
+                "IVA".equals(tax.getTaxType()) ? iva : subtotal));
+
+        recalculateValue();
+    }
+
+    /**
+     * El sustento por el que hay que filtrar, o null para no filtrar nada.
+     *
+     * Cuando el combo esta escondido hay un solo sustento en toda la compra, y
+     * el filtro deja pasar igual todas las lineas.
+     */
+    private String selectedTaxSupport() {
+        if (!cboTaxSupport.isVisible()) {
+            return fixedTaxSupport;
+        }
+
+        var key = modelTaxSupport == null ? null : modelTaxSupport.getSelectedKey();
+
+        return key == null ? null : key.toString();
+    }
+
+    /**
+     * El sustento de una linea.
+     *
+     * Si el producto no trae el suyo hereda el de la cabecera, que es lo mismo
+     * que hace la vista v_ele_withholds_support al armar el XML. Si la pantalla
+     * y la vista no coincidieran, el usuario veria un total en el dialogo y
+     * otro distinto en el comprobante autorizado.
+     */
+    private String taxSupportOf(InventoryLine line) {
+        var value = line.getTaxSupport();
+
+        return value == null || value.trim().isEmpty() ? headerTaxSupport : value;
+    }
+
     private void loadTaxSupports(java.util.List<Object> taxSupports, String headerTaxSupport) {
         modelTaxSupport = new ComboBoxValModel(taxSupports);
         cboTaxSupport.setModel(modelTaxSupport);
@@ -236,8 +368,7 @@ public class WithholdDialog extends javax.swing.JDialog {
                 (purchase.getPurchaseDocument() == null ? "" : purchase.getPurchaseDocument())
                 + (referencia == null || referencia.trim().isEmpty()
                         ? "" : "  " + referencia));
-        txtSubtotal.setText(Formats.CURRENCY.formatValue(subtotal));
-        txtIva.setText(Formats.CURRENCY.formatValue(iva));
+        recalculateTotals();
 
         var today = new Date();
         withhold.setDateWithhold(today);
@@ -459,6 +590,11 @@ public class WithholdDialog extends javax.swing.JDialog {
         panelType.add(lblTaxSupportTitle);
 
         cboTaxSupport.setPreferredSize(new java.awt.Dimension(260, 26));
+        cboTaxSupport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTaxSupportActionPerformed(evt);
+            }
+        });
         panelType.add(cboTaxSupport);
 
         panelTop.add(panelType);
@@ -558,24 +694,18 @@ public class WithholdDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Al elegir el tipo se rellenan porcentaje y base. La base depende de
-     * tax_type: RENTA se calcula sobre el subtotal, IVA sobre el valor del IVA.
+     * Al elegir el tipo se rellenan porcentaje y base.
      */
     private void cboWithholdTaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboWithholdTaxActionPerformed
-        var tax = getSelectedTax();
-        if (tax == null) {
-            txtPercentage.setText("");
-            txtBase.setText("");
-            txtValue.setText("");
-            return;
-        }
-
-        txtPercentage.setText(Formats.DOUBLE.formatValue(tax.getPercentage()));
-        txtBase.setText(Formats.CURRENCY.formatValue(
-                "IVA".equals(tax.getTaxType()) ? iva : subtotal));
-
-        recalculateValue();
+        fillBaseFromSelectedTax();
     }//GEN-LAST:event_cboWithholdTaxActionPerformed
+
+    /**
+     * Al cambiar el sustento se vuelven a sumar los totales de la compra.
+     */
+    private void cboTaxSupportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTaxSupportActionPerformed
+        recalculateTotals();
+    }//GEN-LAST:event_cboTaxSupportActionPerformed
 
     private void txtBaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBaseActionPerformed
         recalculateValue();

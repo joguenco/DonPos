@@ -854,38 +854,6 @@ public final class TicketInfo extends MasterMoldInfo implements SerializableRead
         }
     }
 
-    public String printForcedAccounting() {
-        if ("SI".equals(getTaxPayerInfo().getText1())) {
-            return "Obligado a llevar contabilidad: "
-                    + getTaxPayerInfo().getText1();
-        }
-
-        return "";
-    }
-
-    public String printSpecialTaxpayer() {
-        if (getTaxPayerInfo().getText2() == null) {
-            return "";
-        }
-
-        return "Contribuyente especial No: " + getTaxPayerInfo().getText2();
-    }
-
-    public String printRetentionAgent() {
-        if (getTaxPayerInfo().getText3() == null) {
-            return "";
-        }
-        return "Agente de retención resolución No: "
-                + getTaxPayerInfo().getText3();
-    }
-
-    public String printOther() {
-        if (getTaxPayerInfo().getText4() == null) {
-            return "";
-        }
-        return getTaxPayerInfo().getText4();
-    }
-
     public String printSequential() {
         if (m_iTicketId > 0) {
 
@@ -903,21 +871,16 @@ public final class TicketInfo extends MasterMoldInfo implements SerializableRead
         return buildAccessKey(getDate());
     }
 
+    /**
+     * La factura arma la clave de acceso en el momento de imprimir, porque
+     * todavia no esta guardada. Los demas documentos ya la traen hecha de la
+     * base, asi que solo aqui hace falta pisar el metodo del molde.
+     */
+    @Override
     public String printAccessKeyLine1() {
         buildAccessKey();
-        if (getAccessKey().length() == 49) {
-            return getAccessKey().substring(0, 39);
-        }
 
-        return "";
-    }
-
-    public String printAccessKeyLine2() {
-        if (getAccessKey().length() == 49) {
-            return getAccessKey().substring(39, 49);
-        }
-
-        return "";
+        return super.printAccessKeyLine1();
     }
 
     public String buildCode(Size size, String text, Code code) {

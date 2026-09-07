@@ -95,4 +95,46 @@ public class MasterMoldInfo {
     public String printEnvironment() {
         return PrintFormat.environment(getEnvironment());
     }
+
+    // --- Emisor ------------------------------------------------------------
+    // Los datos del emisor son los mismos en todos los documentos: quien firma
+    // la factura es quien firma la liquidacion, la retencion y la guia. Por eso
+    // viven aqui y no repetidos en cada clase.
+
+    public String printLegalName() {
+        return taxPayerInfo == null ? "" : taxPayerInfo.printLegalName();
+    }
+
+    public String printIdentification() {
+        return taxPayerInfo == null ? "" : taxPayerInfo.printIdentification();
+    }
+
+    public String printForcedAccounting() {
+        return taxPayerInfo == null ? "" : taxPayerInfo.printForcedAccounting();
+    }
+
+    public String printSpecialTaxpayer() {
+        return taxPayerInfo == null ? "" : taxPayerInfo.printSpecialTaxpayer();
+    }
+
+    public String printRetentionAgent() {
+        return taxPayerInfo == null ? "" : taxPayerInfo.printRetentionAgent();
+    }
+
+    public String printOther() {
+        return taxPayerInfo == null ? "" : taxPayerInfo.printOther();
+    }
+
+    // --- Clave de acceso ---------------------------------------------------
+    // Los 49 digitos no entran en un rollo de 40 columnas, asi que se parten en
+    // dos lineas. Si la clave no esta completa las dos salen vacias y la
+    // plantilla se salta el bloque entero.
+
+    public String printAccessKeyLine1() {
+        return PrintFormat.accessKeyLine1(getAccessKey());
+    }
+
+    public String printAccessKeyLine2() {
+        return PrintFormat.accessKeyLine2(getAccessKey());
+    }
 }

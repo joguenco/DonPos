@@ -568,10 +568,10 @@ public class PurchaseEditor extends JPanel implements JPanelView, BeanFactoryApp
                         .addComponent(cmdDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 0, 0)
                         .addComponent(panelAction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelLines, javax.swing.GroupLayout.PREFERRED_SIZE, 751, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panelLines, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10))
@@ -1165,15 +1165,9 @@ public class PurchaseEditor extends JPanel implements JPanelView, BeanFactoryApp
         purchase.setPurchaseReference(txtSerie.getText());
         purchase.setPurchaseDate(parsePurchaseDate());
 
-        var subtotal = 0.0;
-        var iva = 0.0;
-        for (InventoryLine line : purchaseLines.getLines()) {
-            subtotal += line.getSubValue();
-            iva += line.getTaxPurchase();
-        }
-
-        final var base = subtotal;
-        final var tax = iva;
+        // Antes se le mandaban dos totales ya sumados. Ahora el dialogo suma solo
+        // las lineas del sustento que se elija, asi que necesita las lineas.
+        final var lines = purchaseLines.getLines();
 
         // El nombre del proveedor es solo para mostrarlo en el dialogo. El combo
         // lo tiene; el PurchaseInfo del buscador a veces trae solo el id, y en
@@ -1194,7 +1188,7 @@ public class PurchaseEditor extends JPanel implements JPanelView, BeanFactoryApp
 
         java.awt.EventQueue.invokeLater(() -> {
             var dialog = new WithholdDialog(app, new javax.swing.JFrame(), true,
-                    purchase, supplierName, base, tax, sustentos, pendingWithhold);
+                    purchase, supplierName, lines, sustentos, pendingWithhold);
             dialog.setLocationRelativeTo(null);
             dialog.setVisible(true);
 
