@@ -41,7 +41,8 @@ if (index >= 0) {
                     line.getProductPrinter(),
                     line.getMultiply(),
                     -(double)Math.abs(line.getNewPrice() * discountrate * 100) / 100,
-                    line.getTaxInfo()));
+                    line.getTaxInfo(),
+                    line.getLot()));
         sales.setSelectedIndex(index + 1);
     } else {
          java.awt.Toolkit.getDefaultToolkit().beep();

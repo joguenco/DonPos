@@ -43,7 +43,8 @@ if (index >= 0) {
                                 line.getProductPrinter(),
                                 line.getMultiply(),
                                 line.getNewPrice() - (double)Math.abs(line.getNewPrice() * discountrate * 100) /100,
-                                line.getTaxInfo());
+                                line.getTaxInfo(),
+                                line.getLot());
             ticketLineInfo.setTicketUpdated("ticket.updated", "true");
             ticket.setLine(number,ticketLineInfo);
         }
