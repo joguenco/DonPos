@@ -121,7 +121,7 @@ group = menu.addGroup("Menu.Backoffice");
         submenu.addPanel("/com/unicenta/images/resources.png", "Menu.Series", "dev.joguenco.pos.ticketsnum.TicketsNumPanel");
         submenu.addPanel("/com/unicenta/images/resources.png", "Menu.SeriesRefund", "dev.joguenco.pos.ticketsnumrefund.TicketsNumRefundPanel");
         submenu.addPanel("/com/unicenta/images/bookmark.png", "Menu.Holiday", "dev.joguenco.pos.holiday.Holiday");
-        submenu.addPanel("/com/unicenta/images/bookmark.png", "Menu.Services", "dev.joguenco.pos.services.ServicesPanel");
+        submenu.addPanel("/com/unicenta/images/bookmark.png", "Menu.Services", "dev.joguenco.pos.service.ServicePanel");
 
     submenu.addTitle("Menu.Panel.Maintenance.Reports");
         submenu.addPanel("/com/unicenta/images/reports.png", "Menu.UsersReport", "/com/unicenta/reports/users.bs");
