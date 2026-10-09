@@ -740,7 +740,7 @@ CREATE TABLE `holidays` (
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 ;
 
-CREATE TABLE `subscriptions` (
+CREATE TABLE `services` (
   `id` VARCHAR(300) NOT NULL,
   `name` VARCHAR(300) NOT NULL,
   `url` VARCHAR(900) NOT NULL,
@@ -1242,8 +1242,6 @@ INSERT INTO resources(id, name, restype, content) VALUES('96', 'Printer.Qr', 1, 
 INSERT INTO resources(id, name, restype, content) VALUES('97', 'Printer.BarCode', 1, $FILE{/com/unicenta/images/barcode.jpg});
 
 INSERT INTO resources(id, name, restype, content) VALUES('98', 'Default.Lot', 0, $FILE{/com/unicenta/pos/templates/Default.Lot.txt});
--- Subscription Manager URL
-INSERT INTO resources(id, name, restype, content) VALUES('108', 'Subscription', 0, $FILE{/com/unicenta/pos/templates/Subscription.txt});
 
 -- ADD CATEGORIES
 INSERT INTO categories(id, name) VALUES ('000', 'Category Standard');

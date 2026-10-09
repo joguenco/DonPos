@@ -1,4 +1,4 @@
-package dev.joguenco.pos.subscription;
+package dev.joguenco.pos.service;
 
 import com.unicenta.basic.BasicException;
 import com.unicenta.data.loader.DataRead;
@@ -13,19 +13,19 @@ import com.unicenta.pos.forms.BeanFactoryDataSingle;
 /**
  * @author Jorge Luis
  */
-public class DataLogicSubscription extends BeanFactoryDataSingle {
+public class DataLogicService extends BeanFactoryDataSingle {
 
     private Session s;
-    private TableDefinition tdSubscription;
+    private TableDefinition tdService;
 
     @Override
     public void init(Session s) {
         this.s = s;
 
-        tdSubscription =
+        tdService =
                 new TableDefinition(
                         s,
-                        "subscriptions",
+                        "services",
                         new String[] {
                             "id",
                             "name",
@@ -62,36 +62,36 @@ public class DataLogicSubscription extends BeanFactoryDataSingle {
                         new int[] {0});
     }
 
-    public final TableDefinition getTableSubscription() {
-        return tdSubscription;
+    public final TableDefinition getTableService() {
+        return tdService;
     }
 
-    public final PreparedSentence getSubscriptionInfo() {
+    public final PreparedSentence getServiceInfo() {
         return new PreparedSentence(
                 s,
                 "select id, name, url, authentication_method, token, username, password, timeout, status "
-                        + "from subscriptions "
+                        + "from services "
                         + "where id = ?",
                 SerializerWriteString.INSTANCE,
                 (DataRead dr) -> {
-                    var subscriptionInfo = new SubscriptionInfo();
-                    subscriptionInfo.readValues(dr);
+                    var serviceInfo = new ServiceInfo();
+                    serviceInfo.readValues(dr);
 
-                    return subscriptionInfo;
+                    return serviceInfo;
                 });
     }
 
-    public final SubscriptionInfo getSubscriptionInfoByName(String name) throws BasicException {
-        return (SubscriptionInfo)
+    public final ServiceInfo getServiceInfoByName(String name) throws BasicException {
+        return (ServiceInfo)
                 new PreparedSentence(
                                 s,
                                 "select url, authentication_method, token, username, password, timeout "
-                                        + "from subscriptions "
+                                        + "from services "
                                         + "where name = ? "
                                         + "and status = true",
                                 SerializerWriteString.INSTANCE,
                                 (DataRead dr) -> {
-                                    var s = new SubscriptionInfo();
+                                    var s = new ServiceInfo();
 
                                     s.setUrl(dr.getString(1));
                                     s.setAuthenticationMethod(dr.getString(2));
@@ -105,11 +105,11 @@ public class DataLogicSubscription extends BeanFactoryDataSingle {
                         .find(name);
     }
 
-    public final Boolean getSubscriptionStatusByName(String name) throws BasicException {
+    public final Boolean getServiceStatusByName(String name) throws BasicException {
         return (Boolean)
                 new PreparedSentence(
                                 s,
-                                "select status " + "from subscriptions " + "where name = ?",
+                                "select status " + "from services " + "where name = ?",
                                 SerializerWriteString.INSTANCE,
                                 (DataRead dr) -> {
                                     return dr.getBoolean(1);

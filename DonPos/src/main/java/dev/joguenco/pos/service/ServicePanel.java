@@ -1,4 +1,4 @@
-package dev.joguenco.pos.subscription;
+package dev.joguenco.pos.service;
 
 import com.unicenta.data.gui.ListCellRendererBasic;
 import com.unicenta.data.loader.TableDefinition;
@@ -14,41 +14,41 @@ import javax.swing.ListCellRenderer;
  *
  * @author Jorge Luis
  */
-public class SubscriptionPanel extends JPanelTable {
+public class ServicePanel extends JPanelTable {
 
-    private TableDefinition tdSubscription;
-    private SubscriptionEditor subscriptionEditor;
+    private TableDefinition tdService;
+    private ServiceEditor serviceEditor;
 
     @Override
     protected void init() {
-        DataLogicSubscription dlSubscription = (DataLogicSubscription) app.getBean("dev.joguenco.pos.subscription.DataLogicSubscription");
-        tdSubscription = dlSubscription.getTableSubscription();
-        subscriptionEditor = new SubscriptionEditor(app, dirty);
+        DataLogicService dlService = (DataLogicService) app.getBean("dev.joguenco.pos.service.DataLogicService");
+        tdService = dlService.getTableService();
+        serviceEditor = new ServiceEditor(app, dirty);
 
     }
 
     @Override
     public EditorRecord getEditor() {
-        return subscriptionEditor;
+        return serviceEditor;
     }
 
     @Override
     public ListProvider getListProvider() {
-        return new ListProviderCreator(tdSubscription);
+        return new ListProviderCreator(tdService);
     }
 
     @Override
     public SaveProvider getSaveProvider() {
-        return new SaveProvider(tdSubscription);
+        return new SaveProvider(tdService);
     }
 
     @Override
     public String getTitle() {
-        return AppLocal.getIntString("Menu.Subscription");
+        return AppLocal.getIntString("Menu.Services");
     }
 
     @Override
     public ListCellRenderer getListCellRenderer() {
-        return new ListCellRendererBasic(tdSubscription.getRenderStringBasic(new int[]{1}));
+        return new ListCellRendererBasic(tdService.getRenderStringBasic(new int[]{1}));
     }
 }

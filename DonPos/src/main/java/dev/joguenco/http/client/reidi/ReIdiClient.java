@@ -3,7 +3,7 @@ package dev.joguenco.http.client.reidi;
 import com.unicenta.basic.BasicException;
 import com.unicenta.pos.forms.AppLocal;
 import com.unicenta.pos.forms.AppView;
-import dev.joguenco.http.client.HttpClientSubscription;
+import dev.joguenco.http.client.HttpClientService;
 import dev.joguenco.http.client.entity.EntityResponse;
 import dev.joguenco.http.client.entity.EntityService;
 import java.awt.HeadlessException;
@@ -22,7 +22,7 @@ public class ReIdiClient {
     public ReIdiResponse get(String identification, AppView appView) {
         final var serviceName = "ReIdi";
         try {
-            var httpClient = new HttpClientSubscription(appView, serviceName);
+            var httpClient = new HttpClientService(appView, serviceName);
 
             if (!httpClient.isActive(serviceName)) {
                 return new ReIdiResponse("Service is disable");

@@ -4,7 +4,7 @@ import com.unicenta.basic.BasicException;
 import com.unicenta.pos.forms.AppLocal;
 import com.unicenta.pos.forms.AppView;
 import com.unicenta.pos.ticket.TicketInfo;
-import dev.joguenco.http.client.HttpClientSubscription;
+import dev.joguenco.http.client.HttpClientService;
 import java.awt.HeadlessException;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +36,7 @@ public class AuthorizeClient {
 
     public StatusResponse post(String code, String number) {
         try {
-            var httpClient = new HttpClientSubscription(appView, SERVICE_NAME);
+            var httpClient = new HttpClientService(appView, SERVICE_NAME);
 
             if (!httpClient.isActive(SERVICE_NAME)) {
                 return new StatusResponse("Service is disable");
@@ -46,7 +46,7 @@ public class AuthorizeClient {
             // que nos ahorramos una llamada al servidor, dos lecturas y una escritura
             // en su base de datos por cada documento.
             if (!API_KEY_METHOD.equals(httpClient.getAuthenticationMethod())) {
-                return new StatusResponse("La suscripción Authorize debe usar X-API-KEY");
+                return new StatusResponse("The services has X-API-KEY");
             }
 
             final var document = new Document(code, number);
@@ -91,7 +91,7 @@ public class AuthorizeClient {
         }
     }
 
-    private Response<StatusResponse> authorizeWithApiKey(HttpClientSubscription httpClient, Document document) throws IOException {
+    private Response<StatusResponse> authorizeWithApiKey(HttpClientService httpClient, Document document) throws IOException {
         var service = httpClient.generator().createServiceWithApiKey(
                 AuthorizationService.class,
                 httpClient.getToken(),

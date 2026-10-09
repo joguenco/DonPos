@@ -176,7 +176,7 @@
     <class name="dev.joguenco.pos.ticketsnum.TicketsNumPanel"/>
     <class name="dev.joguenco.pos.ticketsnumrefund.TicketsNumRefundPanel"/>
     <class name="dev.joguenco.pos.holiday.Holiday"/>
-    <class name="dev.joguenco.pos.subscription.SubscriptionPanel"/>
+    <class name="dev.joguenco.pos.service.ServicePanel"/>
             <class name="/com/unicenta/reports/customers_vouchers.bs"/>
             <class name="/com/unicenta/reports/users.bs"/>
             <class name="/com/unicenta/reports/users_nosales.bs"/>

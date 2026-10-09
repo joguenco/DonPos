@@ -13,7 +13,7 @@
 //
 //    You should have received a copy of the GNU General Public License
 //    along with Mestizo Pos.  If not, see <http://www.gnu.org/licenses/>.
-package dev.joguenco.pos.subscription;
+package dev.joguenco.pos.service;
 
 import com.github.f4b6a3.uuid.UuidCreator;
 import com.unicenta.basic.BasicException;
@@ -40,13 +40,13 @@ import retrofit2.Response;
  * @author Jorge Luis
  */
 @Slf4j
-public class SubscriptionEditor extends JPanel implements EditorRecord {
+public class ServiceEditor extends JPanel implements EditorRecord {
 
     private Object oId;
     private ComboBoxValModel modelAuthenticationMethod;
     private final String key = "cypherkey";
 
-    public SubscriptionEditor(AppView app, DirtyManager dirty) {
+    public ServiceEditor(AppView app, DirtyManager dirty) {
         initComponents();
 
         modelAuthenticationMethod = new ComboBoxValModel();
@@ -110,28 +110,28 @@ public class SubscriptionEditor extends JPanel implements EditorRecord {
 
     @Override
     public void writeValueEdit(Object value) {
-        Object[] subscription = (Object[]) value;
+        Object[] service = (Object[]) value;
         AltEncrypter cypher = new AltEncrypter(key);
 
-        oId = subscription[0];
-        txtName.setText(Formats.STRING.formatValue(subscription[1]));
-        txtUrl.setText(Formats.STRING.formatValue(subscription[2]));
-        modelAuthenticationMethod.setSelectedItem(subscription[3]);
-        txtTimeout.setText(Formats.INT.formatValue(subscription[7]));
-        chkStatus.setSelected(Boolean.valueOf(Formats.BOOLEAN.formatValue(subscription[8])));
+        oId = service[0];
+        txtName.setText(Formats.STRING.formatValue(service[1]));
+        txtUrl.setText(Formats.STRING.formatValue(service[2]));
+        modelAuthenticationMethod.setSelectedItem(service[3]);
+        txtTimeout.setText(Formats.INT.formatValue(service[7]));
+        chkStatus.setSelected(Boolean.valueOf(Formats.BOOLEAN.formatValue(service[8])));
 
         txtName.setEnabled(true);
         txtUrl.setEnabled(true);
         if ("Token".equals(modelAuthenticationMethod.getSelectedText())
                 || "X-API-KEY".equals(modelAuthenticationMethod.getSelectedText())) {
-            txtToken.setText(Formats.STRING.formatValue(subscription[4]));
+            txtToken.setText(Formats.STRING.formatValue(service[4]));
             txtUsername.setText(null);
             txtPassword.setText(null);
             txtToken.setEnabled(true);
         } else if ("Password".equals(modelAuthenticationMethod.getSelectedText())) {
             txtToken.setText(null);
-            txtUsername.setText(Formats.STRING.formatValue(subscription[5]));
-            txtPassword.setText(cypher.decrypt(Formats.STRING.formatValue(subscription[6])));
+            txtUsername.setText(Formats.STRING.formatValue(service[5]));
+            txtPassword.setText(cypher.decrypt(Formats.STRING.formatValue(service[6])));
             txtUsername.setEnabled(true);
             txtPassword.setEnabled(true);
         } else {
@@ -145,18 +145,18 @@ public class SubscriptionEditor extends JPanel implements EditorRecord {
 
     @Override
     public void writeValueDelete(Object value) {
-        Object[] subscription = (Object[]) value;
+        Object[] service = (Object[]) value;
         AltEncrypter cypher = new AltEncrypter(key);
 
-        oId = subscription[0];
-        txtName.setText(Formats.STRING.formatValue(subscription[1]));
-        txtUrl.setText(Formats.STRING.formatValue(subscription[2]));
-        modelAuthenticationMethod.setSelectedItem(subscription[3]);
-        txtToken.setText(Formats.STRING.formatValue(subscription[4]));
-        txtUsername.setText(Formats.STRING.formatValue(subscription[5]));
-        txtPassword.setText(cypher.decrypt(Formats.STRING.formatValue(subscription[6])));
-        txtTimeout.setText(Formats.INT.formatValue(subscription[7]));
-        chkStatus.setSelected(Boolean.valueOf(Formats.BOOLEAN.formatValue(subscription[8])));
+        oId = service[0];
+        txtName.setText(Formats.STRING.formatValue(service[1]));
+        txtUrl.setText(Formats.STRING.formatValue(service[2]));
+        modelAuthenticationMethod.setSelectedItem(service[3]);
+        txtToken.setText(Formats.STRING.formatValue(service[4]));
+        txtUsername.setText(Formats.STRING.formatValue(service[5]));
+        txtPassword.setText(cypher.decrypt(Formats.STRING.formatValue(service[6])));
+        txtTimeout.setText(Formats.INT.formatValue(service[7]));
+        chkStatus.setSelected(Boolean.valueOf(Formats.BOOLEAN.formatValue(service[8])));
 
         txtName.setEnabled(false);
         txtUrl.setEnabled(false);
@@ -178,22 +178,22 @@ public class SubscriptionEditor extends JPanel implements EditorRecord {
 
     @Override
     public Object createValue() throws BasicException {
-        Object[] subscription = new Object[9];
+        Object[] service = new Object[9];
         char[] passwordChars = txtPassword.getPassword();
         String password = new String(passwordChars);
         AltEncrypter cypher = new AltEncrypter(key);
 
-        subscription[0] = oId == null ? UuidCreator.getTimeOrderedEpoch().toString() : oId;
-        subscription[1] = txtName.getText();
-        subscription[2] = txtUrl.getText();
-        subscription[3] = modelAuthenticationMethod.getSelectedText();
-        subscription[4] = txtToken.getText();
-        subscription[5] = txtUsername.getText();
-        subscription[6] = cypher.encrypt(password);
-        subscription[7] = Integer.parseInt(txtTimeout.getText());
-        subscription[8] = chkStatus.isSelected();
+        service[0] = oId == null ? UuidCreator.getTimeOrderedEpoch().toString() : oId;
+        service[1] = txtName.getText();
+        service[2] = txtUrl.getText();
+        service[3] = modelAuthenticationMethod.getSelectedText();
+        service[4] = txtToken.getText();
+        service[5] = txtUsername.getText();
+        service[6] = cypher.encrypt(password);
+        service[7] = Integer.parseInt(txtTimeout.getText());
+        service[8] = chkStatus.isSelected();
 
-        return subscription;
+        return service;
     }
 
     /**

@@ -1,4 +1,4 @@
-package dev.joguenco.pos.subscription;
+package dev.joguenco.pos.service;
 
 import com.unicenta.basic.BasicException;
 import com.unicenta.data.loader.DataRead;
@@ -11,7 +11,7 @@ import lombok.Setter;
  * @author Jorge Luis
  */
 @RequiredArgsConstructor
-public class SubscriptionInfo implements SerializableRead {
+public class ServiceInfo implements SerializableRead {
 
     @Getter @Setter private String id;
     @Getter @Setter private String name;
