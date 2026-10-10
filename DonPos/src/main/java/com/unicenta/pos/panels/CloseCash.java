@@ -50,8 +50,8 @@ import dev.resolvedor.util.Read;
 /**
  *
  * @author Jorge Luis
- * @web https://resolvedor.dev
- * @mail jorgeluis@resolvedor.dev
+ * @web https://joguenco.dev
+ * @mail jorgeluis@joguenco.dev
  */
 @Slf4j
 public class CloseCash extends JPanel implements JPanelView, BeanFactoryApp {

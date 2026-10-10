@@ -12,7 +12,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 /**
- * @author <Jorge Luis from https://resolvedor.dev>
+ * @author <Jorge Luis from https://joguenco.dev>
  */
 @Slf4j
 public class AuthorizeClient {

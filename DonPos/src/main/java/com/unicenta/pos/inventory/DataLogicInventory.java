@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 <Jorge Luis from resolvedor.dev>
+ * Copyright (C) 2024 <Jorge Luis from joguenco.dev>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,7 +24,7 @@ import com.unicenta.pos.forms.BeanFactoryDataSingle;
 
 /**
  *
- * @author <Jorge Luis from resolvedor.dev>
+ * @author <Jorge Luis from joguenco.dev>
  */
 public class DataLogicInventory extends BeanFactoryDataSingle {
 

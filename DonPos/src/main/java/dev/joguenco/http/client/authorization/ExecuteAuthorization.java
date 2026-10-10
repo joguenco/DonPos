@@ -5,7 +5,7 @@ import com.unicenta.pos.ticket.TicketInfo;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author <Jorge Luis from https://resolvedor.dev>
+ * @author <Jorge Luis from https://joguenco.dev>
  */
 @Slf4j
 public class ExecuteAuthorization extends Thread {

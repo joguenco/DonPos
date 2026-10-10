@@ -29,8 +29,8 @@ import lombok.extern.slf4j.Slf4j;
 /**
  *
  * @author Jorge Luis
- * @web https://resolvedor.dev
- * @mail jorgeluis@resolvedor.dev
+ * @web https://joguenco.dev
+ * @mail jorgeluis@joguenco.dev
  */
 @Slf4j
 public class VolumeDiscount extends JPanel implements JPanelView, BeanFactoryApp {

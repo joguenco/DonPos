@@ -10,8 +10,8 @@ import javax.swing.table.TableCellRenderer;
 /**
  *
  * @author Jorge Luis
- * @web https://resolvedor.dev
- * @mail jorgeluis@resolvedor.dev
+ * @web https://joguenco.dev
+ * @mail jorgeluis@joguenco.dev
  */
 public class ColorRenderer implements TableCellRenderer {
 

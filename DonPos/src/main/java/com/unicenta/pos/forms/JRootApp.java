@@ -428,7 +428,7 @@ public class JRootApp extends JPanel implements AppView {
         if (newText != null) {
             if (newText.equals("")) {
                 jLabel1.setText("<html><center>Don POS - Touch Friendly Point of Sale<br>"
-                        + "https://resolvedor.dev/<br>"
+                        + "https://joguenco.dev/<br>"
                         + "version " + AppLocal.APP_VERSION + " r 1<br>"
                         + "Java version " + getVersion() + "<br>"
                         + "Special thanks to "
@@ -976,7 +976,7 @@ public class JRootApp extends JPanel implements AppView {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/unicenta/images/unicenta.png"))); // NOI18N
         jLabel1.setText("<html><center>Don POS - Touch Friendly Point of Sale<br>" +
-            "https://resolvedor.dev<br>" +
+            "https://joguenco.dev<br>" +
             "<br>" +
             "Don POS is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>" +
             "<br>" +

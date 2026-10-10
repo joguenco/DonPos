@@ -33,8 +33,8 @@ import java.util.Date;
 /**
  *
  * @author Jorge Luis
- * @web https://resolvedor.dev
- * @mail jorgeluis@resolvedor.dev
+ * @web https://joguenco.dev
+ * @mail jorgeluis@joguenco.dev
  */
 public class DataLogicPurchase extends BeanFactoryDataSingle {
 

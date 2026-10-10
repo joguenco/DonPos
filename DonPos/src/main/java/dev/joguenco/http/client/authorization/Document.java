@@ -5,7 +5,7 @@ import lombok.Setter;
 
 /**
  * @author Jorge Luis from https://joguenco.dev
- * @web jorgeluis@resolvedor.dev
+ * @web jorgeluis@joguenco.dev
  */
 public class Document {
 

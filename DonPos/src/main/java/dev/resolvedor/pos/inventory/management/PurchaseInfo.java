@@ -19,8 +19,8 @@ import lombok.Setter;
 /**
  *
  * @author Jorge Luis
- * @web https://resolvedor.dev
- * @mail jorgeluis@resolvedor.dev
+ * @web https://joguenco.dev
+ * @mail jorgeluis@joguenco.dev
  */
 @Getter
 @Setter
