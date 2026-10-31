@@ -37,10 +37,14 @@ public class TicketLineInfo implements SerializableRead, Serializable {
   private double multiply;
 
   private double price;
+  // Mismos campos que la linea de DonPos: si faltan, al guardar la mesa se pierden
+  private double priceNormal = 0.0;
   private TaxInfo tax;
   private Properties attributes;
   private String productid;
   private String attsetinstid;
+  private String lot;
+  private double discount;
   private Boolean updated = false;
 
   private double newprice = 0.0;
@@ -410,6 +414,30 @@ public class TicketLineInfo implements SerializableRead, Serializable {
 
   public void setMultiply(double dValue) {
     multiply = dValue;
+  }
+
+  public String getLot() {
+    return lot;
+  }
+
+  public void setLot(String lot) {
+    this.lot = lot;
+  }
+
+  public double getDiscount() {
+    return discount;
+  }
+
+  public void setDiscount(double discount) {
+    this.discount = discount;
+  }
+
+  public double getPriceNormal() {
+    return priceNormal;
+  }
+
+  public void setPriceNormal(double priceNormal) {
+    this.priceNormal = priceNormal;
   }
 
   public void setProperty(String key, String value) {

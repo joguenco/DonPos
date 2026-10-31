@@ -29,6 +29,10 @@ import java.util.Date;
  */
 public class CustomerInfoExt extends CustomerInfo {
 
+  // En DonPos esta clase no fija su número y Java lo calcula: 6062422821310425265.
+  // Sin el mismo número aquí, una mesa a la que la caja le puso cliente no se podría leer.
+  private static final long serialVersionUID = 6062422821310425265L;
+
   protected String taxcustomerid;
   protected String taxcustcategoryid;
   protected String card;

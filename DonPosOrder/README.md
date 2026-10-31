@@ -37,6 +37,14 @@ or
 ```
 gradle build
 ```
+## Set JAVAHOME
+```
+$env:JAVA_HOME = "C:\Program Files\JetBrains\IntelliJ IDEA 2026.2.1\jbr"
+```
+## run JAVAHOME
+```
+.\gradlew run
+```
 
 ## Micronaut 5.2.3 Documentation
 
@@ -88,3 +96,4 @@ gradle build
 - [Micronaut AOT documentation](https://micronaut-projects.github.io/micronaut-aot/latest/guide/)
 
 
+## Feature micronaut-aot documentation

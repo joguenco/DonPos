@@ -2,6 +2,7 @@ package dev.joguenco.security;
 
 import dev.joguenco.security.repository.UserRepository;
 import dev.joguenco.util.Hashcypher;
+import dev.joguenco.waiter.WaiterService;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpRequest;
@@ -17,9 +18,11 @@ import lombok.extern.slf4j.Slf4j;
 class AuthenticationProviderUserPassword<B> implements HttpRequestAuthenticationProvider<B> {
 
   protected final UserRepository userRepository;
+  protected final WaiterService waiterService;
 
-  AuthenticationProviderUserPassword(UserRepository userRepository) {
+  AuthenticationProviderUserPassword(UserRepository userRepository, WaiterService waiterService) {
     this.userRepository = userRepository;
+    this.waiterService = waiterService;
   }
 
   @Override
@@ -40,6 +43,11 @@ class AuthenticationProviderUserPassword<B> implements HttpRequestAuthentication
     }
 
     if (Hashcypher.authenticate(password, user.password())) {
+      // La clave es correcta, pero a la app Waiter solo entran los meseros
+      if (!waiterService.isWaiterRole(user.role())) {
+        log.warn("User is not a waiter: {}", username);
+        return AuthenticationResponse.failure("Este usuario no es mesero");
+      }
       return AuthenticationResponse.success(username);
     }
 

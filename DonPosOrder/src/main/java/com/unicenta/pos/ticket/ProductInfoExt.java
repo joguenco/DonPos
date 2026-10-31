@@ -276,8 +276,16 @@ public class ProductInfoExt {
     return m_bVprice;
   }
 
+  public final void setVprice(boolean bValue) {
+    m_bVprice = bValue;
+  }
+
   public final boolean isVerpatrib() {
     return m_bVerpatrib;
+  }
+
+  public final void setVerpatrib(boolean bValue) {
+    m_bVerpatrib = bValue;
   }
 
   public final String getTextTip() {

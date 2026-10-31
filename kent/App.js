@@ -3,11 +3,17 @@ import { FlatList, Modal, Platform, Pressable, StyleSheet, Text, TextInput, View
 import { StatusBar } from 'expo-status-bar';
 import * as SecureStore from 'expo-secure-store';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useKeepAwake } from 'expo-keep-awake';
+import * as Brightness from 'expo-brightness';
 
 // El servidor envia un ping cada 30 s; si no llega nada en este tiempo, la conexion se da por perdida
 const SILENCE_TIMEOUT = 70_000;
 // Si DonPos nunca limpia la tablet, los datos del cliente se borran solos despues de este tiempo
 const CUSTOMER_TIMEOUT = 60_000;
+// Sin datos del cliente, la pantalla se oscurece despues de este tiempo
+const DIM_TIMEOUT = 30_000;
+// Brillo de la pantalla oscurecida: 0 es negro y 1 el maximo
+const DIM_BRIGHTNESS = 0.2;
 // Configurar se abre manteniendo presionada la barra negra este tiempo, para que el cliente no lo cambie por accidente
 const SETTINGS_PRESS_DELAY = 6000;
 // Codigo con el que el servidor cierra la conexion cuando la API esta mal
@@ -68,6 +74,15 @@ async function getCashiers(server, apiKey) {
   return people.map((person) => person.name);
 }
 
+// Vuelve al brillo que tiene configurado la tablet; el iPhone no permite eso y se usa el maximo
+function restoreBrightness() {
+  if (Platform.OS === 'android') {
+    Brightness.restoreSystemBrightnessAsync();
+  } else {
+    Brightness.setBrightnessAsync(1);
+  }
+}
+
 // SafeAreaProvider mide cuanto ocupa la barra del celular (hora, bateria, camara) para no tapar nada con ella
 export default function App() {
   return (
@@ -91,6 +106,10 @@ function TabletScreen() {
   const [cashierDraft, setCashierDraft] = useState('');
   const [connected, setConnected] = useState(false);
   const [customer, setCustomer] = useState(null);
+  const [touchedAt, setTouchedAt] = useState(0);
+
+  // La pantalla nunca se apaga mientras la app este abierta; en la web solo funciona con HTTPS
+  useKeepAwake();
 
   useEffect(() => {
     readSettings()
@@ -193,6 +212,23 @@ function TabletScreen() {
     return () => clearTimeout(timer);
   }, [customer]);
 
+  // Con la tablet en espera la pantalla se oscurece; llegan datos o alguien la toca y se aclara.
+  // Mientras se configura o se escoge el cajero no se oscurece. En la web el navegador no deja cambiar el brillo
+  useEffect(() => {
+    if (Platform.OS === 'web') {
+      return;
+    }
+
+    restoreBrightness();
+
+    if (customer || editing || !cashier) {
+      return;
+    }
+
+    const timer = setTimeout(() => Brightness.setBrightnessAsync(DIM_BRIGHTNESS), DIM_TIMEOUT);
+    return () => clearTimeout(timer);
+  }, [customer, editing, cashier, touchedAt]);
+
   // La API cambio en el servidor: vuelve a Configurar con el mismo servidor para escribir la nueva
   const askForNewApiKey = () => {
     setServerDraft(settings.server);
@@ -262,7 +298,8 @@ function TabletScreen() {
     : cashiers === null ? 'Buscando cajeros…' : 'No hay cajeros';
 
   return (
-    <View style={styles.container}>
+    // Cualquier toque en la pantalla la vuelve a aclarar y reinicia los 30 segundos
+    <View style={styles.container} onTouchStart={() => setTouchedAt(Date.now())}>
       {/* El fondo negro sigue por detras de la barra del celular y el texto empieza debajo de ella */}
       <Pressable
         style={[styles.header, { paddingTop: insets.top + 16 }]}

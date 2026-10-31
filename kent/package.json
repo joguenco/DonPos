@@ -4,6 +4,8 @@
   "main": "index.js",
   "dependencies": {
     "expo": "~58.0.17",
+    "expo-brightness": "~58.0.2",
+    "expo-keep-awake": "~58.0.3",
     "expo-secure-store": "~58.0.2",
     "expo-status-bar": "~58.0.4",
     "react": "19.3.0",
