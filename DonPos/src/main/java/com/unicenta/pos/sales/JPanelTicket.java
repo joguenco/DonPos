@@ -87,6 +87,7 @@ import java.util.*;
 
 import static java.awt.Window.getWindows;
 import java.awt.event.KeyEvent;
+import java.nio.file.Files;
 
 /**
  * @author JG uniCenta
@@ -2215,7 +2216,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
 
         if (!path.isEmpty()) {
             try {
-                byte[] byteArray = com.google.common.io.Files.toByteArray(new File(path));
+                byte[] byteArray = Files.readAllBytes(new File(path).toPath());
                 dlSystem.setResource("Printer.Qr",
                         1,
                         byteArray);
@@ -2233,7 +2234,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
 
         if (!path.isEmpty()) {
             try {
-                byte[] byteArray = com.google.common.io.Files.toByteArray(new File(path));
+                byte[] byteArray = Files.readAllBytes(new File(path).toPath());
                 dlSystem.setResource("Printer.BarCode",
                         1,
                         byteArray);

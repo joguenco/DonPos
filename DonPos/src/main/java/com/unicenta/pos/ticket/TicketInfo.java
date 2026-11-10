@@ -301,7 +301,7 @@ public final class TicketInfo extends MasterMoldInfo implements SerializableRead
             name.add(m_Customer.getName());
         }
 
-        return org.apache.commons.lang.StringUtils.join(name, " - ");
+        return String.join(" - ", name);
     }
 
     public String getName() {

@@ -378,14 +378,14 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
                 progress = currentRecord;
 
 // Strip Currencies Dollar GBP, euro 
-                BuyPrice = StringUtils.replaceChars(BuyPrice, "$", "");
-                SellPrice = StringUtils.replaceChars(SellPrice, "$", "");
+                BuyPrice = StringUtils.replace(BuyPrice, "$", "");
+                SellPrice = StringUtils.replace(SellPrice, "$", "");
 
-                BuyPrice = StringUtils.replaceChars(BuyPrice, "£", "");
-                SellPrice = StringUtils.replaceChars(SellPrice, "£", "");
+                BuyPrice = StringUtils.replace(BuyPrice, "£", "");
+                SellPrice = StringUtils.replace(SellPrice, "£", "");
 
-                BuyPrice = StringUtils.replaceChars(BuyPrice, "€", "");
-                SellPrice = StringUtils.replaceChars(SellPrice, "€", "");
+                BuyPrice = StringUtils.replace(BuyPrice, "€", "");
+                SellPrice = StringUtils.replace(SellPrice, "€", "");
 
                 dCategory = getCategory();
                 if ("Bad Category".equals(dCategory)) {

@@ -31,7 +31,7 @@ import com.unicenta.pos.ticket.TicketLineInfo;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 /**
  *
@@ -136,8 +136,8 @@ public class SimpleReceipt extends javax.swing.JPanel {
                 ? fullName.substring(0, fullName.length() - suffix.length())
                 : fullName;
 
-        m_jTicketId.setText("<html><center><b>" + StringEscapeUtils.escapeHtml(customerName) + "</b><br>"
-                + "<font size='-1'>" + StringEscapeUtils.escapeHtml(info) + "</font></center></html>");
+        m_jTicketId.setText("<html><center><b>" + StringEscapeUtils.escapeHtml4(customerName) + "</b><br>"
+                + "<font size='-1'>" + StringEscapeUtils.escapeHtml4(info) + "</font></center></html>");
     }
 
     private void refreshTicketTaxes() {

@@ -54,9 +54,9 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingWorker;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.WordUtils;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.apache.commons.lang3.text.WordUtils;
 
 /**
  *
