@@ -19,7 +19,6 @@
 
 package com.unicenta.pos.config;
 
-import com.alee.laf.WebLookAndFeel;
 import com.unicenta.basic.BasicException;
 import com.unicenta.pos.forms.AppConfig;
 import com.unicenta.pos.forms.AppLocal;

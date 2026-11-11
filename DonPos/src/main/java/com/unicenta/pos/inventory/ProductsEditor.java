@@ -1232,11 +1232,11 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
         jLabel33 = new javax.swing.JLabel();
         m_jCheckWarrantyReceipt = new javax.swing.JCheckBox();
         jLabel23 = new javax.swing.JLabel();
-        webLabel1 = new com.alee.laf.label.WebLabel();
+        webLabel1 = new javax.swing.JLabel();
         m_jPrintTo = new javax.swing.JComboBox();
         jBtnShowTrans = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTableProductStock = new com.alee.laf.table.WebTable();
+        jTableProductStock = new javax.swing.JTable();
         m_jPrintKB = new javax.swing.JCheckBox();
         m_jSendStatus = new javax.swing.JCheckBox();
         m_jStockUnits = new javax.swing.JTextField();
@@ -1256,7 +1256,7 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
         jLabel21 = new javax.swing.JLabel();
         m_jTextTip = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
-        m_jDisplay = new com.alee.laf.text.WebTextArea();
+        m_jDisplay = new javax.swing.JTextArea();
         jBtnBreak = new javax.swing.JButton();
         jBtnColour = new javax.swing.JButton();
         jBtnLarge = new javax.swing.JButton();
@@ -2454,7 +2454,7 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private com.alee.laf.table.WebTable jTableProductStock;
+    private javax.swing.JTable jTableProductStock;
     private javax.swing.JComboBox m_jAtt;
     private javax.swing.JTextField m_jCatalogOrder;
     private javax.swing.JComboBox m_jCategory;
@@ -2463,7 +2463,7 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
     private javax.swing.JComboBox m_jCodetype;
     private javax.swing.JCheckBox m_jComment;
     private javax.swing.JCheckBox m_jConstant;
-    private com.alee.laf.text.WebTextArea m_jDisplay;
+    private javax.swing.JTextArea m_jDisplay;
     private javax.swing.JTextField m_jGrossProfit;
     private com.unicenta.data.gui.JImageEditor m_jImage;
     private javax.swing.JCheckBox m_jInCatalog;
@@ -2492,7 +2492,7 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
     private javax.swing.JTextField m_jstockvolume;
     private javax.swing.JTable tableLots;
     private javax.swing.JTextArea txtAttributes;
-    private com.alee.laf.label.WebLabel webLabel1;
+    private javax.swing.JLabel webLabel1;
     // End of variables declaration//GEN-END:variables
 
 }

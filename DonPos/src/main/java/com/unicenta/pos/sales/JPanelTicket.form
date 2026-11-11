@@ -1030,7 +1030,7 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="com.alee.extended.button.WebSwitch" name="m_jaddtax">
+                    <Component class="javax.swing.JCheckBox" name="m_jaddtax">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="null"/>

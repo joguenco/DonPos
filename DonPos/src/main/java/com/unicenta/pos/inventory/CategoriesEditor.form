@@ -70,7 +70,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jBtnShowTrans" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="206" max="-2" attributes="0"/>
                               <Component id="jLblProdCount" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -86,8 +86,12 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="m_jImage" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="m_jName" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLblName" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -102,7 +106,7 @@
                           <Component id="m_jTextTip" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLblTextTip" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLblInCat" min="-2" max="-2" attributes="0"/>
                           <Component id="webSwtch_InCatalog" max="-2" attributes="0"/>
@@ -118,13 +122,11 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLblProdCount" max="32767" attributes="0"/>
-                          <Component id="jBtnShowTrans" alignment="0" pref="32" max="32767" attributes="0"/>
+                          <Component id="jLblProdCount" pref="38" max="32767" attributes="0"/>
+                          <Component id="jBtnShowTrans" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="m_jImage" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -271,7 +273,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.alee.extended.button.WebSwitch" name="webSwtch_InCatalog">
+    <Component class="javax.swing.JCheckBox" name="webSwtch_InCatalog">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="0"/>
@@ -335,7 +337,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="com.alee.laf.table.WebTable" name="jTableCategoryStock">
+        <Component class="javax.swing.JTable" name="jTableCategoryStock">
           <Properties>
             <Property name="autoCreateRowSorter" type="boolean" value="true"/>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
@@ -371,7 +373,6 @@
             <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="d7" green="78" red="0" type="rgb"/>
             </Property>
-            <Property name="showVerticalLines" type="boolean" value="false"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>

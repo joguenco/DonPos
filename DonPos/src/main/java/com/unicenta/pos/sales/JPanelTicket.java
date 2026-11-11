@@ -2915,7 +2915,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         m_jPanEntries = new javax.swing.JPanel();
         m_jNumberKeys = new com.unicenta.beans.JNumberKeys();
         jPanel9 = new javax.swing.JPanel();
-        m_jaddtax = new com.alee.extended.button.WebSwitch();
+        m_jaddtax = new javax.swing.JCheckBox();
         m_jPrice = new javax.swing.JLabel();
         m_jPor = new javax.swing.JLabel();
         m_jEnter = new javax.swing.JButton();
@@ -3995,7 +3995,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
     private javax.swing.JLabel m_jTaxesEuros;
     private javax.swing.JLabel m_jTicketId;
     private javax.swing.JLabel m_jTotalEuros;
-    private com.alee.extended.button.WebSwitch m_jaddtax;
+    private javax.swing.JCheckBox m_jaddtax;
     private javax.swing.JButton m_jbtnScale;
     // End of variables declaration//GEN-END:variables
 

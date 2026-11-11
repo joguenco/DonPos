@@ -128,9 +128,6 @@ public class JPanelConfigPeripheral extends javax.swing.JPanel implements PanelC
 
         cboPrinters.addActionListener(dirty);
         
-        webSwtch_iButton.addActionListener(dirty);
-        webSlider.addChangeListener(dirty);
-
 // printers
         jcboMachinePrinter.addItem("Not defined");
         jcboMachinePrinter.addItem("screen");
@@ -630,9 +627,6 @@ public class JPanelConfigPeripheral extends javax.swing.JPanel implements PanelC
 
         cboPrinters.setSelectedItem(config.getProperty("machine.printername"));
         
-        webSwtch_iButton.setSelected(Boolean.parseBoolean(config.getProperty("machine.iButton")));
-        webSlider.setValue(Integer.valueOf(config.getProperty("machine.iButtonResponse")));
-
         dirty.setDirty(false);
     }
 
@@ -843,10 +837,6 @@ public class JPanelConfigPeripheral extends javax.swing.JPanel implements PanelC
         }
 
         config.setProperty("machine.printername", comboValue(cboPrinters.getSelectedItem()));
-        
-// iButton        
-        config.setProperty("machine.iButton",Boolean.toString(webSwtch_iButton.isSelected()));
-        config.setProperty("machine.iButtonResponse",Integer.toString(webSlider.getValue()));
 
         dirty.setDirty(false);
     }
@@ -1014,13 +1004,6 @@ public class JPanelConfigPeripheral extends javax.swing.JPanel implements PanelC
         jPanel19 = new javax.swing.JPanel();
         jcboSerialScanner = new javax.swing.JComboBox();
         jlblPrinterPort5 = new javax.swing.JLabel();
-        jPanel27 = new javax.swing.JPanel();
-        webSwtch_iButton = new com.alee.extended.button.WebSwitch();
-        webLbliButton = new com.alee.laf.label.WebLabel();
-        webSlider = new com.alee.laf.slider.WebSlider();
-        webLabel1 = new com.alee.laf.label.WebLabel();
-        webLabel2 = new com.alee.laf.label.WebLabel();
-        webLabel3 = new com.alee.laf.label.WebLabel();
 
         setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         setOpaque(false);
@@ -1939,85 +1922,6 @@ public class JPanelConfigPeripheral extends javax.swing.JPanel implements PanelC
 
         m_jScannerParams.add(jPanel19, "comm");
 
-        jPanel27.setOpaque(false);
-
-        webSwtch_iButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        webSwtch_iButton.setPreferredSize(new java.awt.Dimension(80, 30));
-        webSwtch_iButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                webSwtch_iButtonActionPerformed(evt);
-            }
-        });
-
-        webLbliButton.setBackground(new java.awt.Color(240, 240, 240));
-        webLbliButton.setText(AppLocal.getIntString("label.ibutton")); // NOI18N
-        webLbliButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        webLbliButton.setPreferredSize(new java.awt.Dimension(150, 30));
-
-        webSlider.setMajorTickSpacing(10);
-        webSlider.setMinorTickSpacing(5);
-        webSlider.setPaintLabels(true);
-        webSlider.setPaintTicks(true);
-        webSlider.setSnapToTicks(true);
-        webSlider.setToolTipText("");
-        webSlider.setValue(5);
-        webSlider.setAnimated(false);
-        webSlider.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        webSlider.setPreferredSize(new java.awt.Dimension(270, 47));
-        webSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                webSliderStateChanged(evt);
-            }
-        });
-
-        webLabel1.setBackground(new java.awt.Color(240, 240, 240));
-        webLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("pos_messages"); // NOI18N
-        webLabel1.setText(bundle.getString("label.ibuttonresponsespeed")); // NOI18N
-        webLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        webLabel1.setPreferredSize(new java.awt.Dimension(150, 30));
-
-        webLabel2.setText(bundle.getString("label.fast")); // NOI18N
-        webLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
-        webLabel3.setText(bundle.getString("label.slow")); // NOI18N
-        webLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
-        javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
-        jPanel27.setLayout(jPanel27Layout);
-        jPanel27Layout.setHorizontalGroup(
-            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel27Layout.createSequentialGroup()
-                .addComponent(webLbliButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(webSwtch_iButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(webLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel27Layout.createSequentialGroup()
-                        .addComponent(webLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(194, 194, 194)
-                        .addComponent(webLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(webSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-        jPanel27Layout.setVerticalGroup(
-            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel27Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(webLbliButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(webSwtch_iButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(webLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(webSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(webLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(webLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -2030,7 +1934,7 @@ public class JPanelConfigPeripheral extends javax.swing.JPanel implements PanelC
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jcboMachinePrinter2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(m_jPrinterParams2, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE))
+                        .addComponent(m_jPrinterParams2, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2078,18 +1982,15 @@ public class JPanelConfigPeripheral extends javax.swing.JPanel implements PanelC
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel13Layout.createSequentialGroup()
-                                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jcboMachineScanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel13Layout.createSequentialGroup()
-                                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cboPrinters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(m_jScannerParams, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jcboMachineScanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cboPrinters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(m_jScannerParams, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(16, 16, 16))
         );
@@ -2155,8 +2056,7 @@ public class JPanelConfigPeripheral extends javax.swing.JPanel implements PanelC
                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cboPrinters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(m_jScannerParams, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -2335,20 +2235,6 @@ public class JPanelConfigPeripheral extends javax.swing.JPanel implements PanelC
         }
     }//GEN-LAST:event_jcboMachineDisplayActionPerformed
 
-    private void webSwtch_iButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webSwtch_iButtonActionPerformed
-        if (webSwtch_iButton.isSelected()) {
-
-        } else {
-          
-        }
-           
-    }//GEN-LAST:event_webSwtch_iButtonActionPerformed
-
-    private void webSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_webSliderStateChanged
-        webSlider.getValue();
-
-    }//GEN-LAST:event_webSliderStateChanged
-
     private void jcboConnPrinterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcboConnPrinterActionPerformed
         jcboSerialPrinter.removeAllItems();
         if (("raw".equals(jcboConnPrinter.getSelectedItem())) 
@@ -2472,7 +2358,6 @@ public class JPanelConfigPeripheral extends javax.swing.JPanel implements PanelC
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
-    private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -2543,11 +2428,5 @@ public class JPanelConfigPeripheral extends javax.swing.JPanel implements PanelC
     private javax.swing.JTextField m_jtxtJPOSPrinter4;
     private javax.swing.JTextField m_jtxtJPOSPrinter5;
     private javax.swing.JTextField m_jtxtJPOSPrinter6;
-    private com.alee.laf.label.WebLabel webLabel1;
-    private com.alee.laf.label.WebLabel webLabel2;
-    private com.alee.laf.label.WebLabel webLabel3;
-    private com.alee.laf.label.WebLabel webLbliButton;
-    private com.alee.laf.slider.WebSlider webSlider;
-    private com.alee.extended.button.WebSwitch webSwtch_iButton;
     // End of variables declaration//GEN-END:variables
 }

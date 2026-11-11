@@ -204,8 +204,6 @@ public class JRootApp extends JPanel implements AppView {
 
         initComponents();
         jScrollPane1.getVerticalScrollBar().setPreferredSize(new Dimension(30, 30));
-        serverMonitor.setVisible(false);
-        webMemoryBar1.setShowMaximumMemory(true);
     }
 
     final static int UNIQUE_KEY_FAMILY = 0x01;
@@ -407,13 +405,7 @@ public class JRootApp extends JPanel implements AppView {
             sWareHouse = null;
         }
 
-        String url;
-        try {
-            url = session.getURL();
-        } catch (SQLException e) {
-            url = "";
-        }
-        m_jHost.setText("<html>" + m_props.getHost() + " - " + sWareHouse + "<br>" + url);
+        m_jHost.setText("<html>" + sWareHouse + "<br>");
 
         String newLogo = m_props.getProperty("start.logo");
         if (newLogo != null) {
@@ -878,17 +870,11 @@ public class JRootApp extends JPanel implements AppView {
         }
     }
 
-    private int getProgressBar() {
-        int rate = serverMonitor.getValue();
-        return rate;
-    }
-
     private boolean pingServer() throws UnknownHostException {
         /*
      * This method is for the future. Connects and will include both servers + backup server
      * Tested locally on JG machine and unicenta-server
          */
-        serverMonitor.setString("Checking...");
 
         InetAddress addr = InetAddress.getByName(AppLocal.getIntString("db.ip"));
         int port = 3306;
@@ -897,8 +883,6 @@ public class JRootApp extends JPanel implements AppView {
         Socket sock = new Socket();
         try {
             sock.connect(sockaddr, 2000);
-            serverMonitor.setString("Server is alive!");
-            serverMonitor.setValue(0);
             return true;
         } catch (IOException ex) {
             log.error(ex.getMessage());
@@ -934,8 +918,6 @@ public class JRootApp extends JPanel implements AppView {
         m_jPanelDown = new javax.swing.JPanel();
         panelTask = new javax.swing.JPanel();
         m_jHost = new javax.swing.JLabel();
-        webMemoryBar1 = new com.alee.extended.statusbar.WebMemoryBar();
-        serverMonitor = new com.alee.laf.progressbar.WebProgressBar();
         jPanel3 = new javax.swing.JPanel();
 
         setEnabled(false);
@@ -976,7 +958,7 @@ public class JRootApp extends JPanel implements AppView {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/unicenta/images/unicenta.png"))); // NOI18N
         jLabel1.setText("<html><center>Don POS - Touch Friendly Point of Sale<br>" +
-            "https://joguenco.dev<br>" +
+            "https://resolvedor.dev<br>" +
             "<br>" +
             "Don POS is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>" +
             "<br>" +
@@ -1094,24 +1076,6 @@ public class JRootApp extends JPanel implements AppView {
         m_jHost.setText("*Hostname");
         panelTask.add(m_jHost);
 
-        webMemoryBar1.setBackground(new java.awt.Color(153, 153, 153));
-        webMemoryBar1.setText("");
-        webMemoryBar1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        webMemoryBar1.setPreferredSize(new java.awt.Dimension(150, 30));
-        webMemoryBar1.setUsedBorderColor(new java.awt.Color(0, 204, 204));
-        webMemoryBar1.setUsedFillColor(new java.awt.Color(0, 204, 255));
-        panelTask.add(webMemoryBar1);
-
-        serverMonitor.setToolTipText("");
-        serverMonitor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        serverMonitor.setMaximumSize(new java.awt.Dimension(50, 18));
-        serverMonitor.setPreferredSize(new java.awt.Dimension(150, 30));
-        serverMonitor.setProgressBottomColor(new java.awt.Color(76, 197, 237));
-        serverMonitor.setRound(2);
-        serverMonitor.setString("Keep Alive");
-        serverMonitor.setStringPainted(true);
-        panelTask.add(serverMonitor);
-
         m_jPanelDown.add(panelTask, java.awt.BorderLayout.LINE_START);
         m_jPanelDown.add(jPanel3, java.awt.BorderLayout.LINE_END);
 
@@ -1153,7 +1117,5 @@ public class JRootApp extends JPanel implements AppView {
     private javax.swing.JTextField m_txtKeys;
     private javax.swing.JPanel panelTask;
     private javax.swing.JLabel poweredby;
-    private com.alee.laf.progressbar.WebProgressBar serverMonitor;
-    private com.alee.extended.statusbar.WebMemoryBar webMemoryBar1;
     // End of variables declaration//GEN-END:variables
 }

@@ -297,7 +297,6 @@ public class JPanelCloseMoneyReprint extends JPanel implements JPanelView, BeanF
         jPanel1 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         m_jSequence = new javax.swing.JTextField();
-        webBtnFindSequence = new com.alee.laf.button.WebButton();
         jLabel2 = new javax.swing.JLabel();
         m_jMinDate = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -323,6 +322,7 @@ public class JPanelCloseMoneyReprint extends JPanel implements JPanelView, BeanF
         jLabel8 = new javax.swing.JLabel();
         m_jNoCashSales = new javax.swing.JTextField();
         m_jPrint = new javax.swing.JButton();
+        cmdFindSequence = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -336,16 +336,6 @@ public class JPanelCloseMoneyReprint extends JPanel implements JPanelView, BeanF
         m_jSequence.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         m_jSequence.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         m_jSequence.setPreferredSize(new java.awt.Dimension(150, 30));
-
-        webBtnFindSequence.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/unicenta/images/search32.png"))); // NOI18N
-        webBtnFindSequence.setToolTipText("");
-        webBtnFindSequence.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        webBtnFindSequence.setPreferredSize(new java.awt.Dimension(80, 45));
-        webBtnFindSequence.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                webBtnFindSequenceActionPerformed(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -385,7 +375,6 @@ public class JPanelCloseMoneyReprint extends JPanel implements JPanelView, BeanF
         m_jTicketTable.setFocusable(false);
         m_jTicketTable.setIntercellSpacing(new java.awt.Dimension(0, 1));
         m_jTicketTable.setRequestFocusEnabled(false);
-        m_jTicketTable.setShowVerticalLines(false);
         m_jScrollTableTicket.setViewportView(m_jTicketTable);
 
         m_jScrollSales.setBorder(null);
@@ -397,7 +386,6 @@ public class JPanelCloseMoneyReprint extends JPanel implements JPanelView, BeanF
         m_jsalestable.setFocusable(false);
         m_jsalestable.setIntercellSpacing(new java.awt.Dimension(0, 1));
         m_jsalestable.setRequestFocusEnabled(false);
-        m_jsalestable.setShowVerticalLines(false);
         m_jScrollSales.setViewportView(m_jsalestable);
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -490,6 +478,13 @@ public class JPanelCloseMoneyReprint extends JPanel implements JPanelView, BeanF
             }
         });
 
+        cmdFindSequence.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/unicenta/images/search24.png"))); // NOI18N
+        cmdFindSequence.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdFindSequenceActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -551,21 +546,21 @@ public class JPanelCloseMoneyReprint extends JPanel implements JPanelView, BeanF
                                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(m_jSequence, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(webBtnFindSequence, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmdFindSequence))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(141, 141, 141)
                         .addComponent(m_jPrint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(webBtnFindSequence, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(m_jSequence, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmdFindSequence))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -614,7 +609,7 @@ public class JPanelCloseMoneyReprint extends JPanel implements JPanelView, BeanF
                         .addComponent(m_jScrollSales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(m_jPrint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -624,7 +619,7 @@ public class JPanelCloseMoneyReprint extends JPanel implements JPanelView, BeanF
         printPayments("Printer.CloseCash");  
     }//GEN-LAST:event_m_jPrintActionPerformed
 
-    private void webBtnFindSequenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webBtnFindSequenceActionPerformed
+    private void cmdFindSequenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdFindSequenceActionPerformed
         try {
             m_jPrint.setEnabled(false);  
             
@@ -643,11 +638,11 @@ public class JPanelCloseMoneyReprint extends JPanel implements JPanelView, BeanF
         } catch (BasicException ex) {
             log.error(ex.getMessage());
         }
-        
-    }//GEN-LAST:event_webBtnFindSequenceActionPerformed
+    }//GEN-LAST:event_cmdFindSequenceActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cmdFindSequence;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -676,7 +671,6 @@ public class JPanelCloseMoneyReprint extends JPanel implements JPanelView, BeanF
     private javax.swing.JTextField m_jSequence;
     private javax.swing.JTable m_jTicketTable;
     private javax.swing.JTable m_jsalestable;
-    private com.alee.laf.button.WebButton webBtnFindSequence;
     // End of variables declaration//GEN-END:variables
     
 }

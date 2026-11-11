@@ -20,7 +20,6 @@
 package com.unicenta.pos.inventory;
 
 import com.unicenta.pos.forms.AppLocal;
-import com.alee.laf.*;
 
 
 /**
@@ -52,10 +51,10 @@ public class InvEditLine extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        webLabel1 = new com.alee.laf.label.WebLabel();
-        webTxtPriceBuy = new com.alee.laf.text.WebTextField();
-        webButtonOK = new com.alee.laf.button.WebButton();
-        webButtonCancel = new com.alee.laf.button.WebButton();
+        webLabel1 = new javax.swing.JLabel();
+        webTxtPriceBuy = new javax.swing.JTextField();
+        webButtonOK = new javax.swing.JButton();
+        webButtonCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -129,9 +128,9 @@ public class InvEditLine extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.alee.laf.button.WebButton webButtonCancel;
-    private com.alee.laf.button.WebButton webButtonOK;
-    private com.alee.laf.label.WebLabel webLabel1;
-    private com.alee.laf.text.WebTextField webTxtPriceBuy;
+    private javax.swing.JButton webButtonCancel;
+    private javax.swing.JButton webButtonOK;
+    private javax.swing.JLabel webLabel1;
+    private javax.swing.JTextField webTxtPriceBuy;
     // End of variables declaration//GEN-END:variables
 }

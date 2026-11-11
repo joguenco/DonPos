@@ -909,7 +909,7 @@ Integer count = restDB.getGuestsInTable(place.getId());
         m_jbtnLayout = new javax.swing.JButton();
         m_jbtnSave = new javax.swing.JButton();
         m_jText = new javax.swing.JLabel();
-        webLblautoRefresh = new com.alee.laf.label.WebLabel();
+        webLblautoRefresh = new javax.swing.JLabel();
 
         setLayout(new java.awt.CardLayout());
 
@@ -1079,7 +1079,7 @@ Integer count = restDB.getGuestsInTable(place.getId());
     private javax.swing.JButton m_jbtnRefresh;
     private javax.swing.JButton m_jbtnReservations;
     private javax.swing.JButton m_jbtnSave;
-    private com.alee.laf.label.WebLabel webLblautoRefresh;
+    private javax.swing.JLabel webLblautoRefresh;
     // End of variables declaration//GEN-END:variables
     
 }

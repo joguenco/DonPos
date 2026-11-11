@@ -19,11 +19,6 @@
 
 package com.unicenta.pos.inventory;
 
-import com.alee.extended.time.ClockType;
-import com.alee.extended.time.WebClock;
-import com.alee.managers.notification.NotificationIcon;
-import com.alee.managers.notification.NotificationManager;
-import com.alee.managers.notification.WebNotification;
 import com.github.f4b6a3.uuid.UuidCreator;
 import com.unicenta.basic.BasicException;
 import com.unicenta.data.gui.ComboBoxValModel;
@@ -79,7 +74,6 @@ public final class CategoriesEditor extends JPanel implements EditorRecord {
    */
   public CategoriesEditor(AppView app, DirtyManager dirty) {
 
-//        DataLogicSales dlSales = (DataLogicSales) app.getBean("com.unicenta.pos.forms.DataLogicSales");
     dlSales = (DataLogicSales) app.getBean("com.unicenta.pos.forms.DataLogicSales");
 
     initComponents();
@@ -97,7 +91,7 @@ public final class CategoriesEditor extends JPanel implements EditorRecord {
     m_jCatNameShow.addActionListener(dirty);
     m_jTextTip.getDocument().addDocumentListener(dirty);
     m_jCatOrder.getDocument().addDocumentListener(dirty);
-    webSwtch_InCatalog.addActionListener(dirty);
+    webSwtch_InCatalog.addActionListener(dirty);   
 
     writeValueEOF();
   }
@@ -344,22 +338,6 @@ public final class CategoriesEditor extends JPanel implements EditorRecord {
     }
   }
 
-
-  public void Notify(String msg) {
-    final WebNotification notification = new WebNotification();
-    notification.setIcon(NotificationIcon.information);
-    notification.setDisplayTime(4000);
-
-    final WebClock clock = new WebClock();
-    clock.setClockType(ClockType.timer);
-    clock.setTimeLeft(5000);
-    clock.setTimePattern(msg);
-    notification.setContent(clock);
-
-    NotificationManager.showNotification(notification);
-    clock.start();
-  }
-
   /**
    * This method is called from within the constructor to
    * initialize the form.
@@ -381,12 +359,12 @@ public final class CategoriesEditor extends JPanel implements EditorRecord {
         jLblCatOrder = new javax.swing.JLabel();
         m_jCatOrder = new javax.swing.JTextField();
         jLblInCat = new javax.swing.JLabel();
-        webSwtch_InCatalog = new com.alee.extended.button.WebSwitch();
+        webSwtch_InCatalog = new javax.swing.JCheckBox();
         m_jImage = new com.unicenta.data.gui.JImageEditor();
         jBtnShowTrans = new javax.swing.JButton();
         jLblProdCount = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTableCategoryStock = new com.alee.laf.table.WebTable();
+        jTableCategoryStock = new javax.swing.JTable();
 
         jInternalFrame1.setVisible(true);
 
@@ -505,7 +483,6 @@ public final class CategoriesEditor extends JPanel implements EditorRecord {
         jTableCategoryStock.setPreferredSize(new java.awt.Dimension(310, 500));
         jTableCategoryStock.setRowHeight(25);
         jTableCategoryStock.setSelectionBackground(new java.awt.Color(0, 120, 215));
-        jTableCategoryStock.setShowVerticalLines(false);
         jScrollPane2.setViewportView(jTableCategoryStock);
         if (jTableCategoryStock.getColumnModel().getColumnCount() > 0) {
             jTableCategoryStock.getColumnModel().getColumn(0).setPreferredWidth(250);
@@ -546,7 +523,7 @@ public final class CategoriesEditor extends JPanel implements EditorRecord {
                                 .addComponent(m_jCatOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jBtnShowTrans, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(206, 206, 206)
                                 .addComponent(jLblProdCount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(m_jImage, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -556,7 +533,10 @@ public final class CategoriesEditor extends JPanel implements EditorRecord {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(m_jImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(m_jName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -569,7 +549,7 @@ public final class CategoriesEditor extends JPanel implements EditorRecord {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(m_jTextTip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLblTextTip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLblInCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(webSwtch_InCatalog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -582,10 +562,8 @@ public final class CategoriesEditor extends JPanel implements EditorRecord {
                                 .addComponent(m_jCatOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLblProdCount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBtnShowTrans, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)))
-                    .addComponent(m_jImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLblProdCount, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                            .addComponent(jBtnShowTrans, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -599,7 +577,6 @@ public final class CategoriesEditor extends JPanel implements EditorRecord {
         m_sentdel.exec(param);
         m_sentadd.exec(param);
         jLblInCat.setText(AppLocal.getIntString("label.CatalogueStatusYes"));
-        Notify(AppLocal.getIntString("notify.added"));
       } catch (BasicException e) {
         JMessageDialog.showMessage(this, new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.cannotexecute"), e));
       }
@@ -608,7 +585,6 @@ public final class CategoriesEditor extends JPanel implements EditorRecord {
       try {
         m_sentdel.exec(m_id);
         jLblInCat.setText(AppLocal.getIntString("label.CatalogueStatusNo"));
-        Notify(AppLocal.getIntString("notify.removed"));
       } catch (BasicException e) {
         JMessageDialog.showMessage(this, new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.cannotexecute"), e));
       }
@@ -659,14 +635,14 @@ public final class CategoriesEditor extends JPanel implements EditorRecord {
     private javax.swing.JLabel jLblProdCount;
     private javax.swing.JLabel jLblTextTip;
     private javax.swing.JScrollPane jScrollPane2;
-    private com.alee.laf.table.WebTable jTableCategoryStock;
+    private javax.swing.JTable jTableCategoryStock;
     private javax.swing.JCheckBox m_jCatNameShow;
     private javax.swing.JTextField m_jCatOrder;
     private javax.swing.JComboBox m_jCategory;
     private com.unicenta.data.gui.JImageEditor m_jImage;
     private javax.swing.JTextField m_jName;
     private javax.swing.JTextField m_jTextTip;
-    private com.alee.extended.button.WebSwitch webSwtch_InCatalog;
+    private javax.swing.JCheckBox webSwtch_InCatalog;
     // End of variables declaration//GEN-END:variables
 
 }

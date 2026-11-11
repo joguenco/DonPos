@@ -272,7 +272,6 @@ public class JPanelConfigDatabase extends javax.swing.JPanel implements PanelCon
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        webPopOver1 = new com.alee.extended.window.WebPopOver();
         headerPanel = new javax.swing.JPanel();
         dbTypeLabel = new javax.swing.JLabel();
         jcboDBDriver = new javax.swing.JComboBox();
@@ -321,8 +320,8 @@ public class JPanelConfigDatabase extends javax.swing.JPanel implements PanelCon
         jbtnSetDB1 = new javax.swing.JButton();
         jtxtDbSchema1 = new javax.swing.JTextField();
         multiDBPanel = new javax.swing.JPanel();
-        multiDBButton = new com.alee.extended.button.WebSwitch();
-        LblMultiDB = new com.alee.laf.label.WebLabel();
+        multiDBButton = new javax.swing.JCheckBox();
+        LblMultiDB = new javax.swing.JLabel();
         dbInfoLabel = new javax.swing.JLabel();
 
         setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -847,8 +846,8 @@ public class JPanelConfigDatabase extends javax.swing.JPanel implements PanelCon
             }
         });
 
-        LblMultiDB.setText(AppLocal.getIntString("label.multidb")); // NOI18N
         LblMultiDB.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        LblMultiDB.setText(AppLocal.getIntString("label.multidb")); // NOI18N
         LblMultiDB.setPreferredSize(new java.awt.Dimension(125, 30));
 
         dbInfoLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -911,7 +910,7 @@ public class JPanelConfigDatabase extends javax.swing.JPanel implements PanelCon
                 .addComponent(multiDBPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(db2ConfigPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1200,7 +1199,7 @@ public class JPanelConfigDatabase extends javax.swing.JPanel implements PanelCon
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.alee.laf.label.WebLabel LblMultiDB;
+    private javax.swing.JLabel LblMultiDB;
     private javax.swing.JPanel db2ConfigPanel;
     private javax.swing.JLabel db2DBLabel;
     private javax.swing.JLabel db2NameLabel;
@@ -1248,10 +1247,9 @@ public class JPanelConfigDatabase extends javax.swing.JPanel implements PanelCon
     private javax.swing.JTextField jtxtDbOptions;
     private javax.swing.JTextField jtxtDbSchema;
     private javax.swing.JTextField jtxtDbSchema1;
-    private com.alee.extended.button.WebSwitch multiDBButton;
+    private javax.swing.JCheckBox multiDBButton;
     private javax.swing.JPanel multiDBPanel;
     private javax.swing.JLabel validUserAlert;
-    private com.alee.extended.window.WebPopOver webPopOver1;
     // End of variables declaration//GEN-END:variables
 
 }

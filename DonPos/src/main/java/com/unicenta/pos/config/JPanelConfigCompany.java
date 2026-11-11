@@ -16,7 +16,6 @@
 //
 //    You should have received a copy of the GNU General Public License
 //    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
-
 package com.unicenta.pos.config;
 
 import com.unicenta.data.user.DirtyManager;
@@ -30,17 +29,16 @@ import javax.swing.ImageIcon;
  * @author JG uniCenta
  */
 public class JPanelConfigCompany extends javax.swing.JPanel implements PanelConfig {
-    
-    private final DirtyManager dirty = new DirtyManager();
 
+    private final DirtyManager dirty = new DirtyManager();
 
     /**
      *
      */
     public JPanelConfigCompany() {
-        
+
         initComponents();
-                          
+
         jtxtTktHeader1.getDocument().addDocumentListener(dirty);
         jtxtTktHeader2.getDocument().addDocumentListener(dirty);
         jtxtTktHeader3.getDocument().addDocumentListener(dirty);
@@ -54,12 +52,10 @@ public class JPanelConfigCompany extends javax.swing.JPanel implements PanelConf
         jtxtTktFooter4.getDocument().addDocumentListener(dirty);
         jtxtTktFooter5.getDocument().addDocumentListener(dirty);
         jtxtTktFooter6.getDocument().addDocumentListener(dirty);
-        
+
 // JG - For future
         lblLogo.setVisible(false);
         jLbllogoPath.setVisible(false);
-        webSwtch_Logo.setVisible(false);
-        
     }
 
     /**
@@ -70,7 +66,7 @@ public class JPanelConfigCompany extends javax.swing.JPanel implements PanelConf
     public boolean hasChanged() {
         return dirty.isDirty();
     }
-    
+
     /**
      *
      * @return
@@ -79,7 +75,7 @@ public class JPanelConfigCompany extends javax.swing.JPanel implements PanelConf
     public Component getConfigComponent() {
         return this;
     }
-   
+
     /**
      *
      * @param config
@@ -89,63 +85,62 @@ public class JPanelConfigCompany extends javax.swing.JPanel implements PanelConf
 
         jtxtTktHeader1.setText(config.getProperty("tkt.header1"));
         jtxtTktHeader2.setText(config.getProperty("tkt.header2"));
-        jtxtTktHeader3.setText(config.getProperty("tkt.header3"));  
-        jtxtTktHeader4.setText(config.getProperty("tkt.header4"));  
-        jtxtTktHeader5.setText(config.getProperty("tkt.header5"));  
-        jtxtTktHeader6.setText(config.getProperty("tkt.header6"));  
-        
+        jtxtTktHeader3.setText(config.getProperty("tkt.header3"));
+        jtxtTktHeader4.setText(config.getProperty("tkt.header4"));
+        jtxtTktHeader5.setText(config.getProperty("tkt.header5"));
+        jtxtTktHeader6.setText(config.getProperty("tkt.header6"));
+
         jtxtTktFooter1.setText(config.getProperty("tkt.footer1"));
         jtxtTktFooter2.setText(config.getProperty("tkt.footer2"));
-        jtxtTktFooter3.setText(config.getProperty("tkt.footer3"));  
-        jtxtTktFooter4.setText(config.getProperty("tkt.footer4"));  
-        jtxtTktFooter5.setText(config.getProperty("tkt.footer5"));  
-        jtxtTktFooter6.setText(config.getProperty("tkt.footer6"));  
+        jtxtTktFooter3.setText(config.getProperty("tkt.footer3"));
+        jtxtTktFooter4.setText(config.getProperty("tkt.footer4"));
+        jtxtTktFooter5.setText(config.getProperty("tkt.footer5"));
+        jtxtTktFooter6.setText(config.getProperty("tkt.footer6"));
 
-/** JG - here for future per terminal
-        jLbllogoPath.setText(config.getProperty("tkt.logopath"));
-        ImageIcon image = new ImageIcon(jLbllogoPath.getText());        
-        jLogo.setIcon(image);        
-*/        
-        dirty.setDirty(false);        
+        /**
+         * JG - here for future per terminal
+         * jLbllogoPath.setText(config.getProperty("tkt.logopath")); ImageIcon
+         * image = new ImageIcon(jLbllogoPath.getText()); jLogo.setIcon(image);
+         */
+        dirty.setDirty(false);
     }
-   
+
     /**
      *
      * @param config
      */
     @Override
     public void saveProperties(AppConfig config) {
-        
+
         config.setProperty("tkt.header1", jtxtTktHeader1.getText());
-        config.setProperty("tkt.header2", jtxtTktHeader2.getText()); 
-        config.setProperty("tkt.header3", jtxtTktHeader3.getText()); 
-        config.setProperty("tkt.header4", jtxtTktHeader4.getText()); 
-        config.setProperty("tkt.header5", jtxtTktHeader5.getText()); 
-        config.setProperty("tkt.header6", jtxtTktHeader6.getText()); 
-        
+        config.setProperty("tkt.header2", jtxtTktHeader2.getText());
+        config.setProperty("tkt.header3", jtxtTktHeader3.getText());
+        config.setProperty("tkt.header4", jtxtTktHeader4.getText());
+        config.setProperty("tkt.header5", jtxtTktHeader5.getText());
+        config.setProperty("tkt.header6", jtxtTktHeader6.getText());
+
         config.setProperty("tkt.footer1", jtxtTktFooter1.getText());
-        config.setProperty("tkt.footer2", jtxtTktFooter2.getText()); 
-        config.setProperty("tkt.footer3", jtxtTktFooter3.getText()); 
-        config.setProperty("tkt.footer4", jtxtTktFooter4.getText()); 
-        config.setProperty("tkt.footer5", jtxtTktFooter5.getText()); 
-        config.setProperty("tkt.footer6", jtxtTktFooter6.getText());          
+        config.setProperty("tkt.footer2", jtxtTktFooter2.getText());
+        config.setProperty("tkt.footer3", jtxtTktFooter3.getText());
+        config.setProperty("tkt.footer4", jtxtTktFooter4.getText());
+        config.setProperty("tkt.footer5", jtxtTktFooter5.getText());
+        config.setProperty("tkt.footer6", jtxtTktFooter6.getText());
 
         config.setProperty("tkt.logopath", jLbllogoPath.getText());
-        
+
         dirty.setDirty(false);
     }
-    
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         lblTktHeader1 = new javax.swing.JLabel();
         lblTktFooter1 = new javax.swing.JLabel();
-        webSwtch_Logo = new com.alee.extended.button.WebSwitch();
         jPanel1 = new javax.swing.JPanel();
         jtxtTktHeader3 = new javax.swing.JTextField();
         jtxtTktFooter6 = new javax.swing.JTextField();
@@ -178,14 +173,6 @@ public class JPanelConfigCompany extends javax.swing.JPanel implements PanelConf
         lblTktFooter1.setMaximumSize(new java.awt.Dimension(0, 25));
         lblTktFooter1.setMinimumSize(new java.awt.Dimension(0, 0));
         lblTktFooter1.setPreferredSize(new java.awt.Dimension(150, 30));
-
-        webSwtch_Logo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        webSwtch_Logo.setPreferredSize(new java.awt.Dimension(80, 30));
-        webSwtch_Logo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                webSwtch_LogoActionPerformed(evt);
-            }
-        });
 
         jtxtTktHeader3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtTktHeader3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -360,12 +347,11 @@ public class JPanelConfigCompany extends javax.swing.JPanel implements PanelConf
                         .addComponent(lblTktHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(webSwtch_Logo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(86, 86, 86)))
                     .addComponent(jLbllogoPath, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(214, Short.MAX_VALUE))
+                .addContainerGap(224, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -373,9 +359,7 @@ public class JPanelConfigCompany extends javax.swing.JPanel implements PanelConf
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(webSwtch_Logo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(55, 55, 55)
                         .addComponent(lblTktHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(163, 163, 163)
@@ -389,17 +373,7 @@ public class JPanelConfigCompany extends javax.swing.JPanel implements PanelConf
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void webSwtch_LogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webSwtch_LogoActionPerformed
-// JG - For future
-        if (webSwtch_Logo.isSelected()) {
 
-        } else {
-
-        }
-
-    }//GEN-LAST:event_webSwtch_LogoActionPerformed
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLbllogoPath;
     private javax.swing.JLabel jLogo;
@@ -419,7 +393,6 @@ public class JPanelConfigCompany extends javax.swing.JPanel implements PanelConf
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblTktFooter1;
     private javax.swing.JLabel lblTktHeader1;
-    private com.alee.extended.button.WebSwitch webSwtch_Logo;
     // End of variables declaration//GEN-END:variables
-    
+
 }
