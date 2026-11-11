@@ -66,7 +66,6 @@ public interface DevicePrinter {
 // Graphic renders
     public void printImage(BufferedImage image);
     public void printLogo();
-    public void printBarCode(String type, String position, String code);
 
 // Do TextLine
     public void beginLine(int iTextSize);

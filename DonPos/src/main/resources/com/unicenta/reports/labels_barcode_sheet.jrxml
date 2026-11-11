@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.5.final using JasperReports Library version 6.0.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="barcodesheet" columnCount="5" printOrder="Horizontal" pageWidth="595" pageHeight="841" columnWidth="114" leftMargin="11" rightMargin="11" topMargin="31" bottomMargin="31" uuid="4d71c84d-61d4-4e4b-bf7b-18b390b64bc1">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
@@ -28,27 +29,13 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="50" splitType="Stretch">
+		<band height="32" splitType="Stretch">
 			<elementGroup/>
 			<textField>
-				<reportElement x="0" y="30" width="113" height="20" uuid="df4e7476-bcb4-4804-bf23-806190bff70e"/>
+				<reportElement x="0" y="4" width="113" height="20" uuid="df4e7476-bcb4-4804-bf23-806190bff70e"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{CODE}]]></textFieldExpression>
 			</textField>
-			<image scaleImage="RetainShape" hAlign="Center" vAlign="Bottom">
-				<reportElement key="image-1" x="0" y="0" width="113" height="30" uuid="bdf0fb1f-66e5-4bb6-b49b-d5f95329cbc6"/>
-				<imageExpression><![CDATA[($F{CODETYPE}.equalsIgnoreCase("EAN-13") ? com.unicenta.pos.util.BarcodeImage.getBarcodeEAN13($F{CODE}) :
-    ($F{CODETYPE}.equalsIgnoreCase("EAN-8") ? com.unicenta.pos.util.BarcodeImage.getBarcodeEAN8($F{CODE}) :
-        ($F{CODETYPE}.equalsIgnoreCase("UPC-A") ? com.unicenta.pos.util.BarcodeImage.getBarcodeUPCA($F{CODE}) :
-            ($F{CODETYPE}.equalsIgnoreCase("UPC-E") ? com.unicenta.pos.util.BarcodeImage.getBarcodeUPCE($F{CODE}) :
-                ($F{CODETYPE}.equalsIgnoreCase("CODE128") ? com.unicenta.pos.util.BarcodeImage.getBarcode128($F{CODE}) :
-                    com.unicenta.pos.util.BarcodeImage.getBarcodeUPCE($F{CODE})
-                )
-            )
-        )
-    )
-)]]></imageExpression>
-			</image>
 		</band>
 	</detail>
 	<columnFooter>

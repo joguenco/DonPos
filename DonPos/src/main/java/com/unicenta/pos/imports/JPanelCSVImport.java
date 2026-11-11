@@ -28,7 +28,6 @@ import com.unicenta.pos.forms.*;
 import com.unicenta.pos.sales.TaxesLogic;
 import com.unicenta.pos.ticket.ProductInfoExt;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -44,6 +43,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Graphical User Interface and code for importing data from a CSV file allowing

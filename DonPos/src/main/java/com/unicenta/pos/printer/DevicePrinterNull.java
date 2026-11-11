@@ -81,17 +81,7 @@ public class DevicePrinterNull implements DevicePrinter {
      */
     @Override
     public void beginReceipt() {
-    }
-
-    /**
-     *
-     * @param type
-     * @param position
-     * @param code
-     */
-    @Override
-    public void printBarCode(String type, String position, String code) {        
-    }    
+    }  
 
     /**
      *

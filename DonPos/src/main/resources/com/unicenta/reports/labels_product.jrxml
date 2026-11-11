@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.5.final using JasperReports Library version 6.0.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="productlabels" columnCount="3" printOrder="Horizontal" pageWidth="595" pageHeight="842" columnWidth="178" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="9795a143-575d-45b5-9213-077a882d6450">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
@@ -77,15 +78,15 @@
 		<band/>
 	</columnHeader>
 	<detail>
-		<band height="230">
+		<band height="157">
 			<rectangle radius="4">
-				<reportElement key="rectangle-1" mode="Opaque" x="5" y="5" width="168" height="221" uuid="322fc1c8-f3a1-4730-8c42-b8017c716728"/>
+				<reportElement key="rectangle-1" mode="Opaque" x="5" y="5" width="168" height="145" uuid="322fc1c8-f3a1-4730-8c42-b8017c716728"/>
 				<graphicElement>
 					<pen lineStyle="Dashed" lineColor="#999999"/>
 				</graphicElement>
 			</rectangle>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-1" x="14" y="67" width="149" height="18" uuid="283b6f30-4579-417a-a6a2-42eff6a25707"/>
+				<reportElement key="textField-1" x="14" y="42" width="149" height="18" uuid="283b6f30-4579-417a-a6a2-42eff6a25707"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -98,7 +99,7 @@
 				<textFieldExpression><![CDATA[$F{CATEGORYNAME}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-2" x="14" y="41" width="149" height="26" uuid="2db48258-c20c-4ba7-9028-a4906acb5dad"/>
+				<reportElement key="textField-2" x="14" y="16" width="149" height="26" uuid="2db48258-c20c-4ba7-9028-a4906acb5dad"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -111,7 +112,7 @@
 				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-3" x="14" y="103" width="77" height="18" uuid="fba33423-09da-490b-b9c1-a576904a9cc4"/>
+				<reportElement key="textField-3" x="14" y="78" width="77" height="18" uuid="fba33423-09da-490b-b9c1-a576904a9cc4"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -124,7 +125,7 @@
 				<textFieldExpression><![CDATA[$R{label.tax}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement key="textField-5" x="14" y="121" width="150" height="46" uuid="532590d5-70b1-467b-af08-d8484185ca6c"/>
+				<reportElement key="textField-5" x="14" y="96" width="150" height="46" uuid="532590d5-70b1-467b-af08-d8484185ca6c"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -136,31 +137,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[com.unicenta.format.Formats.CURRENCY.formatValue($F{PRICESELL} * $F{TAXRATE})]]></textFieldExpression>
 			</textField>
-			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle">
-				<reportElement key="barcode-1" x="13" y="167" width="150" height="46" uuid="d9809aed-66b1-4e81-a15f-22233dd9f695"/>
-				<box>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<graphicElement fill="Solid">
-					<pen lineWidth="0.0" lineStyle="Solid"/>
-				</graphicElement>
-				<imageExpression><![CDATA[($F{CODETYPE}.equalsIgnoreCase("EAN-13") ? com.unicenta.pos.util.BarcodeImage.getBarcodeEAN13($F{CODE}) :
-    ($F{CODETYPE}.equalsIgnoreCase("EAN-8") ? com.unicenta.pos.util.BarcodeImage.getBarcodeEAN8($F{CODE}) :
-        ($F{CODETYPE}.equalsIgnoreCase("UPC-A") ? com.unicenta.pos.util.BarcodeImage.getBarcodeUPCA($F{CODE}) :
-            ($F{CODETYPE}.equalsIgnoreCase("UPC-E") ? com.unicenta.pos.util.BarcodeImage.getBarcodeUPCE($F{CODE}) :
-                ($F{CODETYPE}.equalsIgnoreCase("CODE128") ? com.unicenta.pos.util.BarcodeImage.getBarcode128($F{CODE}) :
-                    com.unicenta.pos.util.BarcodeImage.getBarcodeUPCE($F{CODE})
-                )
-            )
-        )
-    )
-)]]></imageExpression>
-			</image>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-9" x="91" y="85" width="72" height="18" uuid="4f29751e-14fc-41ea-a931-c4c05d732a62"/>
+				<reportElement key="textField-9" x="91" y="60" width="72" height="18" uuid="4f29751e-14fc-41ea-a931-c4c05d732a62"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -173,7 +151,7 @@
 				<textFieldExpression><![CDATA[com.unicenta.format.Formats.CURRENCY.formatValue($F{PRICESELL})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-10" x="91" y="103" width="72" height="18" uuid="85db9fd0-3824-4c93-b277-4091f0764c92"/>
+				<reportElement key="textField-10" x="91" y="78" width="72" height="18" uuid="85db9fd0-3824-4c93-b277-4091f0764c92"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -186,7 +164,7 @@
 				<textFieldExpression><![CDATA[com.unicenta.format.Formats.CURRENCY.formatValue(($F{PRICESELL} * $F{TAXRATE}) - $F{PRICESELL})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="14" y="85" width="77" height="18" uuid="942bf3ae-6b02-4b16-ad31-b5bc0afbc28d"/>
+				<reportElement x="14" y="60" width="77" height="18" uuid="942bf3ae-6b02-4b16-ad31-b5bc0afbc28d"/>
 				<textElement>
 					<font fontName="SansSerif" isBold="false"/>
 				</textElement>

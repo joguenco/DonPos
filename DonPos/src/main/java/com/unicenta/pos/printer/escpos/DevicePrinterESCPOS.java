@@ -125,19 +125,6 @@ public class DevicePrinterESCPOS implements DevicePrinter  {
         m_CommOutputPrinter.write(ESCPOS.SELECT_PRINTER);        
         m_CommOutputPrinter.write(m_codes.getImageLogo());
     }
-
-    /**
-     *
-     * @param type
-     * @param position
-     * @param code
-     */
-    @Override
-    public void printBarCode(String type, String position, String code) {
-        
-        m_CommOutputPrinter.write(ESCPOS.SELECT_PRINTER);        
-        m_codes.printBarcode(m_CommOutputPrinter, type, position, code);
-    }
     
     /**
      *

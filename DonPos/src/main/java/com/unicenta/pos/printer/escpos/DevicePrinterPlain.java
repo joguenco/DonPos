@@ -107,20 +107,6 @@ public class DevicePrinterPlain implements DevicePrinter  {
     
     /**
      *
-     * @param type
-     * @param position
-     * @param code
-     */
-    @Override
-    public void printBarCode(String type, String position, String code) {        
-        if (! DevicePrinter.POSITION_NONE.equals(position)) {                
-            out.write(code);
-            out.write(NEW_LINE);
-        }
-    }
-    
-    /**
-     *
      * @param iTextSize
      */
     @Override

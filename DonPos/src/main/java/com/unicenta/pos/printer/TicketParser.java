@@ -370,10 +370,6 @@ public class TicketParser extends DefaultHandler {
                     text = null;
                 } else if ("qr-code".equals(qName)) {
                     m_oOutputPrinter.printImage(QRCode.printQRCode(text.toString()));
-                }
-                else if ("barcode".equals(qName)) {
-                    m_oOutputPrinter.printBarCode(bctype, bcposition, text.toString());
-                    text = null;
                 } else if ("text".equals(qName)) {
                     if (m_iTextLength > 0) {
                         switch(m_iTextAlign) {

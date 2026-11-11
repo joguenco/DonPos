@@ -111,17 +111,6 @@ public class DevicePrinterPanel extends javax.swing.JPanel implements DevicePrin
 
     /**
      *
-     * @param type
-     * @param position
-     * @param code
-     */
-    @Override
-    public void printBarCode(String type, String position, String code) {
-        m_ticketcurrent.printBarCode(type, position, code);
-    }
-
-    /**
-     *
      * @param iTextSize
      */
     @Override

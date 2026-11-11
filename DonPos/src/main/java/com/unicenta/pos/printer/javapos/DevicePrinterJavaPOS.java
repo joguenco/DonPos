@@ -160,26 +160,6 @@ public class DevicePrinterJavaPOS  implements DevicePrinter {
     @Override
     public void printLogo(){   
     }
-
-    /**
-     *
-     * @param type
-     * @param position
-     * @param code
-     */
-    @Override
-    public void printBarCode(String type, String position, String code) {
-        try {
-            if (m_printer.getCapRecBarCode()) { // si podemos imprimir codigos de barras
-                if (DevicePrinter.POSITION_NONE.equals(position)) {                
-                    m_printer.printBarCode(POSPrinterConst.PTR_S_RECEIPT, code, POSPrinterConst.PTR_BCS_EAN13, 10 * 100, 60 * 100, POSPrinterConst.PTR_BC_CENTER, POSPrinterConst.PTR_BC_TEXT_NONE);
-                } else {
-                    m_printer.printBarCode(POSPrinterConst.PTR_S_RECEIPT, code, POSPrinterConst.PTR_BCS_EAN13, 10 * 100, 60 * 100, POSPrinterConst.PTR_BC_CENTER, POSPrinterConst.PTR_BC_TEXT_BELOW);
-                }
-            }
-        } catch (JposException e) {
-        }
-    }
     
     /**
      *

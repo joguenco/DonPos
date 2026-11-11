@@ -172,16 +172,6 @@ public class DevicePrinterPrinter implements DevicePrinter {
   }
 
   /**
-   * @param type
-   * @param position
-   * @param code
-   */
-  @Override
-  public void printBarCode(String type, String position, String code) {
-    m_ticketcurrent.printBarCode(type, position, code);
-  }
-
-  /**
    * Method that is responsible for starting a new line on a receipt
    *
    * @param iTextSize a size of text in the line
