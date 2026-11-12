@@ -192,7 +192,6 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
 // Tab Button
         m_jDisplay.getDocument().addDocumentListener(dirty);
         m_jTextTip.getDocument().addDocumentListener(dirty);
-        colourChooser.addActionListener(dirty);
         m_jDisplay.addCaretListener(null);
 
 // Tab Properties
@@ -343,7 +342,6 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
 // Tab Button
         m_jDisplay.setEnabled(false);
         m_jTextTip.setEnabled(false);
-        colourChooser.setEnabled(false);
 
 // Tab Properties
         txtAttributes.setEnabled(false);
@@ -399,7 +397,6 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
 // Tab Button
         m_jDisplay.setText(null);
         m_jTextTip.setText(null);
-        colourChooser.setEnabled(false);
 
 // Tab Properties
         txtAttributes.setText(null);
@@ -443,7 +440,6 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
 // Tab Button
         m_jDisplay.setEnabled(true);
         m_jTextTip.setEnabled(true);
-        colourChooser.setEnabled(true);
 
 // Tab Properties        
         txtAttributes.setEnabled(true);
@@ -609,7 +605,6 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
 // Tab Button        
         m_jDisplay.setEnabled(true);
         m_jTextTip.setEnabled(true);
-        colourChooser.setEnabled(true);
         setButtonHTML();
 
         resetTranxTable();
@@ -719,7 +714,6 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
 // Tab Button
         m_jDisplay.setEnabled(false);
         m_jTextTip.setEnabled(false);
-        colourChooser.setEnabled(false);
 
 // Tab Properties        
         txtAttributes.setEnabled(false);
@@ -858,25 +852,25 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
                 m_jDisplay.insert("<br>", m_jDisplay.getCaretPosition());
                 break;
             case 2:
-                String hexcolor = color2HexString(colourChooser.getColor());
+                String hexcolor = color2HexString(lblColor.getBackground());
                 m_jDisplay.insert("<font color=" + hexcolor + ">",
-                         m_jDisplay.getCaretPosition());
+                        m_jDisplay.getCaretPosition());
                 break;
             case 3:
                 m_jDisplay.insert("<font size=+2>",
-                         m_jDisplay.getCaretPosition());
+                        m_jDisplay.getCaretPosition());
                 break;
             case 4:
                 m_jDisplay.insert("<font size=-2>",
-                         m_jDisplay.getCaretPosition());
+                        m_jDisplay.getCaretPosition());
                 break;
             case 5:
                 m_jDisplay.insert("<b> </b>",
-                         m_jDisplay.getCaretPosition());
+                        m_jDisplay.getCaretPosition());
                 break;
             case 6:
                 m_jDisplay.insert("<i> </i>",
-                         m_jDisplay.getCaretPosition());
+                        m_jDisplay.getCaretPosition());
                 break;
             case 7:
 // defaults to file:/ for local disk
@@ -889,7 +883,7 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
                 File selectedFile = fc.getSelectedFile();
                 if (selectedFile != null) {
                     m_jDisplay.insert("<img src=file:" + selectedFile.getAbsolutePath() + ">",
-                             m_jDisplay.getCaretPosition());
+                            m_jDisplay.getCaretPosition());
                 }
                 break;
 
@@ -898,8 +892,8 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
                 m_jDisplay.setText(htmlString);
                 break;
             case 9:
-                m_jDisplay.insert("<div style=background-color:black;color:white;padding:10px;>",
-                         m_jDisplay.getCaretPosition());
+                m_jDisplay.insert("<div style=background-color:" + color2HexString(lblColor.getBackground()) + ";color:white;padding:10px;>",
+                        m_jDisplay.getCaretPosition());
                 break;
             default:
                 htmlString += "";
@@ -1266,7 +1260,8 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
         jBtnImage = new javax.swing.JButton();
         jBtnReset = new javax.swing.JButton();
         jBtnStyle = new javax.swing.JButton();
-        colourChooser = new com.alee.extended.colorchooser.WebColorPicker();
+        lblColor = new javax.swing.JLabel();
+        cmdColor = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tableLots = new javax.swing.JTable();
@@ -1680,9 +1675,9 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
         jLabel23.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel23.setPreferredSize(new java.awt.Dimension(531, 20));
 
+        webLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         webLabel1.setText(bundle.getString("label.printto")); // NOI18N
         webLabel1.setToolTipText(bundle.getString("tooltip.printto")); // NOI18N
-        webLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         webLabel1.setPreferredSize(new java.awt.Dimension(130, 30));
 
         m_jPrintTo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -2076,10 +2071,14 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
             }
         });
 
-        colourChooser.setToolTipText(bundle.getString("tooltip.prodhtmldisplayColourChooser")); // NOI18N
-        colourChooser.addActionListener(new java.awt.event.ActionListener() {
+        lblColor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblColor.setText("Color");
+
+        cmdColor.setText("Color");
+        cmdColor.setPreferredSize(new java.awt.Dimension(90, 23));
+        cmdColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colourChooserActionPerformed(evt);
+                cmdColorActionPerformed(evt);
             }
         });
 
@@ -2106,24 +2105,24 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtnBreak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jBtnColour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBtnLarge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBtnSmall, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGap(13, 13, 13)
-                                        .addComponent(colourChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(49, 49, 49)
-                                        .addComponent(jButtonHTML, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jBtnColour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtnLarge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtnSmall, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtnBold, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtnItalic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtnImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jBtnImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(141, 141, 141)
+                                .addComponent(lblColor, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonHTML, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmdColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -2146,15 +2145,15 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
                         .addComponent(jBtnImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jBtnStyle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jBtnBreak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonHTML, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(colourChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblColor)
+                    .addComponent(cmdColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(m_jTextTip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(AppLocal.getIntString("label.button"), jPanel4); // NOI18N
@@ -2306,10 +2305,6 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
       }
   }//GEN-LAST:event_jBtnSupplierActionPerformed
 
-  private void colourChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colourChooserActionPerformed
-      // TODO add your handling code here:
-  }//GEN-LAST:event_colourChooserActionPerformed
-
   private void m_jCodeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_m_jCodeFocusLost
       if (m_jCode.getText().length() < 8) {
           m_jCodetype.setSelectedIndex(2);
@@ -2356,6 +2351,15 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
       }
   }//GEN-LAST:event_m_jInCatalogActionPerformed
 
+    private void cmdColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdColorActionPerformed
+        Color selectedColor = JColorChooser.showDialog(this, AppLocal.getIntString("label.colourchooser"), lblColor.getBackground());
+        if (selectedColor != null) {
+            lblColor.setText(color2HexString(selectedColor));
+            lblColor.setOpaque(true);
+            lblColor.setBackground(selectedColor);
+        }
+    }//GEN-LAST:event_cmdColorActionPerformed
+
     private List<ProductLotInfo> getLots(String productId) {
         try {
             return dlLot.getProductLotList(productId);
@@ -2376,32 +2380,32 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
                 return false;
             }
         });
-        
+
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
         model.setColumnIdentifiers(columnName);
         for (ProductLotInfo product : products) {
             model.addRow(new Object[]{
-                product.getLotName(), 
-                Formats.DATE.formatValue(product.getExpirationDate()), 
+                product.getLotName(),
+                Formats.DATE.formatValue(product.getExpirationDate()),
                 product.getStatus(),
                 product.getStock()
             });
         }
-        
+
         lookTable(table);
     }
 
     private void lookTable(JTable table) {
 
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        
+
         ColorRenderer colorRenderer = new ColorRenderer();
         table.setDefaultRenderer(Object.class, colorRenderer);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.alee.extended.colorchooser.WebColorPicker colourChooser;
+    private javax.swing.JButton cmdColor;
     private javax.swing.JButton jBtnBold;
     private javax.swing.JButton jBtnBreak;
     private javax.swing.JButton jBtnColour;
@@ -2455,6 +2459,7 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableProductStock;
+    private javax.swing.JLabel lblColor;
     private javax.swing.JComboBox m_jAtt;
     private javax.swing.JTextField m_jCatalogOrder;
     private javax.swing.JComboBox m_jCategory;

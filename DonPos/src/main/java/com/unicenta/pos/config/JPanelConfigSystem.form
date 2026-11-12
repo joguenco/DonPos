@@ -68,9 +68,11 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLblautoRefresh" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="WaiterColour" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="TableNameColour" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="CustomerColour" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="TableNameColour" alignment="0" pref="117" max="32767" attributes="0"/>
+                                      <Component id="WaiterColour" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="CustomerColour" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -90,7 +92,7 @@
                                       <Component id="jLabelTimedMessage" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="105" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -206,18 +208,18 @@
                   <Component id="CustomerColour" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="2" attributes="0">
-                  <Component id="jchkShowWaiterDetails" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="WaiterColour" alignment="2" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jchkShowWaiterDetails" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="WaiterColour" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="2" attributes="0">
-                  <Component id="TableNameColour" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelTableNameTextColour" alignment="2" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabelTableNameTextColour" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="TableNameColour" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jchkTransBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -768,9 +770,6 @@
           <Dimension value="[250, 25]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jchkPriceUpdatePropertyChange"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jchkBarcodetype">
       <Properties>
@@ -817,54 +816,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jchkTransBtnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.alee.extended.colorchooser.WebColorChooserField" name="WaiterColour">
-      <Properties>
-        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="pos_messages.properties" key="tooltip.prodhtmldisplayColourChooser" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-        <Property name="colorDisplayType" type="com.alee.extended.colorchooser.ColorDisplayType" editor="org.netbeans.modules.form.editors.EnumEditor">
-          <Value id="hex"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="14" style="0"/>
-        </Property>
-        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[51, 30]"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="com.alee.extended.colorchooser.WebColorChooserField" name="TableNameColour">
-      <Properties>
-        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="pos_messages.properties" key="tooltip.prodhtmldisplayColourChooser" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-        <Property name="colorDisplayType" type="com.alee.extended.colorchooser.ColorDisplayType" editor="org.netbeans.modules.form.editors.EnumEditor">
-          <Value id="hex"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="14" style="0"/>
-        </Property>
-        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[51, 30]"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="com.alee.extended.colorchooser.WebColorChooserField" name="CustomerColour">
-      <Properties>
-        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="pos_messages.properties" key="tooltip.prodhtmldisplayColourChooser" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-        <Property name="colorDisplayType" type="com.alee.extended.colorchooser.ColorDisplayType" editor="org.netbeans.modules.form.editors.EnumEditor">
-          <Value id="hex"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="14" style="0"/>
-        </Property>
-        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[51, 30]"/>
-        </Property>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JCheckBox" name="jchkOverride">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -883,9 +834,6 @@
           <Dimension value="[200, 30]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jchkOverrideActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jtxtPIN">
       <Properties>
@@ -916,6 +864,21 @@
     <Component class="javax.swing.JCheckBox" name="disableAnonymousStats">
       <Properties>
         <Property name="text" type="java.lang.String" value="Disable Anonymous Stats"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="CustomerColour">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="CustomerColour"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="WaiterColour">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="WaiterColour"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="TableNameColour">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="TableNameColour"/>
       </Properties>
     </Component>
   </SubComponents>

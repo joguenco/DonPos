@@ -21,11 +21,6 @@ package com.unicenta.pos.sales;
 import dev.resolvedor.pos.sales.DebitNoteRelatedDialog;
 import bsh.EvalError;
 import bsh.Interpreter;
-import com.alee.extended.time.ClockType;
-import com.alee.extended.time.WebClock;
-import com.alee.managers.notification.NotificationIcon;
-import com.alee.managers.notification.NotificationManager;
-import com.alee.managers.notification.WebNotification;
 import com.unicenta.basic.BasicException;
 import com.unicenta.beans.JNumberPop;
 import com.unicenta.data.gui.ComboBoxValModel;
@@ -2496,21 +2491,11 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
     }
 
     public void customerChange(String resource) {
-        Notify(AppLocal.getIntString("notify.customerchange"));
+        log.info(AppLocal.getIntString("notify.customerchange"));
     }
 
     public void Notify(String msg) {
-        final WebNotification notification = new WebNotification();
-        notification.setIcon(NotificationIcon.information);
-        notification.setDisplayTime(4000);
-
-        final WebClock clock = new WebClock();
-        clock.setClockType(ClockType.timer);
-        clock.setTimeLeft(5000);
-        notification.setContent(msg);
-
-        NotificationManager.showNotification(notification);
-        clock.start();
+        log.info(msg);
     }
 
     private void printReport(String resourcefile, TicketInfo ticket, Object ticketext) {

@@ -54,9 +54,6 @@ mvn install:install-file -Dfile=./lib/AbsoluteLayout-RELEASE82.jar -DgroupId=org
 mvn install:install-file -Dfile=./lib/jpos-1.13.jar -DgroupId=com.javapos -DartifactId=jpos -Dversion=1.13 -Dpackaging=jar
 ```
 ```
-mvn install:install-file -Dfile=./lib/weblaf-1.2.9.jar -DgroupId=de.sciss -DartifactId=weblaf -Dversion=1.2.9 -Dpackaging=jar
-```
-```
 mvn install:install-file -Dfile=./lib/trident-1.4.jar -DgroupId=org.pushingpixels -DartifactId=trident -Dversion=1.4 -Dpackaging=jar
 ```
 ```
@@ -69,9 +66,6 @@ mvn install:install-file -Dfile=.\lib\AbsoluteLayout-RELEASE82.jar -DgroupId=org
 ```
 ```
 mvn install:install-file -Dfile=.\lib\jpos-1.13.jar -DgroupId=com.javapos -DartifactId=jpos -Dversion=1.13 -Dpackaging=jar
-```
-```
-mvn install:install-file -Dfile=.\lib\weblaf-1.2.9.jar -DgroupId=de.sciss -DartifactId=weblaf -Dversion=1.2.9 -Dpackaging=jar
 ```
 ```
 mvn install:install-file -Dfile=.\lib\trident-1.4.jar -DgroupId=org.pushingpixels -DartifactId=trident -Dversion=1.4 -Dpackaging=jar

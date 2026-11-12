@@ -21,12 +21,7 @@ package com.unicenta.pos.config;
 
 import com.unicenta.data.user.DirtyManager;
 import com.unicenta.pos.forms.AppConfig;
-import java.awt.*;
-import com.alee.extended.colorchooser.*;
-import com.alee.managers.language.*;
-import com.alee.laf.*;
-import com.alee.extended.colorchooser.ColorDisplayType;
-import javax.swing.*;
+import java.awt.Component;
 
 
 /**
@@ -39,8 +34,6 @@ public class JPanelConfigSystem extends javax.swing.JPanel implements PanelConfi
     
     /** Creates new form JPanelConfigDatabase */
     public JPanelConfigSystem() {
-
-        WebLookAndFeel.initializeManagers ();
         
         initComponents();
         
@@ -287,13 +280,13 @@ public class JPanelConfigSystem extends javax.swing.JPanel implements PanelConfi
         jchkPriceUpdate = new javax.swing.JCheckBox();
         jchkBarcodetype = new javax.swing.JCheckBox();
         jchkTransBtn = new javax.swing.JCheckBox();
-        WaiterColour = new com.alee.extended.colorchooser.WebColorChooserField();
-        TableNameColour = new com.alee.extended.colorchooser.WebColorChooserField();
-        CustomerColour = new com.alee.extended.colorchooser.WebColorChooserField();
         jchkOverride = new javax.swing.JCheckBox();
         jtxtPIN = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         disableAnonymousStats = new javax.swing.JCheckBox();
+        CustomerColour = new javax.swing.JTextField();
+        WaiterColour = new javax.swing.JTextField();
+        TableNameColour = new javax.swing.JTextField();
 
         setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         setOpaque(false);
@@ -529,21 +522,6 @@ public class JPanelConfigSystem extends javax.swing.JPanel implements PanelConfi
             }
         });
 
-        WaiterColour.setToolTipText(bundle.getString("tooltip.prodhtmldisplayColourChooser")); // NOI18N
-        WaiterColour.setColorDisplayType(com.alee.extended.colorchooser.ColorDisplayType.hex);
-        WaiterColour.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        WaiterColour.setMinimumSize(new java.awt.Dimension(51, 30));
-
-        TableNameColour.setToolTipText(bundle.getString("tooltip.prodhtmldisplayColourChooser")); // NOI18N
-        TableNameColour.setColorDisplayType(com.alee.extended.colorchooser.ColorDisplayType.hex);
-        TableNameColour.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        TableNameColour.setMinimumSize(new java.awt.Dimension(51, 30));
-
-        CustomerColour.setToolTipText(bundle.getString("tooltip.prodhtmldisplayColourChooser")); // NOI18N
-        CustomerColour.setColorDisplayType(com.alee.extended.colorchooser.ColorDisplayType.hex);
-        CustomerColour.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        CustomerColour.setMinimumSize(new java.awt.Dimension(51, 30));
-
         jchkOverride.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jchkOverride.setText(bundle.getString("label.override")); // NOI18N
         jchkOverride.setMaximumSize(new java.awt.Dimension(0, 25));
@@ -561,7 +539,12 @@ public class JPanelConfigSystem extends javax.swing.JPanel implements PanelConfi
         jLabel5.setText("PIN");
 
         disableAnonymousStats.setText("Disable Anonymous Stats");
-        disableAnonymousStats.setFont(new java.awt.Font("Arial", 0, 14));
+
+        CustomerColour.setText("CustomerColour");
+
+        WaiterColour.setText("WaiterColour");
+
+        TableNameColour.setText("TableNameColour");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -602,9 +585,10 @@ public class JPanelConfigSystem extends javax.swing.JPanel implements PanelConfi
                                         .addComponent(jTxtautoRefreshTimer, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLblautoRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(WaiterColour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TableNameColour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(CustomerColour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(TableNameColour, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                                        .addComponent(WaiterColour, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(CustomerColour, javax.swing.GroupLayout.Alignment.LEADING)))
                                 .addContainerGap())
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -619,7 +603,7 @@ public class JPanelConfigSystem extends javax.swing.JPanel implements PanelConfi
                                         .addComponent(jTextAutoLogoffTime, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabelTimedMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 105, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -711,16 +695,16 @@ public class JPanelConfigSystem extends javax.swing.JPanel implements PanelConfi
                     .addComponent(jchkShowCustomerDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CustomerColour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jchkShowWaiterDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(WaiterColour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(TableNameColour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelTableNameTextColour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelTableNameTextColour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TableNameColour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jchkTransBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -786,9 +770,9 @@ public class JPanelConfigSystem extends javax.swing.JPanel implements PanelConfi
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.alee.extended.colorchooser.WebColorChooserField CustomerColour;
-    private com.alee.extended.colorchooser.WebColorChooserField TableNameColour;
-    private com.alee.extended.colorchooser.WebColorChooserField WaiterColour;
+    private javax.swing.JTextField CustomerColour;
+    private javax.swing.JTextField TableNameColour;
+    private javax.swing.JTextField WaiterColour;
     private javax.swing.JCheckBox disableAnonymousStats;
     private javax.swing.JCheckBox jCheckPrice00;
     private javax.swing.JCheckBox jCloseCashbtn;
