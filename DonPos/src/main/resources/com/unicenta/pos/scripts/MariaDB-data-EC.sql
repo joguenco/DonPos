@@ -377,7 +377,7 @@ SELECT `information`.`id` AS `id`,
 	`name`,
 	`value` FROM information;
 
-CREATE  VIEW `v_ele_payments` AS SELECT cast(`p`.`id` as uuid) AS `id`,
+CREATE VIEW `v_ele_payments` AS SELECT cast(`p`.`id` as uuid) AS `id`,
         `t`.`code` AS `code`,
         `t`.`serie_number` AS `number`,
         CONVERT(IF((`p`.`PAYMENT` = 'cash'), '01', '20') , CHAR) AS `way_pay`,
@@ -395,47 +395,43 @@ CREATE  VIEW `v_ele_payments` AS SELECT cast(`p`.`id` as uuid) AS `id`,
     WHERE
         (`t`.`TICKETTYPE` = 0);
 
-CREATE  VIEW `v_ele_report_invoices` AS select `j`.`id` AS `id`,
-    `j`.`code` AS `code`,
-    `j`.`number` AS `number`,
-    `j`.`access_key` AS `access_key`,
-    `j`.`date` AS `date`,
-    `j`.`total` AS `total`,
-    `j`.`identification` AS `identification`,
-    `j`.`legal_name` AS `legal_name`,
-    (select
-        `i`.`value`
-    from
-        `v_ele_information` `i`
-    where
-        `i`.`name` = 'Email'
-        and `i`.`identification` = `j`.`identification`
-    limit 1) AS `email`,
-    ifnull((select `e`.`status` from `ele_documents` `e` where `e`.`code` = `j`.`code` and `e`.`number` = `j`.`number`), 'NO ENVIADO') AS `status`
-from
-    `v_ele_invoices` `j`
-order by `j`.`number` desc, `j`.`number` desc;
+CREATE VIEW `v_ele_report_invoices` AS select
+    (cast(`t`.`id` as uuid)) as `id`,
+    `t`.`code` AS `code`,
+    `t`.`serie_number` AS `number`,
+    `t`.`access_key` as `access_key`,
+    cast(`r`.`datenew` as date) AS `date`,
+    `c`.`taxid` AS `identification`,
+    `c`.`name` AS `legal_name`,
+    `c`.`email` AS `email`,
+    ifnull((select `e`.`status` from `ele_documents` `e` where `e`.`code` = `t`.`code` and `e`.`number` = `t`.`serie_number`), 'NO ENVIADO') AS `status`
+from (`tickets` `t`
+join `receipts` `r` on
+    `t`.`id` = `r`.`id`
+join `customers` `c` on
+    `c`.`id` = `t`.`customer`)
+    where (`t`.`code` = 'FV')
+    and (`t`.`tickettype` = 0)
+order by `r`.`datenew` desc, `t`.`serie_number` desc;
 
-CREATE  VIEW `v_ele_report_credit_notes` AS select `j`.`id` AS `id`,
-    `j`.`code` AS `code`,
-    `j`.`number` AS `number`,
-    `j`.`access_key` AS `access_key`,
-    `j`.`date` AS `date`,
-    `j`.`total` AS `total`,
-    `j`.`identification` AS `identification`,
-    `j`.`legal_name` AS `legal_name`,
-    (select
-        `i`.`value`
-    from
-        `v_ele_information` `i`
-    where
-        `i`.`name` = 'Email'
-        and `i`.`identification` = `j`.`identification`
-    limit 1) AS `email`,
-    ifnull((select `e`.`status` from `ele_documents` `e` where `e`.`code` = `j`.`code` and `e`.`number` = `j`.`number`), 'NO ENVIADO') AS `status`
-from
-    `v_ele_credit_notes` `j`
-order by `j`.`number` desc, `j`.`number` desc;
+CREATE VIEW `v_ele_report_credit_notes` AS select
+    (cast(`t`.`id` as uuid)) as `id`,
+    `t`.`code` AS `code`,
+    `t`.`serie_number` AS `number`,
+    `t`.`access_key` AS `access_key`,
+    cast(`r`.`datenew` as date) AS `date`,    
+    `c`.`taxid` AS `identification`,
+    `c`.`name` AS `legal_name`,
+    `c`.`email` AS `email`,
+    ifnull((select `e`.`status` from `ele_documents` `e` where `e`.`code` = `t`.`code` and `e`.`number` = `t`.`serie_number`), 'NO ENVIADO') AS `status`
+from (`tickets` `t`
+join `receipts` `r` on
+	`t`.`id` = `r`.`id`
+join `customers` `c` on
+	`c`.`id` = `t`.`customer`)
+    where (`t`.`code` = 'DV')
+    and (`t`.`tickettype` = 1)
+order by `r`.`datenew` desc, `t`.`serie_number` desc;
 
 CREATE VIEW `v_ele_debit_notes` AS select cast(`t`.`id` as uuid) AS `id`,
     `t`.`code` AS `code`,
@@ -489,26 +485,20 @@ from ((`tickets` `t`
     join `products` `p` on(`p`.`id` = `tl`.`product`))
 where `t`.`code` = 'ND';
 
-CREATE VIEW `v_ele_report_debit_notes` AS select `j`.`id` AS `id`,
-    `j`.`code` AS `code`,
-    `j`.`number` AS `number`,
-    `j`.`access_key` AS `access_key`,
-    `j`.`date` AS `date`,
-    `j`.`total` AS `total`,
-    `j`.`identification` AS `identification`,
-    `j`.`legal_name` AS `legal_name`,
-    (select
-        `i`.`value`
-    from
-        `v_ele_information` `i`
-    where
-        `i`.`name` = 'Email'
-        and `i`.`identification` = `j`.`identification`
-    limit 1) AS `email`,
-    ifnull((select `e`.`status` from `ele_documents` `e` where `e`.`code` = `j`.`code` and `e`.`number` = `j`.`number`), 'NO ENVIADO') AS `status`
-from
-    `v_ele_debit_notes` `j`
-order by `j`.`number` desc;
+CREATE VIEW `v_ele_report_debit_notes` AS select cast(`t`.`id` as uuid) AS `id`,
+    `t`.`code` AS `code`,
+    `t`.`serie_number` AS `number`,
+    `t`.`access_key` AS `access_key`,
+    cast(`r`.`datenew` as date) AS `date`,    
+    `c`.`taxid` AS `identification`,
+    `c`.`name` AS `legal_name`,
+    `c`.`email` AS `email`,
+	ifnull((select `e`.`status` from `ele_documents` `e` where `e`.`code` = `t`.`code` and `e`.`number` = `t`.`serie_number`), 'NO ENVIADO') AS `status`
+from (`tickets` `t`
+    join `receipts` `r` on `t`.`id` = `r`.`id`
+    join `customers` `c` on `c`.`id` = `t`.`customer`)
+where `t`.`code` = 'ND'
+order by `r`.`datenew` desc, `t`.`serie_number` desc;
 
 CREATE VIEW `v_version` AS select 1 AS `id`,
     version() AS `version_database`;
@@ -630,18 +620,22 @@ where
     (`p`.`purchase_document` = '03')
     and (`p`.`status` = 1);
 
-CREATE VIEW `v_ele_report_liquidations` AS select `j`.`id` AS `id`,
-    `j`.`code` AS `code`,
-    `j`.`number` AS `number`,
-    `j`.`access_key` AS `access_key`,
-    `j`.`date` AS `date`,
-    `j`.`total` AS `total`,
-    `j`.`identification` AS `identification`,
-    `j`.`legal_name` AS `legal_name`,
-    (select `sup`.`email` from `suppliers` `sup` where `sup`.`taxid` = `j`.`identification` limit 1) AS `email`,
-    ifnull((select `e`.`status` from `ele_documents` `e` where `e`.`code` = `j`.`code` and `e`.`number` = `j`.`number`), 'NO ENVIADO') AS `status`
-from `v_ele_liquidations` `j`
-order by `j`.`number` desc;
+CREATE VIEW `v_ele_report_liquidations` AS select cast(`p`.`id` as uuid) AS `id`,
+    cast('LQ' as char) AS `code`,
+    `p`.`purchase_reference` AS `number`,
+    `p`.`purchase_authorization` AS `access_key`,
+    cast(`p`.`purchase_date` as date) AS `date`,
+    `s`.`taxid` AS `identification`,
+    `s`.`name` AS `legal_name`,
+    `s`.email AS `email`,
+	ifnull((select `e`.`status` from `ele_documents` `e` where `e`.`code` = 'LQ' and `e`.`number` = `p`.`purchase_reference`), 'NO ENVIADO') AS `status`    
+from `purchases` `p`
+join `suppliers` `s` on
+    `s`.`id` = `p`.`supplier`
+where
+    (`p`.`purchase_document` = '03')
+    and (`p`.`status` = 1)
+order by `p`.`purchase_date` desc, `p`.`purchase_reference` desc;
 
 -- Vistas de retención
 CREATE VIEW `v_ele_withholds` AS select cast(`w`.`id` as uuid) AS `id`,
@@ -793,18 +787,24 @@ group by
     `p`.`purchase_date`,
     `p`.`purchase_authorization`;
 
-CREATE VIEW `v_ele_report_withholds` AS select `j`.`id` AS `id`,
-    `j`.`code` AS `code`,
-    `j`.`number` AS `number`,
-    `j`.`access_key` AS `access_key`,
-    `j`.`date` AS `date`,
-    ifnull((select sum(`d`.`withholded_value`) from `v_ele_withholds_detail` `d` where `d`.`code` = `j`.`code` and `d`.`number` = `j`.`number`), 0) AS `total`,
-    `j`.`identification` AS `identification`,
-    `j`.`legal_name` AS `legal_name`,
-    (select `sup`.`email` from `suppliers` `sup` where `sup`.`taxid` = `j`.`identification` limit 1) AS `email`,
-    ifnull((select `e`.`status` from `ele_documents` `e` where `e`.`code` = `j`.`code` and `e`.`number` = `j`.`number`), 'NO ENVIADO') AS `status`
-from `v_ele_withholds` `j`
-order by `j`.`number` desc;
+CREATE VIEW `v_ele_report_withholds` AS select cast(`w`.`id` as uuid) AS `id`,
+    `w`.`code` AS `code`,
+    `w`.`serie_number` AS `number`,
+    `w`.`access_key` AS `access_key`,
+    cast(`w`.`date_withhold` as date) AS `date`,
+    `s`.`taxid` AS `identification`,
+    `s`.`name` AS `legal_name`,
+	`s`.`email` AS `email`,
+	ifnull((select `e`.`status` from `ele_documents` `e` where `e`.`code` = `w`.`code` and `e`.`number` = `w`.`serie_number`), 'NO ENVIADO') AS `status`
+from
+    `withholds` `w`
+join `purchases` `p` on
+    `p`.`id` = `w`.`purchase_id`
+join `suppliers` `s` on
+    `s`.`id` = `p`.`supplier`
+where
+    (`w`.`status` = 1)
+order by `w`.`date_withhold` desc, `w`.`serie_number` desc;
 
 -- Vistas de guía de remisión
 -- El SRI arma el documento en tres niveles: la cabecera con el transportista,
