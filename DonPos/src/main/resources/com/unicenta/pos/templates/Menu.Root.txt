@@ -61,11 +61,6 @@ group = menu.addGroup("Menu.Backoffice");
         submenu.addPanel("/com/unicenta/images/reports.png", "Menu.InventoryDiffDetail", "/com/unicenta/reports/inventory_diffdetail.bs");
         submenu.addPanel("/com/unicenta/images/reports.png", "Menu.InventoryListDetail", "/com/unicenta/reports/inventory_listdetail.bs");
         submenu.addPanel("/com/unicenta/images/reports.png", "Menu.Products", "/com/unicenta/reports/products.bs");
-        submenu.addPanel("/com/unicenta/images/reports.png", "Menu.SaleCatalog", "/com/unicenta/reports/salecatalog.bs");
-        submenu.addPanel("/com/unicenta/images/reports.png", "Menu.ProductLabels", "/com/unicenta/reports/labels_product.bs");
-        submenu.addPanel("/com/unicenta/images/reports.png", "Menu.BarcodeSheet", "/com/unicenta/reports/labels_barcode_sheet.bs");
-        submenu.addPanel("/com/unicenta/images/reports.png", "Menu.ShelfEdgeLabels", "/com/unicenta/reports/labels_barcode_shelfedge.bs");
-
 
     submenu = group.addSubmenu("/com/unicenta/images/sales.png", "Menu.SalesManagement", "com.unicenta.pos.forms.MenuSalesManagement");
     submenu.addTitle("Menu.Panel.Sales.Forms");

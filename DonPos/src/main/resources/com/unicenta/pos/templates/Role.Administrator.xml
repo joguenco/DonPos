@@ -127,11 +127,8 @@
             <class name="/com/unicenta/reports/inventory_diff.bs"/>
             <class name="/com/unicenta/reports/inventory_diffdetail.bs"/>
             <class name="/com/unicenta/reports/inventory_listdetail.bs"/>
-            <class name="/com/unicenta/reports/labels_barcode_sheet.bs"/>
-            <class name="/com/unicenta/reports/labels_barcode_shelfedge.bs"/>            <class name="/com/unicenta/reports/productscatalog.bs"/>
-            <class name="/com/unicenta/reports/labels_product.bs"/>
+            <class name="/com/unicenta/reports/productscatalog.bs"/>
             <class name="/com/unicenta/reports/products.bs"/>
-            <class name="/com/unicenta/reports/salecatalog.bs"/>
 
 <class name="com.unicenta.pos.forms.MenuSalesManagement"/>
             <class name="dev.resolvedor.pos.sales.VolumeDiscount"/>
