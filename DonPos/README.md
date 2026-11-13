@@ -1,12 +1,12 @@
 # Don POS
-Software de punto de venta basado en uniCenta y OpenBravo.
+Software Point of Sale based on uniCenta y OpenBravo.
 
 
 ## Software
 * Java 11
 * MariaDB 12.3
 * Maven
-* [Netbeans 21](./doc/NETBEANS.md)
+* [Netbeans 30](./doc/NETBEANS.md)
 
 ## Install software and configure (Windows)
 * Install JDK 11
@@ -53,12 +53,6 @@ mvn install:install-file -Dfile=./lib/AbsoluteLayout-RELEASE82.jar -DgroupId=org
 ```
 mvn install:install-file -Dfile=./lib/jpos-1.13.jar -DgroupId=com.javapos -DartifactId=jpos -Dversion=1.13 -Dpackaging=jar
 ```
-```
-mvn install:install-file -Dfile=./lib/trident-1.4.jar -DgroupId=org.pushingpixels -DartifactId=trident -Dversion=1.4 -Dpackaging=jar
-```
-```
-mvn install:install-file -Dfile=./lib/substance-7.1.00.jar -DgroupId=org.pushingpixels -DartifactId=substance -Dversion=7.1.00 -Dpackaging=jar
-```
 ### Windows
 In CMD terminal, not in PowerShell
 ```
@@ -66,12 +60,6 @@ mvn install:install-file -Dfile=.\lib\AbsoluteLayout-RELEASE82.jar -DgroupId=org
 ```
 ```
 mvn install:install-file -Dfile=.\lib\jpos-1.13.jar -DgroupId=com.javapos -DartifactId=jpos -Dversion=1.13 -Dpackaging=jar
-```
-```
-mvn install:install-file -Dfile=.\lib\trident-1.4.jar -DgroupId=org.pushingpixels -DartifactId=trident -Dversion=1.4 -Dpackaging=jar
-```
-```
-mvn install:install-file -Dfile=.\lib\substance-7.1.00.jar -DgroupId=org.pushingpixels -DartifactId=substance -Dversion=7.1.00 -Dpackaging=jar
 ```
 ## Compile (Windows)
 * Get into donpos directory.

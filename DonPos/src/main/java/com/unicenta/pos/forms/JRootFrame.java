@@ -123,11 +123,6 @@ public class JRootFrame extends javax.swing.JFrame implements AppMessage {
         });
     }
 
-    private void startSessionKeepAlive(DataLogicSystem dataLogicSystem) {
-        SessionKeepAlive sessionKeepAlive = new SessionKeepAlive(dataLogicSystem);
-        sessionKeepAlive.start();
-    }
-
     /**
      * This method is called from within the constructor to
      * initialize the form.

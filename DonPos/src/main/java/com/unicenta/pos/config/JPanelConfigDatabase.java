@@ -81,6 +81,7 @@ public class JPanelConfigDatabase extends javax.swing.JPanel implements PanelCon
         dbConfigPanel.setVisible(false);
         validUserAlert.setVisible(true);
         dbVersionLabel.setVisible(false);
+        db2ConfigPanel.setVisible(false);
     }
 
     /**

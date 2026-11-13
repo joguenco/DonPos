@@ -37,12 +37,6 @@ public class PaymentGatewayFac {
         switch (sReader) {
             case "external":
                 return new PaymentGatewayExt();
-            case "PaymentSense":
-                return new PaymentGatewayPaymentSense();
-            case "Teya":
-                return new PaymentGatewayTeya();
-            case "MediaPayments":
-                return new PaymentGatewayMediaPayments();
             default:
                 return null;
         }

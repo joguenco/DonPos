@@ -154,33 +154,6 @@ public class JRootApp extends JPanel implements AppView {
             m_jLblTitle.setText(title);
             m_jLblTitle.repaint();
             jLabel2.setText("  " + m_date + " " + m_clock);
-            /*
-* JG Note: Arbritary 8 hour cycle for MySQL server ping on chosen port:nnnn
-* MySQL default setting is 28800 seconds (8hrs)
-* Better than a host ping as need to know if MySQL is alive & kicking
-* Be careful though as MySQL could run out of Connections if it's left on default
-            
-
-            webProgressBar.setValue(0);
-            
-            if (getDateTime().getHourOfDay() == 7 
-                || getDateTime().getHourOfDay() == 15
-                || getDateTime().getHourOfDay() == 23) {
-
-                if (getDateTime().getMinuteOfHour() == 59 && 
-                    (getDateTime().getSecondOfMinute() == 59)) {
-                    try {
-                        if (pingServer()) {
-                            webProgressBar.setValue(0);
-                        } else {
-                            webProgressBar.setString("Server is down!");
-                            webProgressBar.setValue(100);
-                        }
-                    } catch (UnknownHostException ex) {
-                        log.error(ex.getMessage());                    }
-                }
-            }
-             */
         }
     }
 
@@ -867,26 +840,6 @@ public class JRootApp extends JPanel implements AppView {
             inputtext = new StringBuilder();
         } else {
             inputtext.append(c);
-        }
-    }
-
-    private boolean pingServer() throws UnknownHostException {
-        /*
-     * This method is for the future. Connects and will include both servers + backup server
-     * Tested locally on JG machine and unicenta-server
-         */
-
-        InetAddress addr = InetAddress.getByName(AppLocal.getIntString("db.ip"));
-        int port = 3306;
-
-        SocketAddress sockaddr = new InetSocketAddress(addr, port);
-        Socket sock = new Socket();
-        try {
-            sock.connect(sockaddr, 2000);
-            return true;
-        } catch (IOException ex) {
-            log.error(ex.getMessage());
-            return false;
         }
     }
 

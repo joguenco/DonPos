@@ -24,8 +24,6 @@ import com.unicenta.pos.forms.AppLocal;
 import com.unicenta.pos.util.FileChooserEvent;
 import com.unicenta.pos.util.FlatLookAndFeel;
 import lombok.extern.slf4j.Slf4j;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -178,8 +176,6 @@ public class JPanelConfigGeneral extends javax.swing.JPanel implements PanelConf
                     Object laf1 = Class.forName(lafname).newInstance();
                     if (laf1 instanceof LookAndFeel) {
                         UIManager.setLookAndFeel((LookAndFeel) laf1);
-                    } else if (laf1 instanceof SubstanceSkin) {
-                        SubstanceLookAndFeel.setSkin((SubstanceSkin) laf1);
                     }
                     SwingUtilities.updateComponentTreeUI(JPanelConfigGeneral.this.getTopLevelAncestor());
                 } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {

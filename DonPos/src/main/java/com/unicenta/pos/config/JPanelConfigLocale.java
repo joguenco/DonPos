@@ -55,8 +55,6 @@ public class JPanelConfigLocale extends javax.swing.JPanel implements PanelConfi
         
         List<Locale> availablelocales = new ArrayList<>();
         availablelocales.addAll(Arrays.asList(Locale.getAvailableLocales())); // Available java locales
-//        addLocale(availablelocales, new Locale("en", "GB", "")); // English GB
-//        addLocale(availablelocales, new Locale("en", "US", "")); // English USA
         
         Collections.sort(availablelocales, new LocaleComparator());
         
@@ -86,12 +84,6 @@ public class JPanelConfigLocale extends javax.swing.JPanel implements PanelConfi
         
         jcboDatetime.addItem(DEFAULT_VALUE);
                
-    }
-
-    private void addLocale(List<Locale> ll, Locale l) {
-        if (!ll.contains(l)) {
-            ll.add(l);
-        }
     }
     
     /**
