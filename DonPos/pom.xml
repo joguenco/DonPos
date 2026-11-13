@@ -4,7 +4,7 @@
 
     <groupId>dev.joguenco</groupId>
     <artifactId>donpos</artifactId>
-    <version>5.5.1</version>
+    <version>5.5.2</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -231,7 +231,7 @@
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
-            <version>1.4.11</version>
+            <version>1.4.21</version>
         </dependency>
         <dependency>
             <groupId>javax.xml.bind</groupId>
@@ -265,16 +265,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.pushingpixels</groupId>
-            <artifactId>trident</artifactId>
-            <version>1.4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.pushingpixels</groupId>
-            <artifactId>substance</artifactId>
-            <version>7.1.00</version>
-        </dependency>
-        <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
@@ -292,7 +282,7 @@
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy</artifactId>
-            <version>3.0.23</version>
+            <version>3.0.25</version>
         </dependency>
     </dependencies>
     <build>
