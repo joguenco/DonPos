@@ -112,8 +112,21 @@ Adding the IP and hostname to this file solves the problem and the exception is 
 
 * Access from remote host to database
 In /etc/mysql/mariadb.conf.d/50-server.cnf, update 127.0.0.1 to 0.0.0.0
+```
 bind-address            = 127.0.0.1
-
+```
+or 
+```
+bind-address            = 127.0.0.1,192.168.56.1
+```
+Test
+```
+ss -tlnp | grep 3306
+```
+Firewall configuration with ufw
+```
+sudo ufw allow from 192.168.56.0/24 to any port 3306 proto tcp
+```
 ## Utils
 ### Show databases
 ```
