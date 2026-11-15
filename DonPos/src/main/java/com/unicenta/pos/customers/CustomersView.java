@@ -35,7 +35,9 @@ import com.unicenta.pos.util.StringUtils;
 import dev.joguenco.effect.CursorAnimation;
 import dev.joguenco.error.ErrorMessage;
 import dev.joguenco.http.client.reidi.ReIdiClient;
+import dev.joguenco.http.client.reidi.ReIdiResponse;
 import dev.joguenco.identification.Validator;
+import dev.joguenco.pos.service.DataLogicService;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
@@ -72,10 +74,10 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
 
     private DirtyManager m_Dirty;
     private DataLogicSales dlSales;
+    private DataLogicService dlServices;
 
     //HS updates to get last added Customer 06.03.2014
     private AppView appView;
-    private CustomerInfo customerInfo;
 
     // For identification type combobox 
     private SentenceList sentenceIdentificationType;
@@ -92,6 +94,7 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
         try {
             setAppView(app);
             dlSales = (DataLogicSales) app.getBean("com.unicenta.pos.forms.DataLogicSales");
+            dlServices = (DataLogicService) app.getBean("dev.joguenco.pos.service.DataLogicService");
 
             initComponents();
             final var config = new AppConfig(new File((System.getProperty("user.home")), AppLocal.APP_ID + ".properties"));
@@ -1665,7 +1668,12 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
         }
 
         CursorAnimation.startWaitCursor(getRootPane());
-        final var reidiResponse = new ReIdiClient().get(m_jTaxID.getText(), this.appView);
+        final ReIdiResponse reidiResponse;
+        try {
+            reidiResponse = new ReIdiClient().get(m_jTaxID.getText(), dlServices.getServiceInfoByName("ReIdi"));
+        } catch (BasicException ex) {
+            return;
+        }
 
         if (!reidiResponse.getError()) {
             m_jName.setText(reidiResponse.getData().getName());

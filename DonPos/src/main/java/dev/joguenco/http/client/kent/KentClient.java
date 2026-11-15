@@ -2,8 +2,8 @@ package dev.joguenco.http.client.kent;
 
 import com.unicenta.basic.BasicException;
 import com.unicenta.pos.forms.AppLocal;
-import com.unicenta.pos.forms.AppView;
 import dev.joguenco.http.client.HttpClientService;
+import dev.joguenco.pos.service.ServiceInfo;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -21,23 +21,21 @@ import retrofit2.Call;
 @Slf4j
 public class KentClient {
 
-    private static final String SERVICE_NAME = "Kent";
-
     private static final ExecutorService sender = Executors.newSingleThreadExecutor(runnable -> {
-        var thread = new Thread(runnable, SERVICE_NAME);
+        var thread = new Thread(runnable, "Kent");
         thread.setDaemon(true);
         return thread;
     });
 
-    private KentService service;
+    private KentService httpService;
 
-    public KentClient(AppView app) {
+    public KentClient(ServiceInfo service) {
         try {
-            var httpClient = new HttpClientService(app, SERVICE_NAME);
+            var httpClient = new HttpClientService(service);
 
-            if (httpClient.isActive(SERVICE_NAME)) {
+            if (isActive() && service.getStatus()) {
                 // La API va en la cabecera X-API-KEY, igual que en Autorizar
-                service = httpClient.generator().createServiceWithApiKey(
+                httpService = httpClient.generator().createServiceWithApiKey(
                         KentService.class,
                         httpClient.getToken(),
                         AppLocal.APP_NAME + "/" + AppLocal.APP_VERSION);
@@ -49,15 +47,15 @@ public class KentClient {
 
     // Falso cuando el servicio Kent no existe, esta desactivado o su URL es invalida
     public boolean isActive() {
-        return service != null;
+        return httpService != null;
     }
 
     public void send(String cashier, KentCustomer customer) {
-        execute(service.sendMessage(new KentMessage(cashier, customer)));
+        execute(httpService.sendMessage(new KentMessage(cashier, customer)));
     }
 
     public void clear(String cashier) {
-        execute(service.clearMessage(new KentMessage(cashier, null)));
+        execute(httpService.clearMessage(new KentMessage(cashier, null)));
     }
 
     private void execute(Call<Void> call) {

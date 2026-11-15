@@ -2,9 +2,9 @@ package dev.joguenco.http.client.authorization;
 
 import com.unicenta.basic.BasicException;
 import com.unicenta.pos.forms.AppLocal;
-import com.unicenta.pos.forms.AppView;
 import com.unicenta.pos.ticket.TicketInfo;
 import dev.joguenco.http.client.HttpClientService;
+import dev.joguenco.pos.service.ServiceInfo;
 import java.awt.HeadlessException;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
@@ -17,13 +17,12 @@ import retrofit2.Response;
 @Slf4j
 public class AuthorizeClient {
 
+    private final ServiceInfo service;
     private final String userAgent;
-    private final AppView appView;
-    public static final String SERVICE_NAME = "Authorize";
     private static final String API_KEY_METHOD = "X-API-KEY";
 
-    public AuthorizeClient(AppView appView) {
-        this.appView = appView;
+    public AuthorizeClient(ServiceInfo service) {
+        this.service = service;
         this.userAgent = AppLocal.APP_NAME + "/" + AppLocal.APP_VERSION;
     }
 
@@ -36,9 +35,9 @@ public class AuthorizeClient {
 
     public StatusResponse post(String code, String number) {
         try {
-            var httpClient = new HttpClientService(appView, SERVICE_NAME);
+            var httpClient = new HttpClientService(service);
 
-            if (!httpClient.isActive(SERVICE_NAME)) {
+            if (!httpClient.isActive()) {
                 return new StatusResponse("Service is disable");
             }
 
@@ -53,7 +52,10 @@ public class AuthorizeClient {
 
             return buildResponse(authorizeWithApiKey(httpClient, document), document.getCode());
 
-        } catch (IllegalArgumentException | HeadlessException | IOException | BasicException ex) {
+        } catch (IllegalArgumentException | HeadlessException | IOException ex) {
+            log.error(this.getClass().getName() + " " + ex.getMessage());
+            return new StatusResponse(ex.getMessage());
+        } catch (BasicException ex) {
             log.error(this.getClass().getName() + " " + ex.getMessage());
             return new StatusResponse(ex.getMessage());
         }
@@ -81,13 +83,20 @@ public class AuthorizeClient {
         }
 
         switch (code) {
-            case "FV":  return "la factura";
-            case "DV":  return "la nota de crédito";
-            case "ND":  return "la nota de débito";
-            case "LQ":  return "la liquidación de compra";
-            case "RT":  return "la retención";
-            case "GUI": return "la guía de remisión";
-            default:    return "el documento";
+            case "FV":
+                return "la factura";
+            case "DV":
+                return "la nota de crédito";
+            case "ND":
+                return "la nota de débito";
+            case "LQ":
+                return "la liquidación de compra";
+            case "RT":
+                return "la retención";
+            case "GUI":
+                return "la guía de remisión";
+            default:
+                return "el documento";
         }
     }
 

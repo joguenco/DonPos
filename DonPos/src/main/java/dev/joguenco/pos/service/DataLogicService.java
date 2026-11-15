@@ -85,7 +85,7 @@ public class DataLogicService extends BeanFactoryDataSingle {
         return (ServiceInfo)
                 new PreparedSentence(
                                 s,
-                                "select url, authentication_method, token, username, password, timeout "
+                                "select url, authentication_method, token, username, password, timeout, status "
                                         + "from services "
                                         + "where name = ? "
                                         + "and status = true",
@@ -99,6 +99,7 @@ public class DataLogicService extends BeanFactoryDataSingle {
                                     s.setUsername(dr.getString(4));
                                     s.setPassword(dr.getString(5));
                                     s.setTimeout(dr.getInt(6));
+                                    s.setStatus(dr.getBoolean(7));
 
                                     return s;
                                 })

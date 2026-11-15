@@ -1,8 +1,6 @@
 package dev.joguenco.http.client;
 
 import com.unicenta.basic.BasicException;
-import com.unicenta.pos.forms.AppView;
-import dev.joguenco.pos.service.DataLogicService;
 import dev.joguenco.pos.service.ServiceInfo;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,15 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class HttpClientService {
 
-    private final DataLogicService dlService;
-    private ServiceInfo service;
+    private final ServiceInfo service;
 
-    public HttpClientService(AppView app, String serviceName)  throws BasicException {
-        dlService = (DataLogicService) app.getBean("dev.joguenco.pos.service.DataLogicService");        
-        this.service = dlService.getServiceInfoByName(serviceName);
+    public HttpClientService(ServiceInfo service) throws BasicException {
+        this.service = service;
     }
 
-    public ServiceGenerator generator() {        
+    public ServiceGenerator generator() {
         return new ServiceGenerator(service.getUrl(), service.getTimeout());
     }
 
@@ -34,18 +30,7 @@ public class HttpClientService {
         return service.getToken();
     }
 
-    public Boolean isActive(String serviceName) {
-        try {
-            var isActive = dlService.getServiceStatusByName(serviceName);
-            
-            if (isActive == null)
-                return false;
-            
-            return isActive;
-            
-        } catch (BasicException ex) {
-            log.error(this.getClass().getName() + " " + ex.getMessage());
-            return false;
-        }
+    public Boolean isActive() {
+        return service.getStatus();
     }
 }

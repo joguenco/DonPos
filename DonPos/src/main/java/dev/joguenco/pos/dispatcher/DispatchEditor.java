@@ -17,28 +17,20 @@ import com.unicenta.pos.scripting.ScriptFactory;
 import dev.joguenco.http.client.authorization.ExecuteAuthorization;
 import dev.joguenco.pos.establishment.DataLogicEstablishment;
 import dev.joguenco.pos.establishment.EstablishmentInfo;
+import dev.joguenco.pos.service.DataLogicService;
 import dev.joguenco.pos.taxpayer.DataLogicTaxpayer;
 import dev.joguenco.pos.taxpayer.TaxpayerInfo;
 import dev.joguenco.pos.ticketsnum.DataLogicTicketsNum;
 import dev.joguenco.pos.ticketsnum.TicketsNumInfo;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 import lombok.extern.slf4j.Slf4j;
@@ -59,11 +51,14 @@ public class DispatchEditor extends JPanel implements JPanelView, BeanFactoryApp
     private DataLogicTaxpayer dlTaxPayer;
     private DataLogicEstablishment dlEstablishment;
     private DataLogicSystem dlSystem;
+    private DataLogicService dlServices;
 
     private ComboBoxValModel modelDispatcher;
     private ComboBoxValModel modelAddressStart;
 
-    /** Interpreta la plantilla ya resuelta y la manda a la impresora. */
+    /**
+     * Interpreta la plantilla ya resuelta y la manda a la impresora.
+     */
     private TicketParser ticketParser;
 
     private DispatchInfo dispatch = new DispatchInfo();
@@ -77,8 +72,8 @@ public class DispatchEditor extends JPanel implements JPanelView, BeanFactoryApp
     /**
      * Lo que el disenador no genera: modelo de la grilla y listeners.
      *
-     * Va aparte de initComponents() porque NetBeans reescribe ese metodo
-     * cada vez que se toca el .form y se llevaria estas lineas.
+     * Va aparte de initComponents() porque NetBeans reescribe ese metodo cada
+     * vez que se toca el .form y se llevaria estas lineas.
      */
     private void initBehaviour() {
         setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -135,14 +130,11 @@ public class DispatchEditor extends JPanel implements JPanelView, BeanFactoryApp
     public void init(AppView app) throws BeanFactoryException {
         this.app = app;
 
-        dlDispatch = (DataLogicDispatch) app.getBean(
-                "dev.joguenco.pos.dispatcher.DataLogicDispatch");
-        dlTaxPayer = (DataLogicTaxpayer) app.getBean(
-                "dev.joguenco.pos.taxpayer.DataLogicTaxpayer");
-        dlEstablishment = (DataLogicEstablishment) app.getBean(
-                "dev.joguenco.pos.establishment.DataLogicEstablishment");
-        dlSystem = (DataLogicSystem) app.getBean(
-                "com.unicenta.pos.forms.DataLogicSystem");
+        dlDispatch = (DataLogicDispatch) app.getBean("dev.joguenco.pos.dispatcher.DataLogicDispatch");
+        dlTaxPayer = (DataLogicTaxpayer) app.getBean("dev.joguenco.pos.taxpayer.DataLogicTaxpayer");
+        dlEstablishment = (DataLogicEstablishment) app.getBean("dev.joguenco.pos.establishment.DataLogicEstablishment");
+        dlSystem = (DataLogicSystem) app.getBean("com.unicenta.pos.forms.DataLogicSystem");
+        dlServices = (DataLogicService) app.getBean("dev.joguenco.pos.service.DataLogicService");
 
         ticketParser = new TicketParser(app.getDeviceTicket(), dlSystem);
     }
@@ -155,9 +147,6 @@ public class DispatchEditor extends JPanel implements JPanelView, BeanFactoryApp
     // -----------------------------------------------------------------------
     // Interfaz
     // -----------------------------------------------------------------------
-
-
-
     // -----------------------------------------------------------------------
     // Carga
     // -----------------------------------------------------------------------
@@ -216,8 +205,8 @@ public class DispatchEditor extends JPanel implements JPanelView, BeanFactoryApp
     }
 
     /**
-     * Carga una guia ya emitida. Queda en solo lectura: el numero y la clave
-     * de acceso ya se consumieron, y si el documento se envio al SRI cambiarlo
+     * Carga una guia ya emitida. Queda en solo lectura: el numero y la clave de
+     * acceso ya se consumieron, y si el documento se envio al SRI cambiarlo
      * aqui dejaria la base diciendo una cosa y el SRI otra.
      */
     private void stateToView(DispatchInfo guia) {
@@ -244,12 +233,12 @@ public class DispatchEditor extends JPanel implements JPanelView, BeanFactoryApp
     /**
      * Apaga o enciende todo lo que se puede tocar.
      *
-     * Nueva Guia se esconde mientras se esta escribiendo: ahi no tiene nada
-     * que hacer y solo confunde con Guardar. Aparece cuando la pantalla queda
-     * en consulta, que es cuando de verdad sirve, como salida del modo lectura.
+     * Nueva Guia se esconde mientras se esta escribiendo: ahi no tiene nada que
+     * hacer y solo confunde con Guardar. Aparece cuando la pantalla queda en
+     * consulta, que es cuando de verdad sirve, como salida del modo lectura.
      *
-     * Buscar Guias nunca se apaga: se puede consultar el historial en
-     * cualquier momento.
+     * Buscar Guias nunca se apaga: se puede consultar el historial en cualquier
+     * momento.
      */
     private void setReadOnly(boolean readOnly) {
         cboDispatcher.setEnabled(!readOnly);
@@ -340,8 +329,7 @@ public class DispatchEditor extends JPanel implements JPanelView, BeanFactoryApp
             // guarda solo el id, y en el papel un UUID no sirve de nada. Van
             // por separado porque el SRI pide identificacion y placa como
             // campos propios, no como una sola etiqueta.
-            var transportista = (DataLogicDispatch.DispatcherComboInfo)
-                    modelDispatcher.getSelectedItem();
+            var transportista = (DataLogicDispatch.DispatcherComboInfo) modelDispatcher.getSelectedItem();
 
             if (transportista != null) {
                 dispatch.setDispatcherLabel(transportista.toString());
@@ -371,7 +359,8 @@ public class DispatchEditor extends JPanel implements JPanelView, BeanFactoryApp
             // que es el que quedo grabado de verdad.
             log.info("Start authorization in a thread "
                     + dispatch.getCode() + " " + serieNumber);
-            new ExecuteAuthorization(app, dispatch.getCode(), serieNumber).start();
+            new ExecuteAuthorization(dlServices.getServiceInfoByName("Authorize"),
+                    dispatch.getCode(), serieNumber).start();
 
             JOptionPane.showMessageDialog(this,
                     AppLocal.getIntString("message.dispatch.saved") + "\n"
@@ -678,6 +667,7 @@ public class DispatchEditor extends JPanel implements JPanelView, BeanFactoryApp
             }
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

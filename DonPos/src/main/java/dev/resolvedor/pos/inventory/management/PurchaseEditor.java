@@ -29,6 +29,7 @@ import com.unicenta.pos.ticket.UserInfo;
 import dev.joguenco.http.client.authorization.ExecuteAuthorization;
 import dev.joguenco.pos.establishment.DataLogicEstablishment;
 import dev.joguenco.pos.establishment.EstablishmentInfo;
+import dev.joguenco.pos.service.DataLogicService;
 import dev.joguenco.pos.taxpayer.DataLogicTaxpayer;
 import dev.joguenco.pos.taxpayer.TaxpayerInfo;
 import dev.joguenco.pos.ticketsnum.TicketsNumInfo;
@@ -75,6 +76,7 @@ public class PurchaseEditor extends JPanel implements JPanelView, BeanFactoryApp
     private DataLogicEstablishment dlEstablishment;
     private DataLogicWithhold dlWithhold;
     protected DataLogicSystem dlSystem;
+    private DataLogicService dlServices;
 
     private ComboBoxValModel modelReason;
     private ComboBoxValModel modelSupplier;
@@ -87,16 +89,24 @@ public class PurchaseEditor extends JPanel implements JPanelView, BeanFactoryApp
 
     private PurchaseInfo purchase;
 
-    /** Interpreta la plantilla ya resuelta y la manda a la impresora. */
+    /**
+     * Interpreta la plantilla ya resuelta y la manda a la impresora.
+     */
     private TicketParser ticketParser;
 
-    /** Retencion armada en el dialogo, todavia sin grabar. */
+    /**
+     * Retencion armada en el dialogo, todavia sin grabar.
+     */
     private WithholdInfo pendingWithhold;
 
-    /** La compra que se abrio del buscador ya tenia retencion. */
+    /**
+     * La compra que se abrio del buscador ya tenia retencion.
+     */
     private boolean loadedHasWithhold = false;
 
-    /** Ya se aviso que la retencion quedo desfasada; no repetirlo. */
+    /**
+     * Ya se aviso que la retencion quedo desfasada; no repetirlo.
+     */
     private boolean retencionAvisada = false;
     private final JPurchaseLines purchaseLines;
     private String country;
@@ -677,7 +687,8 @@ public class PurchaseEditor extends JPanel implements JPanelView, BeanFactoryApp
                 // al SRI. Si la suscripcion Authorize esta apagada no hace nada.
                 log.info("Start authorization in a thread "
                         + purchase.getCode() + " " + purchase.getSerieNumber());
-                new ExecuteAuthorization(app, purchase.getCode(), purchase.getSerieNumber()).start();
+                new ExecuteAuthorization(dlServices.getServiceInfoByName("Authorize"),
+                        purchase.getCode(), purchase.getSerieNumber()).start();
             }
 
             if (pendingWithhold != null) {
@@ -690,7 +701,7 @@ public class PurchaseEditor extends JPanel implements JPanelView, BeanFactoryApp
                 // propio hilo, independiente del de la liquidacion.
                 log.info("Start authorization in a thread "
                         + pendingWithhold.getCode() + " " + pendingWithhold.getSerieNumber());
-                new ExecuteAuthorization(app,
+                new ExecuteAuthorization(dlServices.getServiceInfoByName("Authorize"),
                         pendingWithhold.getCode(), pendingWithhold.getSerieNumber()).start();
             }
 
@@ -714,16 +725,16 @@ public class PurchaseEditor extends JPanel implements JPanelView, BeanFactoryApp
     }
 
     /**
-     * Avisa una sola vez si quitar un producto dejo huerfana alguna linea de
-     * la retencion.
+     * Avisa una sola vez si quitar un producto dejo huerfana alguna linea de la
+     * retencion.
      *
      * Solo avisa por ese caso, que es el que rompe: la linea apunta a un
      * sustento que la compra ya no tiene y su bloque docSustento no se arma,
      * asi que esa retencion se pierde del XML sin que nadie lo note.
      *
-     * NO avisa por agregar un producto de un sustento nuevo: retener o no
-     * sobre el es una decision valida del usuario, y avisarle ahi seria
-     * gritar por algo que no esta mal.
+     * NO avisa por agregar un producto de un sustento nuevo: retener o no sobre
+     * el es una decision valida del usuario, y avisarle ahi seria gritar por
+     * algo que no esta mal.
      */
     private void avisarSiLaRetencionQuedoDesfasada() {
         if (pendingWithhold == null) {
@@ -1226,8 +1237,9 @@ public class PurchaseEditor extends JPanel implements JPanelView, BeanFactoryApp
      * credito (04) es un documento de ajuste; ninguna de las dos lleva
      * retencion, asi que el boton se apaga.
      *
-     * Si ya se armo una en esta pantalla el boton sigue vivo: mientras la compra
-     * no se guarde no hay nada escrito en la base, asi que se puede corregir.
+     * Si ya se armo una en esta pantalla el boton sigue vivo: mientras la
+     * compra no se guarde no hay nada escrito en la base, asi que se puede
+     * corregir.
      *
      * En una compra ya guardada la regla se invierte: el boton se prende solo
      * si esa compra TIENE retencion, porque ahi sirve para verla. Sin ella no
@@ -1398,6 +1410,7 @@ public class PurchaseEditor extends JPanel implements JPanelView, BeanFactoryApp
         dlEstablishment = (DataLogicEstablishment) app.getBean("dev.joguenco.pos.establishment.DataLogicEstablishment");
         dlSystem = (DataLogicSystem) app.getBean("com.unicenta.pos.forms.DataLogicSystem");
         dlWithhold = (DataLogicWithhold) app.getBean("dev.resolvedor.pos.inventory.management.DataLogicWithhold");
+        dlServices = (DataLogicService) app.getBean("dev.joguenco.pos.service.DataLogicService");
         ticketParser = new TicketParser(app.getDeviceTicket(), dlSystem);
     }
 
@@ -1452,7 +1465,8 @@ public class PurchaseEditor extends JPanel implements JPanelView, BeanFactoryApp
      * Agrega la linea a la grilla y a la compra.
      *
      * Son dos objetos distintos a proposito: la grilla dibuja uno y la compra
-     * guarda el otro. El sustento se le pone a los dos, o al grabar se perderia.
+     * guarda el otro. El sustento se le pone a los dos, o al grabar se
+     * perderia.
      */
     private void addLine(ProductInfoExt oProduct, double dpor, double totalCost, String lot,
             TaxInfo tax, String taxSupport) {

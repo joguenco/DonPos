@@ -35,9 +35,11 @@ import dev.joguenco.error.ErrorMessage;
 import dev.joguenco.http.client.kent.KentClient;
 import dev.joguenco.http.client.kent.KentCustomer;
 import dev.joguenco.http.client.reidi.ReIdiClient;
+import dev.joguenco.http.client.reidi.ReIdiResponse;
 import dev.joguenco.identification.Validator;
 import dev.joguenco.pos.establishment.DataLogicEstablishment;
 import dev.joguenco.pos.establishment.EstablishmentInfo;
+import dev.joguenco.pos.service.DataLogicService;
 import dev.joguenco.pos.ticketsnum.TicketsNumInfo;
 
 import java.awt.*;
@@ -76,7 +78,8 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     private CustomerInfoExt customerext;
     private DataLogicSystem dlSystem;
     private DataLogicCustomers dlCustomers;
-    DataLogicSales dlSales;
+    private DataLogicService dlServices;
+    private DataLogicSales dlSales;
 
     // JG 16 May 12 use diamond inference
     private Map<String, JPaymentInterface> payments = new HashMap<>();
@@ -150,6 +153,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         dlSystem = (DataLogicSystem) app.getBean("com.unicenta.pos.forms.DataLogicSystem");
         dlCustomers = (DataLogicCustomers) app.getBean("com.unicenta.pos.customers.DataLogicCustomers");
         dlSales = (DataLogicSales) app.getBean("com.unicenta.pos.forms.DataLogicSales");
+        dlServices = (DataLogicService) app.getBean("dev.joguenco.pos.service.DataLogicService");
 
         txtIdentification.setFocusTraversalKeysEnabled(false);
 
@@ -1192,7 +1196,13 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
 
     // Muestra los datos del cliente en la tablet del cajero (Kent) y pregunta si son correctos
     private boolean confirmCustomerData() {
-        var kentClient = new KentClient(app);
+        
+        KentClient kentClient;
+        try {
+            kentClient = new KentClient(dlServices.getServiceInfoByName("Kent"));
+        } catch (BasicException ex) {
+            return true;
+        }
 
         if (!kentClient.isActive()) {
             return true;
@@ -1382,8 +1392,13 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
             return false;
         }
 
-        CursorAnimation.startWaitCursor(getRootPane());
-        final var reidiResponse = new ReIdiClient().get(identification, this.app);
+        CursorAnimation.startWaitCursor(getRootPane());        
+        final ReIdiResponse reidiResponse;
+        try {
+            reidiResponse = new ReIdiClient().get(identification, dlServices.getServiceInfoByName("ReIdi"));
+        } catch (BasicException ex) {
+            return false;
+        }
 
         if (!reidiResponse.getError()) {
             txtName.setText(reidiResponse.getData().getName());

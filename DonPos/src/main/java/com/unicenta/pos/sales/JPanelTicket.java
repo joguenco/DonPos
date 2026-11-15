@@ -55,6 +55,7 @@ import dev.joguenco.error.ErrorMessage;
 import dev.joguenco.http.client.authorization.ExecuteAuthorization;
 import dev.joguenco.pos.establishment.DataLogicEstablishment;
 import dev.joguenco.pos.establishment.EstablishmentInfo;
+import dev.joguenco.pos.service.DataLogicService;
 import dev.joguenco.pos.taxpayer.DataLogicTaxpayer;
 import dev.joguenco.pos.taxpayer.TaxpayerInfo;
 import dev.joguenco.pos.ticketsnum.DataLogicTicketsNum;
@@ -120,7 +121,6 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
     private ListKeyed taxcollection;
 
     private SentenceList senttaxcategories;
-    private ListKeyed taxcategoriescollection;
     private ComboBoxValModel taxcategoriesmodel;
 
     private TaxesLogic taxeslogic;
@@ -131,33 +131,22 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
     protected DataLogicSystem dlSystem;
     protected DataLogicSales dlSales;
     protected DataLogicCustomers dlCustomers;
+    protected DataLogicService dlServices;
 
     private JPaymentSelect paymentdialogreceipt;
     private JPaymentSelect paymentdialogrefund;
 
-    private JRootApp root;
-    private Object m_principalapp;
-    private Boolean restaurant;
-    private Boolean orderlistopen;
-
-    private Action logout;
     private InactivityListener listener;
     private Integer delay = 0;
-    private final String m_sCurrentTicket = null;
 
     protected TicketsEditor m_panelticket;
     private DataLogicReceipts dlReceipts = null;
     private Boolean priceWith00;
-    private final String temp_jPrice = "";
-    private String tableDetails;
     private RestaurantDBUtils restDB;
-    private KitchenDisplay kitchenDisplay;
-    private String ticketPrintType;
 
     private Boolean warrantyPrint = false;
 
     private TicketInfo m_ticket;
-    private TicketInfo m_ticketCopy;
     private AppConfig m_config;
 
     private Integer count = 0;
@@ -203,6 +192,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         dlSales = (DataLogicSales) m_App.getBean("com.unicenta.pos.forms.DataLogicSales");
         dlCustomers = (DataLogicCustomers) m_App.getBean("com.unicenta.pos.customers.DataLogicCustomers");
         dlReceipts = (DataLogicReceipts) app.getBean("com.unicenta.pos.sales.DataLogicReceipts");
+        dlServices = (DataLogicService) m_App.getBean("dev.joguenco.pos.service.DataLogicService");
 
         /* uniCenta Feb 2018
      * Changed for 4.3
@@ -449,7 +439,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         java.util.List<TaxInfo> taxlist = senttax.list();
         taxcollection = new ListKeyed<>(taxlist);
         java.util.List<TaxCategoryInfo> taxcategorieslist = senttaxcategories.list();
-        taxcategoriescollection = new ListKeyed<>(taxcategorieslist);
+        new ListKeyed<>(taxcategorieslist);
 
         taxcategoriesmodel = new ComboBoxValModel(taxcategorieslist);
         m_jTax.setModel(taxcategoriesmodel);
@@ -2180,7 +2170,8 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
                                         + ticket.getCode()
                                         + " "
                                         + ticket.getSerieNumber());
-                                final var executeInvoice = new ExecuteAuthorization(m_App, ticket);
+                                
+                                final var executeInvoice = new ExecuteAuthorization(dlServices.getServiceInfoByName("Authorize"), ticket);
                                 executeInvoice.start();
                             }
                         }
@@ -3631,7 +3622,6 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
                           JOptionPane.WARNING_MESSAGE);
               } else {
                   m_ticket = ticket;
-                  m_ticketCopy = null;
                   try {
                       taxeslogic.calculateTaxes(m_ticket);
                       TicketTaxInfo[] taxlist = m_ticket.getTaxLines();
