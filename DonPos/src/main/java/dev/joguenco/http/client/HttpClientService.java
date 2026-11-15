@@ -2,12 +2,10 @@ package dev.joguenco.http.client;
 
 import com.unicenta.basic.BasicException;
 import dev.joguenco.pos.service.ServiceInfo;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author <Jorge Luis from https://joguenco.dev>
  */
-@Slf4j
 public class HttpClientService {
 
     private final ServiceInfo service;
@@ -28,9 +26,5 @@ public class HttpClientService {
 
     public String getToken() {
         return service.getToken();
-    }
-
-    public Boolean isActive() {
-        return service.getStatus();
     }
 }

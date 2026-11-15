@@ -151,7 +151,7 @@
             <Component class="javax.swing.JComboBox" name="cboWithholdTax">
               <Properties>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[380, 26]"/>
+                  <Dimension value="[380, 38]"/>
                 </Property>
               </Properties>
               <Events>
@@ -168,7 +168,7 @@
             <Component class="javax.swing.JComboBox" name="cboTaxSupport">
               <Properties>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[260, 26]"/>
+                  <Dimension value="[260, 38]"/>
                 </Property>
               </Properties>
               <Events>

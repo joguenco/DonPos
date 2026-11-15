@@ -675,10 +675,10 @@ public class DispatchEditor extends JPanel implements JPanelView, BeanFactoryApp
         panelHeader = new javax.swing.JPanel();
         panelDispatcher = new javax.swing.JPanel();
         lblDispatcher = new javax.swing.JLabel();
-        cboDispatcher = new javax.swing.JComboBox<>();
+        cboDispatcher = new javax.swing.JComboBox();
         panelAddressStart = new javax.swing.JPanel();
         lblAddressStart = new javax.swing.JLabel();
-        cboAddressStart = new javax.swing.JComboBox<>();
+        cboAddressStart = new javax.swing.JComboBox();
         panelDates = new javax.swing.JPanel();
         lblDateDispatch = new javax.swing.JLabel();
         txtDateDispatch = new javax.swing.JTextField();
@@ -707,67 +707,75 @@ public class DispatchEditor extends JPanel implements JPanelView, BeanFactoryApp
         setLayout(new java.awt.BorderLayout());
 
         panelHeader.setLayout(new java.awt.GridLayout(5, 1));
-        panelDispatcher.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 2));
+
+        panelDispatcher.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 2));
+
         lblDispatcher.setText(AppLocal.getIntString("Menu.Dispatcher")); // NOI18N
-        lblDispatcher.setPreferredSize(new java.awt.Dimension(170, 30));
+        lblDispatcher.setPreferredSize(new java.awt.Dimension(170, 38));
         panelDispatcher.add(lblDispatcher);
 
-        cboDispatcher.setPreferredSize(new java.awt.Dimension(320, 30));
+        cboDispatcher.setPreferredSize(new java.awt.Dimension(320, 38));
         panelDispatcher.add(cboDispatcher);
 
         panelHeader.add(panelDispatcher);
 
-        panelAddressStart.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 2));
+        panelAddressStart.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 2));
+
         lblAddressStart.setText(AppLocal.getIntString("label.dispatch.addressstart")); // NOI18N
-        lblAddressStart.setPreferredSize(new java.awt.Dimension(170, 30));
+        lblAddressStart.setPreferredSize(new java.awt.Dimension(170, 38));
         panelAddressStart.add(lblAddressStart);
 
-        cboAddressStart.setPreferredSize(new java.awt.Dimension(320, 30));
+        cboAddressStart.setPreferredSize(new java.awt.Dimension(320, 38));
         panelAddressStart.add(cboAddressStart);
 
         panelHeader.add(panelAddressStart);
 
-        panelDates.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 2));
+        panelDates.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 2));
+
         lblDateDispatch.setText(AppLocal.getIntString("label.dispatch.datestart")); // NOI18N
-        lblDateDispatch.setPreferredSize(new java.awt.Dimension(170, 30));
+        lblDateDispatch.setPreferredSize(new java.awt.Dimension(170, 38));
         panelDates.add(lblDateDispatch);
 
-        txtDateDispatch.setPreferredSize(new java.awt.Dimension(135, 30));
+        txtDateDispatch.setPreferredSize(new java.awt.Dimension(135, 38));
         panelDates.add(txtDateDispatch);
 
         lblDateEndDispatch.setText(AppLocal.getIntString("label.dispatch.dateend")); // NOI18N
         lblDateEndDispatch.setPreferredSize(new java.awt.Dimension(135, 30));
         panelDates.add(lblDateEndDispatch);
 
-        txtDateEndDispatch.setPreferredSize(new java.awt.Dimension(135, 30));
+        txtDateEndDispatch.setPreferredSize(new java.awt.Dimension(135, 38));
         panelDates.add(txtDateEndDispatch);
 
         panelHeader.add(panelDates);
 
-        panelReason.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 2));
+        panelReason.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 2));
+
         lblTransferReason.setText(AppLocal.getIntString("label.dispatch.transferreason")); // NOI18N
-        lblTransferReason.setPreferredSize(new java.awt.Dimension(170, 30));
+        lblTransferReason.setPreferredSize(new java.awt.Dimension(170, 38));
         panelReason.add(lblTransferReason);
 
-        txtTransferReason.setPreferredSize(new java.awt.Dimension(320, 30));
+        txtTransferReason.setPreferredSize(new java.awt.Dimension(320, 38));
         panelReason.add(txtTransferReason);
 
         panelHeader.add(panelReason);
 
-        panelObservation.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 2));
+        panelObservation.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 2));
+
         lblObservation.setText(AppLocal.getIntString("label.observation")); // NOI18N
-        lblObservation.setPreferredSize(new java.awt.Dimension(170, 30));
+        lblObservation.setPreferredSize(new java.awt.Dimension(170, 38));
         panelObservation.add(lblObservation);
 
-        txtObservation.setPreferredSize(new java.awt.Dimension(320, 30));
+        txtObservation.setPreferredSize(new java.awt.Dimension(320, 38));
         panelObservation.add(txtObservation);
 
         panelHeader.add(panelObservation);
 
-        this.add(panelHeader, java.awt.BorderLayout.NORTH);
+        add(panelHeader, java.awt.BorderLayout.NORTH);
 
         panelLines.setLayout(new java.awt.BorderLayout());
-        panelLineButtons.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 2));
+
+        panelLineButtons.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 2));
+
         cmdAddInvoice.setText(AppLocal.getIntString("label.dispatch.addinvoice")); // NOI18N
         panelLineButtons.add(cmdAddInvoice);
 
@@ -786,28 +794,30 @@ public class DispatchEditor extends JPanel implements JPanelView, BeanFactoryApp
 
         panelLines.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        this.add(panelLines, java.awt.BorderLayout.CENTER);
+        add(panelLines, java.awt.BorderLayout.CENTER);
 
         panelFooter.setLayout(new java.awt.BorderLayout());
-        panelCount.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 2));
+
+        panelCount.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 2));
+
         lblCount.setText(" ");
         panelCount.add(lblCount);
 
         panelFooter.add(panelCount, java.awt.BorderLayout.WEST);
 
-        panelButtons.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 6, 4));
+        panelButtons.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 4));
+
         cmdSave.setText(AppLocal.getIntString("Button.Save")); // NOI18N
         panelButtons.add(cmdSave);
 
         panelFooter.add(panelButtons, java.awt.BorderLayout.EAST);
 
-        this.add(panelFooter, java.awt.BorderLayout.SOUTH);
-
+        add(panelFooter, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<Object> cboAddressStart;
-    private javax.swing.JComboBox<Object> cboDispatcher;
+    private javax.swing.JComboBox cboAddressStart;
+    private javax.swing.JComboBox cboDispatcher;
     private javax.swing.JButton cmdAddInvoice;
     private javax.swing.JButton cmdNew;
     private javax.swing.JButton cmdRemove;

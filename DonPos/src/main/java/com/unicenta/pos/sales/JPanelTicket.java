@@ -2170,8 +2170,11 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
                                         + ticket.getCode()
                                         + " "
                                         + ticket.getSerieNumber());
-                                
-                                final var executeInvoice = new ExecuteAuthorization(dlServices.getServiceInfoByName("Authorize"), ticket);
+
+                                final var executeInvoice = new ExecuteAuthorization(
+                                        dlServices.getServiceInfoByName("Authorize"),
+                                        ticket.getCode(),
+                                        ticket.getSerieNumber());
                                 executeInvoice.start();
                             }
                         }

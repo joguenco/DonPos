@@ -517,10 +517,9 @@ public class WithholdDialog extends javax.swing.JDialog {
 
         panelTop.setLayout(new java.awt.GridLayout(4, 1));
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("pos_messages"); // NOI18N
-
         panelPurchase.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("pos_messages"); // NOI18N
         lblSupplierTitle.setText(bundle.getString("label.supplier")); // NOI18N
         panelPurchase.add(lblSupplierTitle);
 
@@ -578,7 +577,7 @@ public class WithholdDialog extends javax.swing.JDialog {
         lblWithholdTypeTitle.setText(bundle.getString("label.withhold.type")); // NOI18N
         panelType.add(lblWithholdTypeTitle);
 
-        cboWithholdTax.setPreferredSize(new java.awt.Dimension(380, 26));
+        cboWithholdTax.setPreferredSize(new java.awt.Dimension(380, 38));
         cboWithholdTax.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboWithholdTaxActionPerformed(evt);
@@ -589,7 +588,7 @@ public class WithholdDialog extends javax.swing.JDialog {
         lblTaxSupportTitle.setText(bundle.getString("label.taxSupport")); // NOI18N
         panelType.add(lblTaxSupportTitle);
 
-        cboTaxSupport.setPreferredSize(new java.awt.Dimension(260, 26));
+        cboTaxSupport.setPreferredSize(new java.awt.Dimension(260, 38));
         cboTaxSupport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboTaxSupportActionPerformed(evt);
@@ -832,16 +831,12 @@ public class WithholdDialog extends javax.swing.JDialog {
     private javax.swing.JTable jTableLines;
     private javax.swing.JLabel lblBaseTitle;
     private javax.swing.JLabel lblDateTitle;
-    private javax.swing.JTextField txtDocument;
     private javax.swing.JLabel lblDocumentTitle;
     private javax.swing.JLabel lblFiscalPeriodTitle;
-    private javax.swing.JTextField txtIva;
     private javax.swing.JLabel lblIvaTitle;
     private javax.swing.JLabel lblObservationTitle;
     private javax.swing.JLabel lblPercentageTitle;
-    private javax.swing.JTextField txtSubtotal;
     private javax.swing.JLabel lblSubtotalTitle;
-    private javax.swing.JTextField txtSupplier;
     private javax.swing.JLabel lblSupplierTitle;
     private javax.swing.JLabel lblTaxSupportTitle;
     private javax.swing.JLabel lblTotalWithheld;
@@ -858,9 +853,13 @@ public class WithholdDialog extends javax.swing.JDialog {
     private javax.swing.JPanel panelValues;
     private javax.swing.JTextField txtBase;
     private javax.swing.JTextField txtDate;
+    private javax.swing.JTextField txtDocument;
     private javax.swing.JTextField txtFiscalPeriod;
+    private javax.swing.JTextField txtIva;
     private javax.swing.JTextField txtObservation;
     private javax.swing.JTextField txtPercentage;
+    private javax.swing.JTextField txtSubtotal;
+    private javax.swing.JTextField txtSupplier;
     private javax.swing.JTextField txtValue;
     // End of variables declaration//GEN-END:variables
 

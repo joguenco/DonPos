@@ -37,7 +37,7 @@ public class AuthorizeClient {
         try {
             var httpClient = new HttpClientService(service);
 
-            if (!httpClient.isActive()) {
+            if (!service.getStatus()) {
                 return new StatusResponse("Service is disable");
             }
 
@@ -52,10 +52,7 @@ public class AuthorizeClient {
 
             return buildResponse(authorizeWithApiKey(httpClient, document), document.getCode());
 
-        } catch (IllegalArgumentException | HeadlessException | IOException ex) {
-            log.error(this.getClass().getName() + " " + ex.getMessage());
-            return new StatusResponse(ex.getMessage());
-        } catch (BasicException ex) {
+        } catch (IllegalArgumentException | HeadlessException | IOException | BasicException ex) {
             log.error(this.getClass().getName() + " " + ex.getMessage());
             return new StatusResponse(ex.getMessage());
         }

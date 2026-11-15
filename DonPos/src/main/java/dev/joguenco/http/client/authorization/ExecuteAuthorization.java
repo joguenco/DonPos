@@ -1,6 +1,5 @@
 package dev.joguenco.http.client.authorization;
 
-import com.unicenta.pos.ticket.TicketInfo;
 import dev.joguenco.pos.service.ServiceInfo;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,14 +13,8 @@ public class ExecuteAuthorization extends Thread {
     private final String code;
     private final String number;
 
-    public ExecuteAuthorization(ServiceInfo service, TicketInfo ticket) {
-        this(service, ticket.getCode(), ticket.getSerieNumber());
-    }
-
-    // La liquidacion, la retencion y la guia no son tickets, asi que entran por
-    // aqui con el codigo y el numero, que es lo unico que se usaba del ticket.
-    public ExecuteAuthorization(ServiceInfo app, String code, String number) {
-        this.service = app;
+    public ExecuteAuthorization(ServiceInfo service, String code, String number) {
+        this.service = service;
         this.code = code;
         this.number = number;
     }

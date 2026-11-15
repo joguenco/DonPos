@@ -13,10 +13,10 @@ public interface AuthorizationService {
     @POST("roqui/v2/invoice/authorize")
     public Call<StatusResponse> autorizeInvoiceV2(@Body Document document);
 
-    @POST("roqui/v2/creditnote/authorize")
+    @POST("roqui/v2/credit/note/authorize")
     public Call<StatusResponse> autorizeCreditNoteV2(@Body Document document);
 
-    @POST("roqui/v2/debitnote/authorize")
+    @POST("roqui/v2/debit/note/authorize")
     public Call<StatusResponse> autorizeDebitNoteV2(@Body Document document);
 
     @POST("roqui/v2/liquidation/authorize")
@@ -25,6 +25,6 @@ public interface AuthorizationService {
     @POST("roqui/v2/withhold/authorize")
     public Call<StatusResponse> autorizeWithholdV2(@Body Document document);
 
-    @POST("roqui/v2/deliverynote/authorize")
+    @POST("roqui/v2/delivery/note/authorize")
     public Call<StatusResponse> autorizeDeliveryNoteV2(@Body Document document);
 }
