@@ -127,6 +127,10 @@ Firewall configuration with ufw
 ```
 sudo ufw allow from 192.168.56.0/24 to any port 3306 proto tcp
 ```
+Show bind_address
+```
+SHOW VARIABLES LIKE 'bind_address';
+```
 ## Utils
 ### Show databases
 ```
