@@ -28,12 +28,15 @@ import com.unicenta.format.Formats;
 import com.unicenta.pos.forms.AppLocal;
 import com.unicenta.pos.forms.AppView;
 import com.unicenta.pos.forms.BeanFactoryException;
+import com.unicenta.pos.forms.DataLogicSystem;
 import com.unicenta.pos.inventory.MovementReason;
+import com.unicenta.pos.payment.EmailAutocomplete;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.JTableHeader;
+import javax.xml.bind.JAXBException;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -111,6 +114,15 @@ public final class SuppliersView extends javax.swing.JPanel implements EditorRec
             txtCountry.getDocument().addDocumentListener(dirty);
             cbxIdentificationType.addActionListener(dirty);
             checkIsRelated.addActionListener(dirty);
+
+            try {
+                DataLogicSystem dlSystem = (DataLogicSystem) app.getBean("com.unicenta.pos.forms.DataLogicSystem");
+                String xml = dlSystem.getResourceAsXML("Email.Provider");
+                EmailAutocomplete.install(txtEmail, xml);
+            } catch (JAXBException ex) {
+                log.error(ex.getMessage());
+            }
+
             init();
         } catch (BeanFactoryException | BasicException ex) {
             log.error(this.getClass().getName() + " " + ex.getMessage());

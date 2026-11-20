@@ -63,7 +63,6 @@ import dev.joguenco.pos.ticketsnum.TicketsNumInfo;
 import dev.joguenco.pos.ticketsnumrefund.DataLogicTicketsNumRefund;
 import dev.resolvedor.pos.sales.VolumeDiscountInfo;
 import dev.resolvedor.util.Size;
-import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRMapArrayDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
@@ -84,6 +83,7 @@ import java.util.*;
 import static java.awt.Window.getWindows;
 import java.awt.event.KeyEvent;
 import java.nio.file.Files;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author JG uniCenta
@@ -160,19 +160,16 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
 
         initComponents();
 
-        /*
-        KeyboardFocusManager.getCurrentKeyboardFocusManager()
-                .addKeyEventDispatcher(new KeyEventDispatcher() {
-                    public boolean dispatchKeyEvent(KeyEvent e) {
-                        if (e.getID() == KeyEvent.KEY_PRESSED) {
-                            if (e.getKeyCode() == KeyEvent.VK_F9) {
-                                productFinder();
-                            };
-                        }
-                        return false;
-                    }
-                });
-         */
+        String keyName = "F9";
+        InputMap inputMap = getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0), keyName);
+        ActionMap actionMap = getActionMap();
+        actionMap.put(keyName, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                productFinder();
+            }
+        });
     }
 
     /**

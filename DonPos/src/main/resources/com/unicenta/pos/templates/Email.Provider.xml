@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<provider>
+    <domain>gmail.com</domain>
+    <domain>hotmail.com</domain>
+    <domain>outlook.com</domain>
+    <domain>outlook.es</domain>
+    <domain>yahoo.com</domain>
+    <domain>yahoo.es</domain>
+    <domain>icloud.com</domain>
+    <domain>protonmail.com</domain>
+    <domain>proton.me</domain>
+</provider>

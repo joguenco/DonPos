@@ -41,7 +41,6 @@ import dev.joguenco.pos.establishment.DataLogicEstablishment;
 import dev.joguenco.pos.establishment.EstablishmentInfo;
 import dev.joguenco.pos.service.DataLogicService;
 import dev.joguenco.pos.ticketsnum.TicketsNumInfo;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -55,10 +54,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingWorker;
-import lombok.extern.slf4j.Slf4j;
+import javax.xml.bind.JAXBException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import org.apache.commons.lang3.text.WordUtils;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  *
@@ -166,6 +166,13 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
 
         tabData.setTitleAt(0, AppLocal.getIntString("label.customer"));
         this.customerDefault = dlSystem.getResourceAsText("Customer.Default");
+
+        try {
+            String xml = dlSystem.getResourceAsXML("Email.Provider");
+            EmailAutocomplete.install(txtEmail, xml);
+        } catch (JAXBException ex) {
+            log.error(ex.getMessage());
+        }
     }
 
     public void setPrintSelected(boolean value) {
@@ -1196,7 +1203,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
 
     // Muestra los datos del cliente en la tablet del cajero (Kent) y pregunta si son correctos
     private boolean confirmCustomerData() {
-        
+
         KentClient kentClient;
         try {
             kentClient = new KentClient(dlServices.getServiceInfoByName("Kent"));
@@ -1392,7 +1399,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
             return false;
         }
 
-        CursorAnimation.startWaitCursor(getRootPane());        
+        CursorAnimation.startWaitCursor(getRootPane());
         final ReIdiResponse reidiResponse;
         try {
             reidiResponse = new ReIdiClient().get(identification, dlServices.getServiceInfoByName("ReIdi"));

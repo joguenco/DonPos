@@ -1243,6 +1243,8 @@ INSERT INTO resources(id, name, restype, content) VALUES('97', 'Printer.BarCode'
 
 INSERT INTO resources(id, name, restype, content) VALUES('98', 'Default.Lot', 0, $FILE{/com/unicenta/pos/templates/Default.Lot.txt});
 
+INSERT INTO resources(id, name, restype, content) VALUES('112', 'Email.Provider', 0, $FILE{/com/unicenta/pos/templates/Email.Provider.xml});
+
 -- ADD CATEGORIES
 INSERT INTO categories(id, name) VALUES ('000', 'Category Standard');
 

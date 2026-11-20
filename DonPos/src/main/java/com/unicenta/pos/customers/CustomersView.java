@@ -31,6 +31,8 @@ import com.unicenta.pos.forms.AppLocal;
 import com.unicenta.pos.forms.AppView;
 import com.unicenta.pos.forms.BeanFactoryException;
 import com.unicenta.pos.forms.DataLogicSales;
+import com.unicenta.pos.forms.DataLogicSystem;
+import com.unicenta.pos.payment.EmailAutocomplete;
 import com.unicenta.pos.util.StringUtils;
 import dev.joguenco.effect.CursorAnimation;
 import dev.joguenco.error.ErrorMessage;
@@ -43,6 +45,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.JTableHeader;
+import javax.xml.bind.JAXBException;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -139,6 +142,14 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
             m_jdate.getDocument().addDocumentListener(dirty);
 
             cbxIdentificationType.addActionListener(dirty);
+
+            try {
+                DataLogicSystem dlSystem = (DataLogicSystem) app.getBean("com.unicenta.pos.forms.DataLogicSystem");
+                String xml = dlSystem.getResourceAsXML("Email.Provider");
+                EmailAutocomplete.install(txtEmail, xml);
+            } catch (JAXBException ex) {
+                log.error(ex.getMessage());
+            }
 
             init();
         } catch (BeanFactoryException | BasicException ex) {
