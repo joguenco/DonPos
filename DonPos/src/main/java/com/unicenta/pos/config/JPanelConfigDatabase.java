@@ -925,7 +925,7 @@ public class JPanelConfigDatabase extends javax.swing.JPanel implements PanelCon
         dirname = dirname == null ? "./" : dirname;
 
         if ("MariaDB".equals(jcboDBDriver.getSelectedItem())) {
-            dbDriverLibraryValue.setText(new File(new File(dirname), "mariadb-java-client-3.5.10.jar").getAbsolutePath());
+            dbDriverLibraryValue.setText(new File(new File(dirname), "mariadb-java-client-3.5.11.jar").getAbsolutePath());
             dbDriverClassValue.setText("org.mariadb.jdbc.Driver");
             dbURLValue.setText("jdbc:mariadb://localhost:3306/");
             jtxtDbSchema.setText("unicentaopos");
